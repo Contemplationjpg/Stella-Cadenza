@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://ckhl0v6budu55"]
+
+[ext_resource type="Texture2D" uid="uid://7mye0luq347p" path="res://concept art/Character.png" id="1_ohw5d"]
+[ext_resource type="Script" path="res://scenes/character.gd" id="2_3lyqx"]
+[ext_resource type="Texture2D" uid="uid://c71n5kfmdqqex" path="res://concept art/Character360.png" id="2_ewh3a"]
+[ext_resource type="Script" path="res://scenes/hurtbox.gd" id="3_a5crm"]
+[ext_resource type="Script" path="res://scenes/character_attack.gd" id="4_il8pj"]
+[ext_resource type="Script" path="res://scenes/hitbox.gd" id="5_0wyqd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycn3f"]
+size = Vector2(360, 360)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -2110.0
+offset_top = -2186.0
+offset_right = 2458.0
+offset_bottom = 2382.0
+texture = ExtResource("1_ohw5d")
+
+[node name="EnemyTest" type="CharacterBody2D" parent="."]
+position = Vector2(0, -872)
+
+[node name="CharacterSprite" type="Sprite2D" parent="EnemyTest"]
+texture = ExtResource("2_ewh3a")
+
+[node name="CharacterHurtbox" type="CollisionShape2D" parent="EnemyTest"]
+shape = SubResource("RectangleShape2D_ycn3f")
+script = ExtResource("3_a5crm")
+
+[node name="Camera" type="Camera2D" parent="EnemyTest"]
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+
+[node name="CharacterAttack" type="Node" parent="EnemyTest" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("4_il8pj")
+hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="EnemyTest/CharacterAttack"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("5_0wyqd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EnemyTest/CharacterAttack/Hitbox"]
+polygon = PackedVector2Array(0, 0, 350, 0, 350, -400, -350, -400, -350, 0)
+
+[node name="Character" type="CharacterBody2D" parent="."]
+script = ExtResource("2_3lyqx")
+SPEED = 500.0
+
+[node name="CharacterSprite" type="Sprite2D" parent="Character"]
+texture = ExtResource("2_ewh3a")
+
+[node name="CharacterCollisionBox" type="CollisionShape2D" parent="Character"]
+shape = SubResource("RectangleShape2D_ycn3f")
+
+[node name="Camera" type="Camera2D" parent="Character"]
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+
+[node name="CharacterAttack" type="Node" parent="Character" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("4_il8pj")
+hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="Character/CharacterAttack"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("5_0wyqd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Character/CharacterAttack/Hitbox"]
+polygon = PackedVector2Array(0, 0, 350, 0, 350, -400, -350, -400, -350, 0)
