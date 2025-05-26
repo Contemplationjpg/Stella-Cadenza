@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckhl0v6budu55"]
+
+[ext_resource type="Texture2D" uid="uid://7mye0luq347p" path="res://concept art/Character.png" id="1_iuonh"]
+[ext_resource type="PackedScene" uid="uid://bfxuv3kt0ftri" path="res://scenes/character/character.tscn" id="2_k2fmo"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -2110.0
+offset_top = -2186.0
+offset_right = 2458.0
+offset_bottom = 2382.0
+texture = ExtResource("1_iuonh")
+
+[node name="Character" parent="." instance=ExtResource("2_k2fmo")]

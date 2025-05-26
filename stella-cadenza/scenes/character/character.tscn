@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfxuv3kt0ftri"]
+
+[ext_resource type="Texture2D" uid="uid://c71n5kfmdqqex" path="res://concept art/Character360.png" id="1_6nn2t"]
+[ext_resource type="Script" uid="uid://dr80obqu7snm1" path="res://scenes/character/movement.gd" id="2_cuyo6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cuyo6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6nn2t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mutn8"]
+size = Vector2(360, 360)
+
+[node name="Character" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+sprite_frames = SubResource("SpriteFrames_cuyo6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_mutn8")
+disabled = true
+
+[node name="Movement" type="Node" parent="CharacterBody2D" node_paths=PackedStringArray("char_body")]
+script = ExtResource("2_cuyo6")
+is_player = true
+char_body = NodePath("..")
