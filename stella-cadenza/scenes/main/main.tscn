@@ -1,13 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckhl0v6budu55"]
+[gd_scene load_steps=6 format=3 uid="uid://ckhl0v6budu55"]
 
 [ext_resource type="Texture2D" uid="uid://7mye0luq347p" path="res://concept art/Character.png" id="1_iuonh"]
-[ext_resource type="PackedScene" uid="uid://bfxuv3kt0ftri" path="res://scenes/character/character.tscn" id="2_k2fmo"]
+[ext_resource type="PackedScene" uid="uid://o22uh03fglcx" path="res://scenes/character/character_types/player.tscn" id="2_6q06x"]
+[ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/hitbox.gd" id="2_l3cfh"]
+[ext_resource type="PackedScene" uid="uid://d2dp5dyujcdnb" path="res://scenes/character/character_types/test_enemy.tscn" id="3_ow5a4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iuonh"]
+radius = 388.29
 
 [node name="Node2D" type="Node2D"]
-
-[node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
-process_callback = 0
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -2110.0
@@ -16,4 +17,26 @@ offset_right = 2458.0
 offset_bottom = 2382.0
 texture = ExtResource("1_iuonh")
 
-[node name="Character" parent="." instance=ExtResource("2_k2fmo")]
+[node name="Player" parent="." instance=ExtResource("2_6q06x")]
+position = Vector2(-1053, -542)
+
+[node name="Camera" type="Camera2D" parent="Player"]
+zoom = Vector2(0.25, 0.25)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+
+[node name="TestEnemy" parent="." instance=ExtResource("3_ow5a4")]
+position = Vector2(-1004, -1286)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="TestHitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("2_l3cfh")
+can_hit_player = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestHitbox"]
+position = Vector2(123, 42)
+shape = SubResource("CircleShape2D_iuonh")
