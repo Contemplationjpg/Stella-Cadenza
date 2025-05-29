@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2dp5dyujcdnb"]
+[gd_scene load_steps=12 format=3 uid="uid://d2dp5dyujcdnb"]
 
 [ext_resource type="Script" uid="uid://bkepmimrr3131" path="res://scenes/character/character.gd" id="1_spa54"]
 [ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats.gd" id="2_eip23"]
-[ext_resource type="Texture2D" uid="uid://c71n5kfmdqqex" path="res://concept art/Character360.png" id="3_2p8im"]
+[ext_resource type="Script" uid="uid://c4w6tnpbhvqj" path="res://scenes/character/states/state_machine.gd" id="3_2p8im"]
+[ext_resource type="SpriteFrames" uid="uid://b4rurh5ddmoua" path="res://scenes/character/character_types/test_enemy.tres" id="3_spa54"]
+[ext_resource type="Script" uid="uid://cp0l5m5ltgbm0" path="res://scenes/character/states/idle.gd" id="4_2p8im"]
 [ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/hurtbox.gd" id="4_hofr5"]
 [ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/hitbox.gd" id="5_lcnxo"]
 
@@ -10,17 +12,6 @@
 script = ExtResource("2_eip23")
 max_health = 100
 metadata/_custom_type_script = "uid://ckcluhos68eje"
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_cuyo6"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_2p8im")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mutn8"]
 size = Vector2(360, 360)
@@ -31,13 +22,27 @@ size = Vector2(360, 360)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spa54"]
 size = Vector2(400, 400)
 
-[node name="TestEnemy" type="CharacterBody2D"]
+[node name="TestEnemy" type="CharacterBody2D" node_paths=PackedStringArray("debug")]
+collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_spa54")
 base_stats = SubResource("Resource_f8hpl")
+debug = NodePath("Label")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state", "chara", "debug")]
+script = ExtResource("3_2p8im")
+default_state = NodePath("Idle")
+chara = NodePath("..")
+debug = NodePath("../State")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara")]
+script = ExtResource("4_2p8im")
+chara = NodePath("../..")
 
 [node name="CharacterAnimatedSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_cuyo6")
+sprite_frames = ExtResource("3_spa54")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="CharacterCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mutn8")
@@ -52,7 +57,7 @@ script = ExtResource("4_hofr5")
 shape = SubResource("RectangleShape2D_7ex5l")
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 16
+collision_layer = 24
 collision_mask = 0
 monitoring = false
 script = ExtResource("5_lcnxo")
@@ -61,5 +66,20 @@ can_hit_player = true
 [node name="Hitbox2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_spa54")
 debug_color = Color(0.968384, 0, 0.468215, 0.42)
+
+[node name="Label" type="Label" parent="."]
+offset_top = -83.0
+offset_right = 290.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 30
+text = "aaa"
+
+[node name="State" type="Label" parent="."]
+offset_left = -168.0
+offset_top = -164.0
+offset_right = 122.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 30
+text = "aaa"
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

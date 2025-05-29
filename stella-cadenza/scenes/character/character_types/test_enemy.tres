@@ -1,0 +1,103 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://b4rurh5ddmoua"]
+
+[ext_resource type="Texture2D" uid="uid://c71n5kfmdqqex" path="res://concept art/Character360.png" id="1_8oe04"]
+[ext_resource type="Texture2D" uid="uid://bacjcurtfcwgs" path="res://concept art/Character360down.png" id="2_w02i3"]
+[ext_resource type="Texture2D" uid="uid://cp2ntrajg0plj" path="res://concept art/Character360left.png" id="3_211te"]
+[ext_resource type="Texture2D" uid="uid://cn8v3y61gwva4" path="res://concept art/Character360right.png" id="4_i7qyo"]
+[ext_resource type="Texture2D" uid="uid://b16rviy8ir5m8" path="res://concept art/RedCharacter360down.png" id="5_qq0jw"]
+[ext_resource type="Texture2D" uid="uid://di4yukwbtb78j" path="res://concept art/RedCharacter360left.png" id="6_sr56g"]
+[ext_resource type="Texture2D" uid="uid://b6mmaun0ldjku" path="res://concept art/RedCharacter360right.png" id="7_oomdb"]
+[ext_resource type="Texture2D" uid="uid://bqbc08ytvqb06" path="res://concept art/RedCharacter360.png" id="8_3ifo8"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8oe04")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w02i3")
+}],
+"loop": true,
+"name": &"moving down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_211te")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_w02i3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_i7qyo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8oe04")
+}],
+"loop": true,
+"name": &"moving left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_i7qyo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_w02i3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_211te")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8oe04")
+}],
+"loop": true,
+"name": &"moving right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8oe04")
+}],
+"loop": true,
+"name": &"moving up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_qq0jw")
+}],
+"loop": true,
+"name": &"swing down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_sr56g")
+}],
+"loop": true,
+"name": &"swing left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_oomdb")
+}],
+"loop": true,
+"name": &"swing right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_3ifo8")
+}],
+"loop": true,
+"name": &"swing up",
+"speed": 5.0
+}]
