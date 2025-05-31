@@ -39,7 +39,7 @@ func force_change_state(new_state_name : String):
 	new_state.Enter()
 
 	current_state = new_state
-	print(current_state.name)
+	# print(current_state.name)
 	debug.text = str(current_state.name)
 
 
@@ -60,5 +60,5 @@ func on_child_transition(state, new_state_name : String):
 	new_state.Enter()
 
 	current_state = new_state
-	print(current_state.name)
+	# print(current_state.name)
 	debug.text = str(current_state.name)

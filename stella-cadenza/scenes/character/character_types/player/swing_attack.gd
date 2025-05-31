@@ -18,8 +18,8 @@ func _process(_delta: float) -> void:
 	# print(timer.time_left)
 	if can_attack:
 		# print("can attack")
-		if Input.is_action_pressed("attack") and timer.time_left <=0.0:
-			print("attacking")
+		if Input.is_action_just_pressed("attack") and timer.time_left <=0.0:
+			# print("attacking")
 			state_machine.force_change_state("Swinging")
 			StartAttack.emit()
 			can_attack = false

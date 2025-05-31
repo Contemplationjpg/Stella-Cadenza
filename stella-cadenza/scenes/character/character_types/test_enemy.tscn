@@ -35,14 +35,15 @@ default_state = NodePath("Idle")
 chara = NodePath("..")
 debug = NodePath("../State")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
 script = ExtResource("4_2p8im")
 chara = NodePath("../..")
+sprite = NodePath("../../CharacterAnimatedSprite")
 
 [node name="CharacterAnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("3_spa54")
-animation = &"idle"
-autoplay = "idle"
+animation = &"idle up"
+autoplay = "idle up"
 
 [node name="CharacterCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mutn8")
@@ -71,7 +72,7 @@ debug_color = Color(0.968384, 0, 0.468215, 0.42)
 offset_top = -83.0
 offset_right = 290.0
 offset_bottom = 23.0
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 text = "aaa"
 
 [node name="State" type="Label" parent="."]
@@ -79,7 +80,7 @@ offset_left = -168.0
 offset_top = -164.0
 offset_right = 122.0
 offset_bottom = -58.0
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 text = "aaa"
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

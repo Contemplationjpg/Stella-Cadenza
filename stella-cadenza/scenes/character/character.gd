@@ -6,6 +6,8 @@ extends CharacterBody2D
 @export var stop_speed : float = 300.0
 @export var base_stats : stats
 @export var debug : Label
+var facing : int
+enum directions {up, right, down, left}
 var direction: Vector2
 @onready var current_health = base_stats.max_health
 
@@ -19,8 +21,26 @@ func _physics_process(_delta: float) -> void:
 		direction = Vector2.ZERO
 
 	update_movement()
+	update_facing()
 	# prints(velocity)
 	move_and_slide()
+
+
+func update_facing(): 
+	if direction.y == 0.0:
+		if direction.x == 0.0:
+			return
+		if direction.x < 0:
+			facing = directions.left
+		else:
+			facing = directions.right
+	else:
+		if direction.y < 0:
+			facing = directions.up
+		else:
+			facing = directions.down
+	# print(facing)
+
 
 func update_movement():
 	if direction:

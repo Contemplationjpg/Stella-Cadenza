@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://khtb104lv7on"]
+[gd_scene load_steps=24 format=3 uid="uid://khtb104lv7on"]
 
 [ext_resource type="Script" uid="uid://bkepmimrr3131" path="res://scenes/character/character.gd" id="1_1y732"]
 [ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats.gd" id="2_erpy8"]
@@ -6,12 +6,17 @@
 [ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/hurtbox.gd" id="4_5y66v"]
 [ext_resource type="Script" uid="uid://dkqk2kyjp8o7d" path="res://scenes/character/character_types/player/swing_attack.gd" id="5_225s7"]
 [ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/hitbox.gd" id="5_uicah"]
-[ext_resource type="Texture2D" uid="uid://dxtc0h4ahvxt3" path="res://concept art/swing3.png" id="7_13wve"]
+[ext_resource type="Texture2D" uid="uid://c0jlh7b6aglal" path="res://concept art/swing1down.png" id="7_lm2l4"]
+[ext_resource type="Texture2D" uid="uid://bt4gii3msmdl" path="res://concept art/swing2down.png" id="8_fk2dx"]
 [ext_resource type="Texture2D" uid="uid://bc4axks1fux6k" path="res://concept art/swing1.png" id="8_ypuoa"]
+[ext_resource type="Texture2D" uid="uid://dkxtc5mejqhgt" path="res://concept art/swing1left.png" id="9_enjps"]
 [ext_resource type="Texture2D" uid="uid://bi5oed66xeb7p" path="res://concept art/swing2.png" id="9_w5ocy"]
 [ext_resource type="Script" uid="uid://c4w6tnpbhvqj" path="res://scenes/character/states/state_machine.gd" id="10_225s7"]
+[ext_resource type="Texture2D" uid="uid://cwwgd80y33xe6" path="res://concept art/swing2left.png" id="10_vtgh7"]
 [ext_resource type="Script" uid="uid://cp0l5m5ltgbm0" path="res://scenes/character/states/idle.gd" id="11_1rseh"]
+[ext_resource type="Texture2D" uid="uid://cynulc2pqujxk" path="res://concept art/swing1right.png" id="11_bplj6"]
 [ext_resource type="Script" uid="uid://dsiln0fq06und" path="res://scenes/character/states/moving.gd" id="12_225s7"]
+[ext_resource type="Texture2D" uid="uid://d2j7vquie05pg" path="res://concept art/swing2right.png" id="12_qpq3l"]
 [ext_resource type="Script" uid="uid://bbwu8fkm62406" path="res://scenes/character/character_types/player/swinging.gd" id="13_225s7"]
 
 [sub_resource type="Resource" id="Resource_f8hpl"]
@@ -29,17 +34,47 @@ size = Vector2(360, 360)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("7_lm2l4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fk2dx")
+}],
+"loop": false,
+"name": &"swing down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_enjps")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vtgh7")
+}],
+"loop": false,
+"name": &"swing left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_bplj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_qpq3l")
+}],
+"loop": false,
+"name": &"swing right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("8_ypuoa")
 }, {
 "duration": 1.0,
 "texture": ExtResource("9_w5ocy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_13wve")
 }],
 "loop": false,
-"name": &"swing",
-"speed": 10.0
+"name": &"swing up",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o3oy"]
@@ -50,16 +85,14 @@ collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_1y732")
 is_player = true
-max_speed = 600.0
-stop_speed = 100.0
+max_speed = 800.0
+stop_speed = 200.0
 base_stats = SubResource("Resource_f8hpl")
 debug = NodePath("Label")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
 [node name="CharacterAnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("3_5o3oy")
-animation = &"idle"
+animation = &"idle up"
 autoplay = "moving left"
 
 [node name="CharacterCollision" type="CollisionShape2D" parent="."]
@@ -77,9 +110,14 @@ shape = SubResource("RectangleShape2D_7ex5l")
 [node name="SwingAttack" type="Node2D" parent="." node_paths=PackedStringArray("swing_hitbox", "sprite", "timer", "state_machine")]
 script = ExtResource("5_225s7")
 swing_hitbox = NodePath("SwingHitbox")
-sprite = NodePath("SwingHitbox/SwingSprite")
+sprite = NodePath("SwingSprite")
 timer = NodePath("AttackCooldown")
 state_machine = NodePath("../StateMachine")
+
+[node name="SwingSprite" type="AnimatedSprite2D" parent="SwingAttack"]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_81lr7")
+animation = &"swing up"
 
 [node name="SwingHitbox" type="Area2D" parent="SwingAttack"]
 collision_layer = 24
@@ -90,26 +128,20 @@ damage = 25
 can_hit_enemy = true
 disable_on_hit = true
 
-[node name="SwingSprite" type="AnimatedSprite2D" parent="SwingAttack/SwingHitbox"]
-position = Vector2(0, -90)
-scale = Vector2(1.5, 1.5)
-sprite_frames = SubResource("SpriteFrames_81lr7")
-animation = &"swing"
-
 [node name="Hitbox2D" type="CollisionShape2D" parent="SwingAttack/SwingHitbox"]
 position = Vector2(0, -90)
 shape = SubResource("RectangleShape2D_5o3oy")
 debug_color = Color(0.968384, 0, 0.468215, 0.42)
 
 [node name="AttackCooldown" type="Timer" parent="SwingAttack"]
-wait_time = 0.2
+wait_time = 0.3
 one_shot = true
 
 [node name="Label" type="Label" parent="."]
 offset_top = -83.0
 offset_right = 290.0
 offset_bottom = 23.0
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 text = "aaa"
 
 [node name="State" type="Label" parent="."]
@@ -117,7 +149,7 @@ offset_left = -168.0
 offset_top = -164.0
 offset_right = 122.0
 offset_bottom = -58.0
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 text = "aaa"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state", "chara", "debug")]
@@ -126,21 +158,26 @@ default_state = NodePath("Idle")
 chara = NodePath("..")
 debug = NodePath("../State")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
 script = ExtResource("11_1rseh")
 chara = NodePath("../..")
+sprite = NodePath("../../CharacterAnimatedSprite")
 
 [node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
 script = ExtResource("12_225s7")
 chara = NodePath("../..")
 sprite = NodePath("../../CharacterAnimatedSprite")
 
-[node name="Swinging" type="Node" parent="StateMachine" node_paths=PackedStringArray("char_sprite", "swing_sprite", "chara", "swing_attack")]
+[node name="Swinging" type="Node" parent="StateMachine" node_paths=PackedStringArray("char_sprite", "swing_sprite", "chara", "swing_attack", "swing_hitbox")]
 script = ExtResource("13_225s7")
 char_sprite = NodePath("../../CharacterAnimatedSprite")
-swing_sprite = NodePath("../../SwingAttack/SwingHitbox/SwingSprite")
+swing_sprite = NodePath("../../SwingAttack/SwingSprite")
 chara = NodePath("../..")
 swing_attack = NodePath("../../SwingAttack")
+swing_hitbox = NodePath("../../SwingAttack/SwingHitbox")
+attack_slow = 0.4
+
+[node name="DashMovement" type="Node" parent="."]
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="SwingAttack/AttackCooldown" to="SwingAttack" method="_on_attack_cooldown_timeout"]
