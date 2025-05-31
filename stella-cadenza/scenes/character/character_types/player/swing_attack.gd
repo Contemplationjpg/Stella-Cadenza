@@ -28,7 +28,6 @@ func _process(_delta: float) -> void:
 			timer.start()
 
 
-
 func _on_attack_cooldown_timeout() -> void:
 	swing_hitbox.change_active(false)
 	sprite.visible = false

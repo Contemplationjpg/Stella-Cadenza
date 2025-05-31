@@ -13,6 +13,38 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("5_qq0jw")
+}],
+"loop": true,
+"name": &"chase down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_sr56g")
+}],
+"loop": true,
+"name": &"chase left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_oomdb")
+}],
+"loop": true,
+"name": &"chase right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_3ifo8")
+}],
+"loop": true,
+"name": &"chase up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_w02i3")
 }],
 "loop": true,

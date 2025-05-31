@@ -1,11 +1,11 @@
 class_name Character
 extends CharacterBody2D
 
-@export var is_player : bool = false
 @export var max_speed : float = 300.0
 @export var stop_speed : float = 300.0
 @export var base_stats : stats
 @export var debug : Label
+@export var can_move : bool = true
 var facing : int
 enum directions {up, right, down, left}
 var direction: Vector2
@@ -14,16 +14,9 @@ var direction: Vector2
 func _ready() -> void:
 	debug.text = "health: " + str(current_health)
 
-func _physics_process(_delta: float) -> void:
-	if is_player:
-		get_input()
-	else:
-		direction = Vector2.ZERO
 
-	update_movement()
+func _physics_process(_delta: float) -> void:
 	update_facing()
-	# prints(velocity)
-	move_and_slide()
 
 
 func update_facing(): 
@@ -34,11 +27,13 @@ func update_facing():
 			facing = directions.left
 		else:
 			facing = directions.right
-	else:
+	elif direction.x == 0.0:
 		if direction.y < 0:
 			facing = directions.up
 		else:
 			facing = directions.down
+	else:
+		return
 	# print(facing)
 
 
@@ -84,37 +79,3 @@ func deal_damage(damage:int) -> int:
 	return change_health(-damage)
 
 
-func _on_hurtbox_area_entered(area: Area2D) -> void:
-	# print("area ", area.get_parent().name, "'s ", area.name ," entered")
-	var hitbox = area as Hitbox
-	if not hitbox:
-		# print ("not hitbox")
-		return
-	# else:
-		# print("IS a hitbox that does ", hitbox.damage, " damage!")
-		# if hitbox.active:
-			# print("is active")
-		# else:
-			# print("is not active")
-
-	if is_player:
-		if hitbox.can_hit_player:
-			deal_damage(hitbox.damage)
-			# hitbox.change_active(false)
-			if hitbox.disable_on_hit:
-				hitbox.change_active(false)
-			print(self.name, " new health:", current_health)
-		# elif not hitbox.can_hit_player:
-				# print("hitbox cannot hit player")
-	
-	elif not is_player:
-		if hitbox.can_hit_enemy:
-			deal_damage(hitbox.damage)
-			# hitbox.change_active(false)
-			if hitbox.disable_on_hit:
-				hitbox.change_active(false)
-			print(self.name, " new health:", current_health)
-			death_check()
-		# elif not hitbox.can_hit_enemy:
-			# print("hitbox cannot hit enemy")
-	

@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://khtb104lv7on"]
 
-[ext_resource type="Script" uid="uid://bkepmimrr3131" path="res://scenes/character/character.gd" id="1_1y732"]
+[ext_resource type="Script" uid="uid://cade5027v4glf" path="res://scenes/character/player.gd" id="1_lm2l4"]
 [ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats.gd" id="2_erpy8"]
 [ext_resource type="SpriteFrames" uid="uid://b4rurh5ddmoua" path="res://scenes/character/character_types/test_enemy.tres" id="3_5o3oy"]
 [ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/hurtbox.gd" id="4_5y66v"]
@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://d2j7vquie05pg" path="res://concept art/swing2right.png" id="12_qpq3l"]
 [ext_resource type="Script" uid="uid://bbwu8fkm62406" path="res://scenes/character/character_types/player/swinging.gd" id="13_225s7"]
 
-[sub_resource type="Resource" id="Resource_f8hpl"]
+[sub_resource type="Resource" id="Resource_fk2dx"]
 script = ExtResource("2_erpy8")
 max_health = 100
 metadata/_custom_type_script = "uid://ckcluhos68eje"
@@ -83,11 +83,10 @@ size = Vector2(540, 540)
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("debug")]
 collision_layer = 2
 motion_mode = 1
-script = ExtResource("1_1y732")
-is_player = true
+script = ExtResource("1_lm2l4")
 max_speed = 800.0
 stop_speed = 200.0
-base_stats = SubResource("Resource_f8hpl")
+base_stats = SubResource("Resource_fk2dx")
 debug = NodePath("Label")
 
 [node name="CharacterAnimatedSprite" type="AnimatedSprite2D" parent="."]
