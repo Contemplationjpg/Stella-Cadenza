@@ -15,8 +15,8 @@ func _ready() -> void:
 	debug.text = "health: " + str(current_health)
 
 
-func _physics_process(_delta: float) -> void:
-	update_facing()
+# func _physics_process(_delta: float) -> void:
+	# update_facing()
 
 
 func update_facing(): 

@@ -80,12 +80,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o3oy"]
 size = Vector2(540, 540)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("debug")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "debug")]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_lm2l4")
 acceleration = 100.0
-max_velocity = 3000.0
+mouse_looker = NodePath("MouseLooker")
 base_velocity = 200.0
 base_stats = SubResource("Resource_fk2dx")
 debug = NodePath("Label")
@@ -94,6 +94,8 @@ debug = NodePath("Label")
 sprite_frames = ExtResource("3_5o3oy")
 animation = &"idle up"
 autoplay = "moving left"
+
+[node name="MouseLooker" type="Node2D" parent="."]
 
 [node name="CharacterCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mutn8")
@@ -176,7 +178,7 @@ swing_sprite = NodePath("../../SwingAttack/SwingSprite")
 chara = NodePath("../..")
 swing_attack = NodePath("../../SwingAttack")
 swing_hitbox = NodePath("../../SwingAttack/SwingHitbox")
-attack_slow = 0.4
+attack_slow = 0.25
 
 [node name="DashMovement" type="Node" parent="."]
 
