@@ -1,11 +1,14 @@
 class_name Character
 extends CharacterBody2D
 
+@export var sprite : AnimatedSprite2D
 @export var base_velocity : float = 300
 @export var stop_velocity : float = 300.0
 @export var base_stats : stats
 @export var debug : Label
 @export var can_move : bool = true
+@export var can_take_damage : bool = true
+@export var invincible : bool = false
 var facing : int
 enum directions {up, right, down, left}
 var direction: Vector2

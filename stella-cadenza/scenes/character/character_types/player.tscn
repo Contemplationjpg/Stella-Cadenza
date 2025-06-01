@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://khtb104lv7on"]
+[gd_scene load_steps=25 format=3 uid="uid://khtb104lv7on"]
 
 [ext_resource type="Script" uid="uid://cade5027v4glf" path="res://scenes/character/player.gd" id="1_lm2l4"]
 [ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats.gd" id="2_erpy8"]
 [ext_resource type="SpriteFrames" uid="uid://b4rurh5ddmoua" path="res://scenes/character/character_types/test_enemy.tres" id="3_5o3oy"]
 [ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/hurtbox.gd" id="4_5y66v"]
 [ext_resource type="Script" uid="uid://dkqk2kyjp8o7d" path="res://scenes/character/character_types/player/swing_attack.gd" id="5_225s7"]
+[ext_resource type="Script" uid="uid://cki52hn1olttd" path="res://scenes/character/character_types/player/dash_movement.gd" id="5_fk2dx"]
 [ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/hitbox.gd" id="5_uicah"]
 [ext_resource type="Texture2D" uid="uid://c0jlh7b6aglal" path="res://concept art/swing1down.png" id="7_lm2l4"]
 [ext_resource type="Texture2D" uid="uid://bt4gii3msmdl" path="res://concept art/swing2down.png" id="8_fk2dx"]
@@ -80,12 +81,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o3oy"]
 size = Vector2(540, 540)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "debug")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "sprite", "debug")]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_lm2l4")
+dash_velocity = 6000.0
 acceleration = 100.0
 mouse_looker = NodePath("MouseLooker")
+sprite = NodePath("CharacterAnimatedSprite")
 base_velocity = 200.0
 base_stats = SubResource("Resource_fk2dx")
 debug = NodePath("Label")
@@ -108,6 +111,20 @@ script = ExtResource("4_5y66v")
 
 [node name="Hurtbox2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_7ex5l")
+
+[node name="DashMovement" type="Node" parent="." node_paths=PackedStringArray("player", "dash_timer", "invincibility_timer")]
+script = ExtResource("5_fk2dx")
+player = NodePath("..")
+dash_timer = NodePath("DashTimer")
+invincibility_timer = NodePath("InvincibilityTimer")
+
+[node name="DashTimer" type="Timer" parent="DashMovement"]
+process_callback = 0
+one_shot = true
+
+[node name="InvincibilityTimer" type="Timer" parent="DashMovement"]
+wait_time = 0.25
+one_shot = true
 
 [node name="SwingAttack" type="Node2D" parent="." node_paths=PackedStringArray("swing_hitbox", "sprite", "timer", "state_machine")]
 script = ExtResource("5_225s7")
@@ -180,7 +197,6 @@ swing_attack = NodePath("../../SwingAttack")
 swing_hitbox = NodePath("../../SwingAttack/SwingHitbox")
 attack_slow = 0.25
 
-[node name="DashMovement" type="Node" parent="."]
-
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="timeout" from="DashMovement/InvincibilityTimer" to="DashMovement" method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="SwingAttack/AttackCooldown" to="SwingAttack" method="_on_attack_cooldown_timeout"]

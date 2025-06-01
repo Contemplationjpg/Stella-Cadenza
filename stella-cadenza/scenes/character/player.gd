@@ -1,10 +1,18 @@
 class_name Player
 extends Character
 
-
+@export var can_dash : bool = true
+@export var dash_velocity : float = 3000
 @export var acceleration : float = 300
 @export var max_velocity : float = 2000.0
 @export var mouse_looker : Node2D
+
+@export var gets_hit_frozen : bool
+@export var hit_freeze_time : float = 0.1
+@export var gets_hit_invuln : bool = true
+@export var hit_invuln_time : float = 1.0 
+
+var in_hit_invuln : bool = false
 
 var current_velocity : float
 
@@ -73,39 +81,10 @@ func get_input():
 	# prints("y:",direction.y)
 
 func update_facing_mouse():
-	# var mouse = get_local_mouse_position()
-	# print(mouse)
-	# var facing_dir = mouse #- global_position
-	# var angle = -rad_to_deg(get_angle_to(mouse)) 
 	mouse_looker.look_at(get_global_mouse_position())
 
-	# print(mouse_looker.rotation)
-
-	# if mouse_looker.rotation >= 360:
-	# 	mouse_looker.rotation = 0
-	# elif mouse_looker.rotation <= 0:
-	# 	mouse_looker.rotation = 0
 	var angle = (int)(mouse_looker.rotation_degrees + 180)%360
 	# print(angle)
-	print(angle)
-
-	# var angle = abs(atan(facing_dir.y-facing_dir.x))
-	# print(angle)
-	# if facing_dir.x >= 0:
-	# 	if facing_dir.y <= 0:
-	# 		# print("I")
-	# 		pass
-	# 	elif facing_dir.y > 0:
-	# 		# print("VI")
-	# 		angle = 360 - angle
-	# elif facing_dir.x < 0:
-	# 	if facing_dir.y <= 0:
-	# 		# print("II")
-	# 		angle = 180 - angle
-	# 	elif facing_dir.y > 0:
-	# 		angle = 180 + angle
-	# 		# print("III")
-
 
 	if angle >= 0:
 		if angle <= 45 or angle > 315:
@@ -126,23 +105,18 @@ func update_facing_mouse():
 		elif angle < -225 and angle >= -315:
 			facing = directions.up
 
-
-	# if angle <= 45 and angle > -45:
-	# 	facing = directions.right
-	# elif angle > 45 and angle <= 135:
-	# 	facing = directions.up
-	# elif angle > 135 and angle >= -135:
-	# 	facing = directions.left
-	# elif angle > -135 and angle <= -45:
-	# 	facing = directions.down
-	
-	# print(angle, ", ", facing)
-
-
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var hitbox = area as Hitbox
 	if not hitbox:
 		# print ("not hitbox")
+		return
+	else:
+		get_hit(hitbox)
+
+	
+func get_hit(hitbox : Hitbox):
+	if not can_take_damage or invincible or in_hit_invuln:
+		print("INVINCIBLE")
 		return
 	if hitbox.can_hit_player:
 		deal_damage(hitbox.damage)
@@ -179,8 +153,41 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 
 		knockback = global_position - hitbox.global_position
 
-		velocity = knockback * hitbox.knockback
+		var new_velocity = knockback * hitbox.knockback 
 
-		print(knockback)
+		# var hitbox_collision = hitbox.get_child(0) as CollisionShape2D
 
-	
+		# var shape_size = 0
+
+		# if hitbox.is_square:
+		# 	if hitbox_collision.shape.size.x >= hitbox_collision.shape.size.y:
+		# 		shape_size = hitbox_collision.shape.size.x
+		# 	else:
+		# 		shape_size = hitbox_collision.shape.size.y
+		# elif hitbox.is_circle:
+		# 	shape_size = hitbox_collision.shape.radius
+
+		# # print(shape_size) 
+
+		# if new_velocity.x < shape_size/2:
+		# 	new_velocity.x = shape_size/2
+		# if new_velocity.y < shape_size/2:
+		# 	new_velocity.y = shape_size/2
+
+		# print(new_velocity)
+
+
+		velocity = new_velocity
+
+		if gets_hit_frozen:
+			can_move = false
+			await get_tree().create_timer(hit_freeze_time).timeout
+			can_move = true
+
+		if gets_hit_invuln:
+			in_hit_invuln = true
+			sprite.self_modulate.a = 0.5
+			await get_tree().create_timer(hit_invuln_time).timeout
+			sprite.self_modulate.a = 1
+			in_hit_invuln = false
+		
