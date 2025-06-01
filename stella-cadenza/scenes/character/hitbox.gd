@@ -2,6 +2,8 @@ class_name Hitbox
 extends Area2D
 
 @export var damage : int = 10
+@export var knockback : float = 5
+@export var does_knockback : bool = true
 @export var can_hit_player : bool = false
 @export var can_hit_enemy : bool = false
 @export var disable_on_hit : bool = false

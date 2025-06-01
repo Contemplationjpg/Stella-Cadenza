@@ -31,12 +31,14 @@ position = Vector2(-1004, -1286)
 
 [node name="TestEnemy2" parent="." instance=ExtResource("3_ow5a4")]
 position = Vector2(262, -1238)
+chases_player = false
 
 [node name="TestHitbox" type="Area2D" parent="."]
 position = Vector2(-9, 0)
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("2_l3cfh")
+does_knockback = false
 can_hit_player = true
 disable_on_hit = true
 

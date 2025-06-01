@@ -1,8 +1,8 @@
 class_name Character
 extends CharacterBody2D
 
-@export var max_speed : float = 300.0
-@export var stop_speed : float = 300.0
+@export var base_velocity : float = 300
+@export var stop_velocity : float = 300.0
 @export var base_stats : stats
 @export var debug : Label
 @export var can_move : bool = true
@@ -35,22 +35,16 @@ func update_facing():
 	else:
 		return
 	# print(facing)
+		
 
 
 func update_movement():
 	if direction:
-		velocity = direction * max_speed
+		velocity = direction * base_velocity
 		if direction.x != 0 and direction.y != 0:
 			velocity *= 0.71
 	else:
-		velocity = velocity.move_toward(Vector2.ZERO, stop_speed)
-
-func get_input():
-	direction.x = Input.get_axis("left", "right")
-	# prints("x:",direction.x)
-	direction.y = Input.get_axis("up", "down")
-	# prints("y:",direction.y)
-
+		velocity = velocity.move_toward(Vector2.ZERO, stop_velocity)
 
 
 func change_health(change:int) -> int:
