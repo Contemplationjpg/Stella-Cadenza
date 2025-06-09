@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqjxgrmv0m16y"]
+
+[ext_resource type="Script" uid="uid://bfcg5i5fo2hxp" path="res://scenes/main/dialogue.gd" id="1_7jywo"]
+[ext_resource type="Texture2D" uid="uid://cc8gtfywsbyki" path="res://concept art/Placeholder180.png" id="1_a3m0d"]
+
+[node name="Dialogue" type="CanvasLayer" node_paths=PackedStringArray("name_text", "dialogue_text", "bg", "sprite1", "sprite2")]
+process_mode = 3
+script = ExtResource("1_7jywo")
+name_text = NodePath("NameText")
+dialogue_text = NodePath("DialogueText")
+bg = NodePath("TextBackground")
+text_speed = 20.0
+scene_text_file = "res://scenes/dialogue/test.json"
+sprite1 = NodePath("Sprite1")
+sprite2 = NodePath("Sprite2")
+
+[node name="Sprite1" type="TextureRect" parent="."]
+offset_right = 576.0
+offset_bottom = 823.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Sprite2" type="TextureRect" parent="."]
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 823.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextBackground" type="TextureRect" parent="."]
+offset_left = 195.0
+offset_top = 436.0
+offset_right = 915.0
+offset_bottom = 616.0
+texture = ExtResource("1_a3m0d")
+
+[node name="DialogueText" type="RichTextLabel" parent="."]
+offset_left = 248.0
+offset_top = 485.0
+offset_right = 856.0
+offset_bottom = 603.0
+theme_override_font_sizes/normal_font_size = 20
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididuntadad ut labore et dolore magna aliqua."
+fit_content = true
+visible_characters_behavior = 1
+
+[node name="NameText" type="RichTextLabel" parent="."]
+offset_left = 218.0
+offset_top = 436.0
+offset_right = 740.0
+offset_bottom = 485.0
+theme_override_font_sizes/normal_font_size = 35
+text = "Lorem ipsum dolor sit amet"
+fit_content = true
+visible_characters_behavior = 1

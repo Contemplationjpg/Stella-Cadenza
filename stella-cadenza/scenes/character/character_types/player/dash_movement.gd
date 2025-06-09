@@ -8,6 +8,8 @@ extends Node
 signal StartDash
 
 func _physics_process(_delta: float) -> void:
+	if Main.paused:
+		return
 	# print("hi")
 	# print(dash_timer.time_left)
 	if dash_timer.time_left <= 0.0:

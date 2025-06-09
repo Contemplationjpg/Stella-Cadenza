@@ -12,9 +12,9 @@ func _ready() -> void:
 	for child in get_children():
 		if child is State:
 			states[child.name] = child
-			print(child.name)
+			# print(child.name)
 			child.Transitioned.connect(on_child_transition)
-	print("loaded states: ", states.size())
+	# print("loaded states: ", states.size())
 	current_state = default_state
 	default_state.Enter()
 	debug.text = str(current_state.name)
@@ -45,6 +45,9 @@ func force_change_state(new_state_name : String):
 
 func on_child_transition(state, new_state_name : String):
 	# print("on child transition ", state.name, " ", new_state_name)
+	if Main.paused:
+		return
+	
 	if state != current_state:
 		return
 

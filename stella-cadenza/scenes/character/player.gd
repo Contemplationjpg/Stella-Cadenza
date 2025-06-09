@@ -32,6 +32,8 @@ func _physics_process(_delta: float) -> void:
 	# print(velocity.x, ", ", velocity.y)
 
 func update_movement():
+	if Main.paused:
+		return
 	if direction:
 		var velocity_increase = direction * acceleration
 		if direction.x != 0 and direction.y != 0:
@@ -81,6 +83,10 @@ func get_input():
 	# prints("y:",direction.y)
 
 func update_facing_mouse():
+
+	if Main.paused:
+		return
+
 	mouse_looker.look_at(get_global_mouse_position())
 
 	var angle = (int)(mouse_looker.rotation_degrees + 180)%360
@@ -116,7 +122,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	
 func get_hit(hitbox : Hitbox):
 	if not can_take_damage or invincible or in_hit_invuln:
-		print("INVINCIBLE")
+		# print("INVINCIBLE")
 		return
 	if hitbox.can_hit_player:
 		deal_damage(hitbox.damage)
@@ -146,8 +152,8 @@ func get_hit(hitbox : Hitbox):
 		elif global_position.y < hitbox.position.x:
 			knockback_dir.y = -1.0
 
-		print("player pos: ", global_position.x, ", ", global_position.y)
-		print("hitbox pos: ", hitbox.global_position.x, ", ", hitbox.global_position.y)
+		# print("player pos: ", global_position.x, ", ", global_position.y)
+		# print("hitbox pos: ", hitbox.global_position.x, ", ", hitbox.global_position.y)
 		
 		var knockback : Vector2
 

@@ -42,6 +42,8 @@ func update_facing():
 
 
 func update_movement():
+	if Main.paused:
+		return
 	if direction:
 		velocity = direction * base_velocity
 		if direction.x != 0 and direction.y != 0:

@@ -103,6 +103,7 @@ text = "aaa"
 
 [node name="PlayerDetectionRange" type="Area2D" parent="."]
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionRange"]
 shape = SubResource("CircleShape2D_2fsoc")

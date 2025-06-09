@@ -42,7 +42,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"swing down",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -53,7 +53,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"swing left",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -64,7 +64,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"swing right",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -75,7 +75,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"swing up",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o3oy"]
@@ -136,7 +136,7 @@ state_machine = NodePath("../StateMachine")
 [node name="SwingSprite" type="AnimatedSprite2D" parent="SwingAttack"]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_81lr7")
-animation = &"swing up"
+animation = &"swing down"
 
 [node name="SwingHitbox" type="Area2D" parent="SwingAttack"]
 collision_layer = 24
@@ -145,6 +145,7 @@ monitoring = false
 monitorable = false
 script = ExtResource("5_uicah")
 damage = 25
+active = false
 can_hit_enemy = true
 disable_on_hit = true
 
@@ -154,7 +155,8 @@ shape = SubResource("RectangleShape2D_5o3oy")
 debug_color = Color(0.968384, 0, 0.468215, 0.42)
 
 [node name="AttackCooldown" type="Timer" parent="SwingAttack"]
-wait_time = 0.3
+process_callback = 0
+wait_time = 0.4
 one_shot = true
 
 [node name="Label" type="Label" parent="."]
