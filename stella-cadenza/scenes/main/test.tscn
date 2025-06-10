@@ -32,8 +32,8 @@ texture = ExtResource("1_jbo7p")
 [node name="Player" parent="." instance=ExtResource("2_pte8o")]
 position = Vector2(-1053, -542)
 dash_velocity = 4000.0
-acceleration = 200.0
 base_velocity = 500.0
+acceleration = 200.0
 
 [node name="Camera" type="Camera2D" parent="Player"]
 zoom = Vector2(0.25, 0.25)
@@ -80,5 +80,3 @@ text = "load position"
 [node name="DialogueInteract" parent="." instance=ExtResource("8_ixcbd")]
 position = Vector2(1640, -740)
 scene_name = "test"
-limited = true
-active = false

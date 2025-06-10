@@ -21,8 +21,7 @@ func _physics_process(_delta: float) -> void:
 				StartDash.emit()
 				if gets_dash_invinvibility:
 					start_invincibility()
-				player.velocity = player.direction * player.dash_velocity
-				player.move_and_slide()
+				dash()
 
 func start_invincibility():
 	player.invincible = true
@@ -31,3 +30,10 @@ func start_invincibility():
 
 func _on_invincibility_timer_timeout() -> void:
 	player.invincible = false
+
+func dash():
+	if player.direction.x != 0 and player.direction.y != 0:
+		player.velocity = player.direction * player.dash_velocity * 0.71
+	else:
+		player.velocity = player.direction * player.dash_velocity
+	player.move_and_slide()

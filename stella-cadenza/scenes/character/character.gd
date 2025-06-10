@@ -3,8 +3,11 @@ extends CharacterBody2D
 
 @export var sprite : AnimatedSprite2D
 @export var base_velocity : float = 300
+var current_velocity : float
+@export var max_velocity : float = 2000.0
 @export var stop_velocity : float = 300.0
 @export var base_stats : stats
+@export var acceleration : float = 300
 @export var debug : Label
 @export var can_move : bool = true
 @export var can_take_damage : bool = true
@@ -16,6 +19,7 @@ var direction: Vector2
 
 func _ready() -> void:
 	debug.text = "health: " + str(current_health)
+	current_velocity = base_velocity
 
 
 # func _physics_process(_delta: float) -> void:
@@ -41,15 +45,61 @@ func update_facing():
 		
 
 
+# # func update_movement():
+# # 	if Main.paused:
+# # 		return
+# # 	if direction:
+# # 		velocity = direction * current_velocity
+# # 		if direction.x != 0 and direction.y != 0:
+# # 			velocity *= 0.71
+# # 	else:
+# 		velocity = velocity.move_toward(Vector2.ZERO, stop_velocity)
+
 func update_movement():
 	if Main.paused:
 		return
 	if direction:
-		velocity = direction * base_velocity
+		var velocity_increase = direction * acceleration
 		if direction.x != 0 and direction.y != 0:
-			velocity *= 0.71
+			velocity_increase *= 0.71
+		velocity += velocity_increase
+
+		if direction.x == 0 and direction.y != 0:
+			velocity = velocity.move_toward(Vector2(0.0,velocity.y), stop_velocity)
+		elif direction.x != 0 and direction.y == 0:
+			velocity = velocity.move_toward(Vector2(velocity.x,0.0), stop_velocity)
+
+		if direction.x != 0 and direction.y != 0:
+			var target_x = velocity.x
+			var target_y = velocity.y
+			if velocity.x >= max_velocity*0.71:
+				target_x = max_velocity*0.71
+			if velocity.y >= max_velocity*0.71:
+				target_y = max_velocity*0.71
+			if velocity.x <= -max_velocity*0.71:
+				target_x = -max_velocity*0.71
+			if velocity.y <= -max_velocity*0.71:
+				target_y = -max_velocity*0.71
+
+			velocity = velocity.move_toward(Vector2(target_x,target_y),stop_velocity)
+			
+		else:
+			var target_x = velocity.x
+			var target_y = velocity.y
+			if velocity.x >= max_velocity:
+				target_x = max_velocity
+			if velocity.y >= max_velocity:
+				target_y = max_velocity
+			if velocity.x <= -max_velocity:
+				target_x = -max_velocity
+			if velocity.y <= -max_velocity:
+				target_y = -max_velocity
+
+			velocity = velocity.move_toward(Vector2(target_x,target_y),stop_velocity)
+
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, stop_velocity)
+
 
 
 func change_health(change:int) -> int:

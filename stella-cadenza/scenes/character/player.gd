@@ -3,8 +3,6 @@ extends Character
 
 @export var can_dash : bool = true
 @export var dash_velocity : float = 3000
-@export var acceleration : float = 300
-@export var max_velocity : float = 2000.0
 @export var mouse_looker : Node2D
 
 @export var gets_hit_frozen : bool
@@ -14,10 +12,7 @@ extends Character
 
 var in_hit_invuln : bool = false
 
-var current_velocity : float
 
-func _ready() -> void:
-	current_velocity = base_velocity
 
 func _physics_process(_delta: float) -> void:
 	if can_move:

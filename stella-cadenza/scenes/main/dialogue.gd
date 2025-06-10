@@ -15,10 +15,17 @@ var in_progress : bool = false
 var yapping : bool = false
 var sprite_active : bool = false
 var sprite1_chosen : bool = false
+var shake_value : int = 1
+var sprite_shaking : bool = false
+var time : float = 0
+var sprite1_origin : Vector2
+var sprite2_origin : Vector2
 const SPRITEADDRESS : String = "res://assets/dialogue_sprites/"
 const SCENEADDRESS : String = "res://assets/dialogue/"
 
 func _ready():
+	sprite1_origin = sprite1.position
+	sprite2_origin = sprite2.position
 	SignalBus.display_dialogue.connect(start_scene)
 	visible = false
 	bg.visible = true
@@ -152,10 +159,29 @@ func clean_line_set_name(line : String) -> String:
 		char_name = line.substr(2)
 		name_text.text = char_name
 		current_line += 1
-		new_line = scene_text[current_line]
+		new_line = ""
 	return new_line
 		
+func clean_line_comment(line : String) -> String:
+	var new_line = line
+	while new_line.substr(0,1) == "#" and current_line < scene_text.size():
+		current_line += 1
+		new_line = scene_text[current_line]
+	return new_line 
 
+func clean_line_screen_shake(line : String) -> String:
+	var new_line = line
+	if line.substr(0,2) == "$s":
+		print("FOUND SCREENSHAKE COMMAND")
+		print("number: ", line.substr(2).to_int())
+		if line.substr(2) == "":
+			sprite_shaking = false
+		else:
+			shake_value = line.substr(2).to_int()
+			sprite_shaking = true
+		new_line = ""
+		current_line += 1
+	return new_line
 
 func set_current_line() -> bool:
 	# print("trying to set current line to ", current_line)
@@ -169,7 +195,11 @@ func set_current_line() -> bool:
 		while new_line == "":
 			if current_line < scene_text.size():
 				new_line = clean_line_skip_blanks(scene_text[current_line])
-				if new_line[0] == "$":
+				print(new_line.substr(0,2))
+				while new_line.substr(0,1) == "#":
+					new_line = clean_line_comment(new_line)
+				if new_line.substr(0,1) == "$":
+					new_line = clean_line_screen_shake(new_line)
 					new_line = clean_line_set_name(new_line)
 					new_line = clean_line_pause_game(new_line)
 					new_line = clean_line_set_actors(new_line)
@@ -185,9 +215,26 @@ func set_current_line() -> bool:
 	else:
 		return false
 
+func sprite_shake(): #screen shake doesnt work because objects on canvas layer's position is always 0,0,0... FIND ANOTHER WAY!
+	if sprite_shaking:
+		# print("shaking!")
+		time += 1
+		var final_pos = Vector2(sin(time) * 10, sin(time) * 20)
+		# print(final_pos)
+		# print(lerp(sprite1.position, sprite1_origin+final_pos, .1))
+		sprite1.position = lerp(sprite1.position, sprite1_origin+final_pos, shake_value*.1)
+		sprite2.position = lerp(sprite1.position, sprite2_origin+final_pos, shake_value*.1)
+	else:
+		time = 0
+		sprite1.global_position = sprite1_origin
+		sprite2.global_position = sprite2_origin
+
+
+
 
 func _process(_delta):
 	if in_progress:
+		sprite_shake()
 		if dialogue_text.visible_characters < scene_text[current_line].length():
 			# print("yap")
 			yapping = true
@@ -219,4 +266,5 @@ func _physics_process(_delta: float) -> void:
 				elif not in_progress:
 					Main.doing_dialogue = false
 					SignalBus.ForcePauseGame.emit(false)
+					sprite_shaking = false
 					visible = false

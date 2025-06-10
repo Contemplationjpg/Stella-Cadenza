@@ -5,8 +5,6 @@ extends State
 @export var chara : Character
 @export var swing_attack : Swing_Attack
 @export var swing_hitbox : Hitbox
-@export var attack_slow : float
-var original_velocity : float
 
 func _ready() -> void:
 	swing_attack.StartAttack.connect(start_swing_attack)
@@ -26,8 +24,6 @@ func Physics_Update(_delta : float):
 
 func start_swing_attack():
 	start_swing_animation()
-	original_velocity = chara.max_velocity
-	chara.max_velocity = original_velocity*attack_slow
 
 func start_swing_animation():
 	swing_sprite.visible = true
@@ -53,5 +49,4 @@ func start_swing_animation():
 
 func stop_swing_animation():
 	swing_sprite.visible = false
-	chara.max_velocity = original_velocity
 	Transitioned.emit(self, "Idle")
