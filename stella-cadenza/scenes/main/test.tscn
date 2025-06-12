@@ -18,9 +18,10 @@ script = ExtResource("1_xxkn1")
 [node name="SaveManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_x18ve")]
 player = NodePath("../Player")
 
-[node name="Dialogue" parent="." instance=ExtResource("3_pte8o")]
+[node name="Dialogue" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_pte8o")]
 text_speed = 15.0
 scene_text_file = "test"
+camera = NodePath("../Player/Camera")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -2110.0
@@ -30,19 +31,33 @@ offset_bottom = 2382.0
 texture = ExtResource("1_jbo7p")
 
 [node name="Player" parent="." instance=ExtResource("2_pte8o")]
-position = Vector2(-1053, -542)
+position = Vector2(-1053, -192)
 dash_velocity = 4000.0
 base_velocity = 500.0
 acceleration = 200.0
 
-[node name="Camera" type="Camera2D" parent="Player"]
-zoom = Vector2(0.25, 0.25)
-process_callback = 0
-position_smoothing_enabled = true
-position_smoothing_speed = 20.0
-
 [node name="TestEnemy" parent="." instance=ExtResource("3_x18ve")]
-position = Vector2(-1004, -1286)
+position = Vector2(-1444, -1872)
+can_take_damage = false
+invincible = true
+
+[node name="TestEnemy2" parent="." instance=ExtResource("3_x18ve")]
+position = Vector2(290, 928)
+can_take_damage = false
+invincible = true
+
+[node name="TestEnemy3" parent="." instance=ExtResource("3_x18ve")]
+position = Vector2(-2789, 747)
+can_take_damage = false
+invincible = true
+
+[node name="TestEnemy4" parent="." instance=ExtResource("3_x18ve")]
+position = Vector2(608, -1908)
+can_take_damage = false
+invincible = true
+
+[node name="TestEnemy5" parent="." instance=ExtResource("3_x18ve")]
+position = Vector2(-3305, -1704)
 can_take_damage = false
 invincible = true
 
@@ -80,3 +95,5 @@ text = "load position"
 [node name="DialogueInteract" parent="." instance=ExtResource("8_ixcbd")]
 position = Vector2(1640, -740)
 scene_name = "test"
+
+[editable path="Player"]

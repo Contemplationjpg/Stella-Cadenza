@@ -5,7 +5,8 @@ extends CanvasLayer
 @export var text_speed : float = .4
 @export var scene_text_file : String
 @export var sprite1 : TextureRect 
-@export var sprite2 : TextureRect 
+@export var sprite2 : TextureRect
+@export var camera : Camera2D 
 
 var scene_text = []
 var char_name : String = ""
@@ -222,13 +223,14 @@ func sprite_shake(): #screen shake doesnt work because objects on canvas layer's
 		var final_pos = Vector2(sin(time) * 10, sin(time) * 20)
 		# print(final_pos)
 		# print(lerp(sprite1.position, sprite1_origin+final_pos, .1))
-		sprite1.position = lerp(sprite1.position, sprite1_origin+final_pos, shake_value*.1)
-		sprite2.position = lerp(sprite1.position, sprite2_origin+final_pos, shake_value*.1)
+		# sprite1.position = lerp(sprite1.position, sprite1_origin+final_pos, shake_value*.1)
+		# sprite2.position = lerp(sprite1.position, sprite2_origin+final_pos, shake_value*.1)
+		camera.offset = lerp(camera.offset, camera.offset+final_pos, shake_value*.1)
 	else:
 		time = 0
-		sprite1.global_position = sprite1_origin
-		sprite2.global_position = sprite2_origin
-
+		# sprite1.global_position = sprite1_origin
+		# sprite2.global_position = sprite2_origin
+		camera.offset = Vector2.ZERO
 
 
 
