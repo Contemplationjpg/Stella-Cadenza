@@ -87,24 +87,25 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o3oy"]
-size = Vector2(600, 640)
+size = Vector2(64, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vtgh7"]
-radius = 16.0
+radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ex5l"]
-size = Vector2(360, 360)
+size = Vector2(32, 32)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "sprite", "debug")]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_lm2l4")
-dash_velocity = 32000.0
+dash_velocity = 1000.0
 mouse_looker = NodePath("MouseLooker")
 sprite = NodePath("CharacterAnimatedSprite")
 base_velocity = 200.0
+stop_velocity = 10.0
 base_stats = SubResource("Resource_fk2dx")
-acceleration = 100.0
+acceleration = 1000.0
 debug = NodePath("Label")
 
 [node name="CharacterAnimatedSprite" type="AnimatedSprite2D" parent="."]
@@ -124,8 +125,8 @@ state_machine = NodePath("../../StateMachine")
 attack_slow = 0.9
 
 [node name="SwingSprite" type="AnimatedSprite2D" parent="MouseLooker/SwingAttack"]
-position = Vector2(90, 0)
-scale = Vector2(1.5, 1.5)
+position = Vector2(15, 0)
+scale = Vector2(0.178, 0.178)
 sprite_frames = SubResource("SpriteFrames_81lr7")
 animation = &"swing up"
 frame = 2
@@ -142,7 +143,7 @@ can_hit_enemy = true
 disable_on_hit = true
 
 [node name="Hitbox2D" type="CollisionShape2D" parent="MouseLooker/SwingAttack/SwingHitbox"]
-position = Vector2(140, 0)
+position = Vector2(15, 0)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_5o3oy")
 debug_color = Color(0.968384, 0, 0.468215, 0.42)
@@ -160,6 +161,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="CharacterCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_vtgh7")
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -179,26 +181,24 @@ invincibility_timer = NodePath("InvincibilityTimer")
 
 [node name="DashTimer" type="Timer" parent="DashMovement"]
 process_callback = 0
-wait_time = 0.8
+wait_time = 0.1
 one_shot = true
 
 [node name="InvincibilityTimer" type="Timer" parent="DashMovement"]
-wait_time = 0.45
+wait_time = 1.5
 one_shot = true
 
 [node name="Label" type="Label" parent="."]
-offset_top = -83.0
-offset_right = 290.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 50
+offset_top = -5.0
+offset_right = 31.0
+offset_bottom = 26.0
 text = "aaa"
 
 [node name="State" type="Label" parent="."]
-offset_left = -168.0
-offset_top = -164.0
-offset_right = 122.0
-offset_bottom = -58.0
-theme_override_font_sizes/font_size = 50
+offset_left = -27.0
+offset_top = -32.0
+offset_right = 44.0
+offset_bottom = -4.0
 text = "aaa"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state", "chara", "debug")]

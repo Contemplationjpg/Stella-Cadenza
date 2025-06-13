@@ -46,7 +46,7 @@ func start_swing_animation():
 		# swing_hitbox.rotation = -90
 		char_sprite.play("swing left")
 		# swing_sprite.play("swing left")
-	print(swing_hitbox.rotation)
+	# print(swing_hitbox.rotation)
 	swing_sprite.play("swing right")
 
 

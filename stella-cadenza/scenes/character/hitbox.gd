@@ -5,6 +5,7 @@ extends Area2D
 @export var knockback : float = 5
 @export var active : bool = true
 @export var does_knockback : bool = true
+@export var knockback_dir : Vector2 = Vector2(0,1)
 @export var can_hit_player : bool = false
 @export var can_hit_enemy : bool = false
 @export var disable_on_hit : bool = false

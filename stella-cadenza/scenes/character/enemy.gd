@@ -4,6 +4,8 @@ extends Character
 var player_chara : Player
 @export var chases_player : bool = true
 @export var chase_timer : Timer
+@export var body_hitbox : Hitbox
+@export var player_looker : Node2D
 var chasing_player = false
 
 
@@ -14,36 +16,52 @@ signal PlayerUndetected
 func _process(_delta: float) -> void:
 	# if chasing_player:
 		# print("I MUST CHASE")
+		# print(direction)
 	# else:
 		# print("meh")
 	pass	
 	
+func update_facing(): 
+	if direction.y <= -0.5:
+		if direction.x <= 0.5 and direction.x >= -0.5:
+			facing = directions.up
+	elif direction.y >= 0.5:
+		if direction.x <= 0.5 and direction.x >= -0.5:
+			facing = directions.down
+	else:
+		if direction.x > 0.5:
+			facing = directions.right
+		elif direction.x < -0.5:
+			facing = directions.left
+	# print(facing)
 
 
-
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	if player_chara:
+		player_looker.look_at(player_chara.global_position)
 	if can_move:
 		if chase_timer.time_left <= 0.0:
 			if chasing_player: 
 				# print("attempting to chase")
 				if player_chara:
-					var x_dir = player_chara.position.x - position.x
-					if x_dir > 0:
-						x_dir = 1
-					elif x_dir < 0:
-						x_dir = -1
-					else:
-						x_dir = 0
+					# var x_dir = player_chara.position.x - position.x
+					# if x_dir > 0:
+					# 	x_dir = 1
+					# elif x_dir < 0:
+					# 	x_dir = -1
+					# else:
+					# 	x_dir = 0
 		
-					var y_dir = player_chara.position.y - position.y
-					if y_dir > 0:
-						y_dir = 1
-					elif y_dir < 0:
-						y_dir = -1
-					else:
-						y_dir = 0
+					# var y_dir = player_chara.position.y - position.y
+					# if y_dir > 0:
+					# 	y_dir = 1
+					# elif y_dir < 0:
+					# 	y_dir = -1
+					# else:
+					# 	y_dir = 0
 
-					direction = Vector2(x_dir, y_dir)
+					# direction = Vector2(x_dir, y_dir)
+					direction = (player_chara.global_position - global_position).normalized()
 
 				else:
 					direction = Vector2.ZERO
@@ -54,9 +72,11 @@ func _physics_process(_delta: float) -> void:
 			chase_timer.start()
 	else:
 		direction = Vector2.ZERO
+	
+	body_hitbox.knockback_dir = direction
 
 	update_facing()
-	update_movement()
+	update_movement(delta)
 	move_and_slide()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:

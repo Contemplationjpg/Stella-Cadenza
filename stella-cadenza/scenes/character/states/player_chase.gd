@@ -20,15 +20,15 @@ func Update(_delta: float):
 		Transitioned.emit(self, "Moving")
 		return
 	if chara.facing == 0:
-		# sprite.play("chase up")
+		sprite.play("moving up")
 		pass
 	elif chara.facing == 1:
-		sprite.play("chase right")
+		sprite.play("moving right")
 	elif chara.facing == 2:
-		# sprite.play("chase down")
-		pass
+		sprite.play("moving down")
+		# pass
 	elif chara.facing == 3:
-		sprite.play("chase left")
+		sprite.play("moving left")
 
 
 
