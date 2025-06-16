@@ -18,6 +18,15 @@ signal StopAttack
 func _ready() -> void:
 	sprite.visible = false
 	can_attack = true
+	SignalBus.EvenBeat.connect(got_even_beat)
+	SignalBus.OddBeat.connect(got_odd_beat)
+
+func got_odd_beat():
+	print("odd")
+
+func got_even_beat():
+	print("even")
+
 
 func _process(_delta: float) -> void:
 	if Main.paused:

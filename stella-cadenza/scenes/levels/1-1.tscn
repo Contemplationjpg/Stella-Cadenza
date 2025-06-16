@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=4 uid="uid://cpoibxfklngfj"]
+[gd_scene load_steps=13 format=4 uid="uid://cpoibxfklngfj"]
 
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="1_j4fu8"]
+[ext_resource type="Script" uid="uid://daaf1d1r8whdb" path="res://scenes/main/game_manager.gd" id="1_m1lgp"]
+[ext_resource type="PackedScene" uid="uid://cqjxgrmv0m16y" path="res://scenes/main/dialogue.tscn" id="1_tsrir"]
 [ext_resource type="PackedScene" uid="uid://khtb104lv7on" path="res://scenes/character/character_types/player.tscn" id="2_ach1a"]
+[ext_resource type="PackedScene" uid="uid://c8xog3ynu7v7w" path="res://scenes/main/save_manager.tscn" id="2_x64fy"]
 [ext_resource type="PackedScene" uid="uid://d2dp5dyujcdnb" path="res://scenes/character/character_types/test_enemy.tscn" id="3_lutau"]
+[ext_resource type="Script" uid="uid://xrlcevvqxybl" path="res://scenes/levels/tempo.gd" id="4_irp0s"]
+[ext_resource type="Texture2D" uid="uid://clw2ewkbf31vc" path="res://icon.svg" id="5_by813"]
+[ext_resource type="PackedScene" uid="uid://c2gtg6r4wlipc" path="res://scenes/main/DialogueInteract.tscn" id="9_x64fy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ach1a"]
 resource_name = "obsession_terrain"
@@ -68,7 +74,17 @@ custom_data_layer_0/name = "collectable"
 custom_data_layer_0/type = 1
 sources/1 = SubResource("TileSetAtlasSource_ach1a")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4w6w"]
+size = Vector2(100, 100)
+
 [node name="1-1" type="Node2D"]
+script = ExtResource("1_m1lgp")
+
+[node name="SaveManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_x64fy")]
+player = NodePath("../Player")
+
+[node name="Dialogue" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_tsrir")]
+camera = NodePath("../Player/Camera")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -89,3 +105,32 @@ acceleration = 5000.0
 position = Vector2(33, 51)
 base_velocity = 50.0
 max_velocity = 300.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TempoDebug" type="TextureRect" parent="CanvasLayer"]
+offset_left = 948.0
+offset_top = 3.00002
+offset_right = 1554.0
+offset_bottom = 609.0
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("5_by813")
+
+[node name="Tempo" type="Timer" parent="." node_paths=PackedStringArray("debug")]
+autostart = true
+script = ExtResource("4_irp0s")
+bpm = 150
+debug = NodePath("../CanvasLayer/TempoDebug")
+
+[node name="DialogueInteract" parent="." instance=ExtResource("9_x64fy")]
+position = Vector2(595, -24)
+scene_name = "test"
+force_interact = true
+
+[node name="DetectionRange" parent="DialogueInteract" index="0"]
+shape = SubResource("RectangleShape2D_s4w6w")
+
+[connection signal="timeout" from="Tempo" to="Tempo" method="_on_timeout"]
+
+[editable path="Player"]
+[editable path="DialogueInteract"]
