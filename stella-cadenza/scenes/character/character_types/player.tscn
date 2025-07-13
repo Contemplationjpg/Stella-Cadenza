@@ -225,12 +225,6 @@ chara = NodePath("../..")
 swing_attack = NodePath("../../MouseLooker/SwingAttack")
 swing_hitbox = NodePath("../../MouseLooker/SwingAttack/SwingHitbox")
 
-[node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
-process_callback = 0
-position_smoothing_enabled = true
-position_smoothing_speed = 20.0
-
 [connection signal="timeout" from="MouseLooker/SwingAttack/AttackCooldown" to="MouseLooker/SwingAttack" method="_on_attack_cooldown_timeout"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="DashMovement/InvincibilityTimer" to="DashMovement" method="_on_invincibility_timer_timeout"]

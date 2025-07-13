@@ -14,6 +14,17 @@ extends Character
 var in_hit_invuln : bool = false
 var in_hit_freeze : bool = false
 
+func _ready():
+	SignalBus.LockPlayerSceneTransition.connect(lock_player_scene_transition)
+	SignalBus.UnlockPlayerSceneTransition.connect(unlock_player_scene_transition)
+
+func lock_player_scene_transition():
+	can_move = false
+	can_take_damage = false
+
+func unlock_player_scene_transition():
+	can_move = true
+	can_take_damage = true
 
 
 func _physics_process(delta: float) -> void:

@@ -1,14 +1,24 @@
 extends Node2D
 
+@export var player : Player
+
 var force_paused : bool = false
 
 func _ready():
 	SignalBus.ForcePauseGame.connect(force_pause)
+	SignalBus.ResetPlayerLocation.connect(reset_player_location)
+	await get_tree().create_timer(.1).timeout
+	SignalBus.LoadLevel.emit("1-1")
 
 func force_pause(pause : bool):
 	# print("force pause: ", pause)
 	Main.paused = pause
 	force_paused = pause
+
+func reset_player_location():
+	if player:
+		player.position = Vector2.ZERO
+	SignalBus.ConfirmResetPlayerLocation.emit()
 
 
 func toggle_pause():

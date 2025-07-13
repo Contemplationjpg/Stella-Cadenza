@@ -18,10 +18,9 @@ script = ExtResource("1_xxkn1")
 [node name="SaveManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_x18ve")]
 player = NodePath("../Player")
 
-[node name="Dialogue" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_pte8o")]
+[node name="Dialogue" parent="." instance=ExtResource("3_pte8o")]
 text_speed = 15.0
 scene_text_file = "test"
-camera = NodePath("../Player/Camera")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -2110.0

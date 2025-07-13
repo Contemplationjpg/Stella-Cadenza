@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Stella Cadenza"
-run/main_scene="res://scenes/main/test.tscn"
+run/main_scene="uid://it4xy2k2xdfg"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -80,3 +80,7 @@ pause={
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="PlayerHitbox"
 2d_physics/layer_5="EnemyHitbox"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
