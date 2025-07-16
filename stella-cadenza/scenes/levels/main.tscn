@@ -41,6 +41,10 @@ position = Vector2(41, 52)
 stream = ExtResource("7_7exfm")
 playback_type = 1
 
+[node name="ShockwaveSprite" parent="Player/ShockwaveAttack" index="0"]
+animation = &"swing right"
+frame = 0
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TempoDebug" type="TextureRect" parent="CanvasLayer"]
@@ -65,11 +69,14 @@ script = ExtResource("9_7lrji")
 color = NodePath("ColorRect")
 
 [node name="ColorRect" type="ColorRect" parent="FadeToBlack"]
+modulate = Color(1, 1, 1, 0)
 offset_left = -380.0
 offset_top = -459.0
 offset_right = 1484.0
 offset_bottom = 1405.0
 color = Color(0, 0, 0, 1)
+
+[node name="UIElements" type="CanvasLayer" parent="."]
 
 [connection signal="finished" from="Player/Camera/AudioStreamPlayer2D" to="Tempo" method="_on_audio_stream_player_2d_finished"]
 [connection signal="timeout" from="Tempo" to="Tempo" method="_on_timeout"]

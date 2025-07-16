@@ -79,6 +79,10 @@ func update_movement(delta : float):
 					if (velocity.y >= 0 and velocity.y < base_velocity*.71) or (velocity.y < 0 and velocity.y > -base_velocity*.71):
 						velocity.y = direction.y*base_velocity*.71
 					velocity.y += direction.y*acceleration*delta
+				if (velocity.x >= 0 and velocity.x > max_velocity*.71) or (velocity.x < 0 and velocity.x < -max_velocity*.71):
+					velocity = velocity.move_toward(Vector2(max_velocity*.71 * sign(velocity.x), velocity.y), stop_velocity)
+				if (velocity.y >= 0 and velocity.y > max_velocity*.71) or (velocity.y < 0 and velocity.y < -max_velocity*.71):
+					velocity = velocity.move_toward(Vector2(velocity.x, max_velocity*.71 * sign(velocity.y)), stop_velocity)
 			elif direction.x != 0:
 				# print("xdir")
 				# if (direction.x > 0 and velocity.x < 0) or (direction.x < 0 and velocity.x > 0):
@@ -87,6 +91,9 @@ func update_movement(delta : float):
 					if (velocity.x >= 0 and velocity.x < base_velocity) or (velocity.x < 0 and velocity.x > -base_velocity):
 						velocity.x = direction.x*base_velocity
 					velocity.x += direction.x*acceleration*delta
+				if (velocity.x >= 0 and velocity.x > max_velocity) or (velocity.x < 0 and velocity.x < -max_velocity):
+					velocity = velocity.move_toward(Vector2(max_velocity * sign(velocity.x), 0), stop_velocity)
+						
 			elif direction.y != 0:
 				# print("ydir")
 				# if (direction.y > 0 and velocity.y < 0) or (direction.y < 0 and velocity.y > 0):
@@ -95,8 +102,11 @@ func update_movement(delta : float):
 					if (velocity.y >= 0 and velocity.y < base_velocity) or (velocity.y < 0 and velocity.y > -base_velocity):
 						velocity.y = direction.y*base_velocity
 					velocity.y += direction.y*acceleration*delta
+				if (velocity.y >= 0 and velocity.y > max_velocity) or (velocity.y < 0 and velocity.y < -max_velocity):
+					velocity = velocity.move_toward(Vector2(0, max_velocity * sign(velocity.y)), stop_velocity)
 			# print("slowing")
-			velocity = velocity.move_toward(Vector2.ZERO, stop_velocity)
+			# velocity = velocity.move_toward(Vector2.ZERO, stop_velocity)
+
 		else:
 			# print("slowing fast")
 			velocity = velocity.move_toward(Vector2.ZERO, stop_velocity_still)

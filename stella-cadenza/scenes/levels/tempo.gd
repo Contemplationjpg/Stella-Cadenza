@@ -25,6 +25,8 @@ func _process(_delta: float) -> void:
 	# print(mod)
 	if not flashing:
 		if mod < 0.02 and time > 0:
+			if beat_count >= 4:
+				beat_count = 0
 			beat_count += 1
 			# print("gaming ", time, " ", beat_count)
 			flashing = true 
@@ -36,6 +38,7 @@ func _process(_delta: float) -> void:
 			await get_tree().create_timer(beat_duration/2).timeout
 			debug.self_modulate.s = 0
 			flashing = false
+			print(beat_count)
 
 func set_bpm(new_bpm : float):
 	bpm = new_bpm

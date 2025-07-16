@@ -15,9 +15,10 @@ func _ready():
 
 
 func flash_fade_to_black():
-	block_screen()
-	await SignalBus.FadeNotChanging
-	unblock_screen()
+	if not changing:
+		block_screen()
+		await SignalBus.FadeNotChanging
+		unblock_screen()
 
 
 func block_screen():

@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		direction = Vector2.ZERO
 
-	# print(direction)
+	print(direction)
 	update_movement(delta)
 	update_facing_mouse()
 	# prints(velocity)

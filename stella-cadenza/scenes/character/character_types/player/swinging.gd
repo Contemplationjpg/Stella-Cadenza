@@ -3,12 +3,12 @@ extends State
 @export var char_sprite : AnimatedSprite2D
 @export var swing_sprite : AnimatedSprite2D
 @export var chara : Character
-@export var swing_attack : Swing_Attack
+@export var swing_attack : Player_Primary_Attack
 @export var swing_hitbox : Hitbox
 
 func _ready() -> void:
-	swing_attack.StartAttack.connect(start_swing_attack)
-	swing_attack.StopAttack.connect(stop_swing_animation)
+	swing_attack.StartPrimaryAttack.connect(start_swing_attack)
+	swing_attack.StopPrimaryAttack.connect(stop_swing_animation)
 
 func Enter():
 	pass

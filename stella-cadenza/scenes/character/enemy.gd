@@ -62,6 +62,7 @@ func _physics_process(delta: float) -> void:
 
 					# direction = Vector2(x_dir, y_dir)
 					direction = (player_chara.global_position - global_position).normalized()
+					# print("player chase dir: ", direction)
 
 				else:
 					direction = Vector2.ZERO
