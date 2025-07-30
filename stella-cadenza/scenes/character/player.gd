@@ -10,14 +10,11 @@ extends Character
 @export var gets_hit_invuln : bool = true
 @export var hit_invuln_time : float = 1.0 
 @export var knockback_traction : float = 20
-<<<<<<< HEAD
 @export var can_walk_through_door: bool = true
 @export var stacks_needed : int = 3
 
 
 @export var stack_label : Label
-=======
->>>>>>> parent of 0bd4a09 (made toggle for player to be able to walk through doors (by default toggles true on loading into new map))
 
 var in_hit_invuln : bool = false
 var in_hit_freeze : bool = false
@@ -30,10 +27,12 @@ func _ready():
 	SignalBus.UnlockPlayerSceneTransition.connect(unlock_player_scene_transition)
 
 func lock_player_scene_transition():
+	can_walk_through_door = false
 	can_move = false
 	can_take_damage = false
 
 func unlock_player_scene_transition():
+	can_walk_through_door = true
 	can_move = true
 	can_take_damage = true
 

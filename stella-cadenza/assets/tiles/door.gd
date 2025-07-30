@@ -10,6 +10,9 @@ func _on_body_entered(body:Node2D) -> void:
 		print("something at door")
 		if player:
 			print("DOOR FOUND PLAYER")
+			if not player.can_walk_through_door:
+				print("PLAYER CANNOT WALK THROUGH DOOR")
+				return
 			if level != "none":
 				active = false
 				SignalBus.LoadLevel.emit(level)
