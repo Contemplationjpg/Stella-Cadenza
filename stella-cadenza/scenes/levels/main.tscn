@@ -30,6 +30,10 @@ max_velocity = 200.0
 stop_velocity = 50.0
 acceleration = 5000.0
 
+[node name="ShockwaveSprite" parent="Player/ShockwaveAttack" index="0"]
+animation = &"swing right"
+frame = 0
+
 [node name="Camera" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
 process_callback = 0
@@ -40,10 +44,6 @@ position_smoothing_speed = 20.0
 position = Vector2(41, 52)
 stream = ExtResource("7_7exfm")
 playback_type = 1
-
-[node name="ShockwaveSprite" parent="Player/ShockwaveAttack" index="0"]
-animation = &"swing right"
-frame = 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

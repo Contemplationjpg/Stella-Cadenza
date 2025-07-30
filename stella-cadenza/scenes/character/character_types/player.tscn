@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://khtb104lv7on"]
+[gd_scene load_steps=31 format=3 uid="uid://khtb104lv7on"]
 
 [ext_resource type="Script" uid="uid://cade5027v4glf" path="res://scenes/character/player.gd" id="1_lm2l4"]
 [ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats.gd" id="2_erpy8"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://bbwu8fkm62406" path="res://scenes/character/character_types/player/swinging.gd" id="13_225s7"]
 [ext_resource type="Texture2D" uid="uid://clw2ewkbf31vc" path="res://icon.svg" id="15_vtgh7"]
 [ext_resource type="Script" uid="uid://cw7n0pm3i5urf" path="res://scenes/character/character_types/player/primary_attack.gd" id="16_qpq3l"]
+[ext_resource type="Script" uid="uid://53w1t242qqm7" path="res://scenes/character/stacking_hitbox.gd" id="17_rq2u8"]
 [ext_resource type="Script" uid="uid://cdj7ssnclfikb" path="res://scenes/character/character_types/player/shockwave.gd" id="23_rq2u8"]
 
 [sub_resource type="Resource" id="Resource_fk2dx"]
@@ -98,14 +99,15 @@ size = Vector2(64, 64)
 radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ex5l"]
-size = Vector2(32, 32)
+size = Vector2(16, 24)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "sprite", "debug")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "stack_label", "sprite", "debug")]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_lm2l4")
 dash_velocity = 1000.0
 mouse_looker = NodePath("MouseLooker")
+stack_label = NodePath("stacks")
 sprite = NodePath("CharacterAnimatedSprite")
 base_velocity = 2000.0
 stop_velocity = 10.0
@@ -122,6 +124,8 @@ sprite = NodePath("ShockwaveSprite")
 timer = NodePath("AttackCooldown")
 active_time = 0.4
 attack_slow = 0.9
+attacks_on_odds = false
+attacks_on_evens = false
 primary_input = false
 secondary_input = true
 forgiveness = 0.4
@@ -181,10 +185,9 @@ frame = 2
 
 [node name="SwingHitbox" type="Area2D" parent="MouseLooker/SwingAttack"]
 collision_layer = 24
-collision_mask = 0
-monitoring = false
+collision_mask = 4
 monitorable = false
-script = ExtResource("5_uicah")
+script = ExtResource("17_rq2u8")
 damage = 25
 active = false
 can_hit_enemy = true
@@ -229,17 +232,22 @@ invincibility_timer = NodePath("InvincibilityTimer")
 
 [node name="DashTimer" type="Timer" parent="DashMovement"]
 process_callback = 0
-wait_time = 0.1
+wait_time = 2.0
 one_shot = true
 
 [node name="InvincibilityTimer" type="Timer" parent="DashMovement"]
-wait_time = 1.5
 one_shot = true
 
 [node name="Label" type="Label" parent="."]
 offset_top = -5.0
 offset_right = 31.0
 offset_bottom = 26.0
+text = "aaa"
+
+[node name="stacks" type="Label" parent="."]
+offset_left = -31.0
+offset_top = -4.0
+offset_bottom = 27.0
 text = "aaa"
 
 [node name="State" type="Label" parent="."]
@@ -282,6 +290,7 @@ shock_attack = NodePath("../../ShockwaveAttack")
 shock_hitbox = NodePath("../../ShockwaveAttack/ShockwaveHitbox")
 
 [connection signal="timeout" from="ShockwaveAttack/AttackCooldown" to="ShockwaveAttack" method="_on_attack_cooldown_timeout"]
+[connection signal="area_entered" from="MouseLooker/SwingAttack/SwingHitbox" to="MouseLooker/SwingAttack/SwingHitbox" method="_on_area_entered"]
 [connection signal="timeout" from="MouseLooker/SwingAttack/AttackCooldown" to="MouseLooker/SwingAttack" method="_on_attack_cooldown_timeout"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="DashMovement/InvincibilityTimer" to="DashMovement" method="_on_invincibility_timer_timeout"]

@@ -104,7 +104,7 @@ func _on_player_detection_range_body_exited(body:Node2D) -> void:
 		PlayerUndetected.emit()
 		if chases_player:
 			chasing_player = false
-		print("player exited!")
+		# print("player exited!")
 
 func _on_player_detection_range_body_entered(body:Node2D) -> void:
 	var player = body as Player
@@ -113,4 +113,4 @@ func _on_player_detection_range_body_entered(body:Node2D) -> void:
 		PlayerDetected.emit()
 		if chases_player:
 			chasing_player = true
-		print("player entered!")
+		# print("player entered!")

@@ -105,7 +105,7 @@ func update_movement(delta : float):
 				if (velocity.y >= 0 and velocity.y > max_velocity) or (velocity.y < 0 and velocity.y < -max_velocity):
 					velocity = velocity.move_toward(Vector2(0, max_velocity * sign(velocity.y)), stop_velocity)
 			# print("slowing")
-			# velocity = velocity.move_toward(Vector2.ZERO, stop_velocity)
+			velocity = velocity.move_toward(Vector2.ZERO, stop_velocity)
 
 		else:
 			# print("slowing fast")

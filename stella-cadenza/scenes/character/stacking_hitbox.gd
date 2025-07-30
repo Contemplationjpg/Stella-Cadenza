@@ -1,20 +1,7 @@
-class_name Hitbox
-extends Area2D
+class_name StackingHitbox
+extends Hitbox
 
-@export var damage : int = 10
-@export var knockback : float = 5
-@export var active : bool = true
-@export var does_knockback : bool = true
-@export var knockback_dir : Vector2 = Vector2(0,1)
-@export var can_hit_player : bool = false
-@export var can_hit_enemy : bool = false
-@export var disable_on_hit : bool = false
-@export var constant : bool = true
-@export var constant_blink_time : float = 0.1
-@export var is_square : bool = true
-@export var is_circle : bool = false
-
-var already_hit_hitboxes : Array = []
+signal gain_stack
 
 func _ready() -> void:
     update_constant()
@@ -22,7 +9,7 @@ func _ready() -> void:
 func constant_damage():
     while active and constant:
         # print("toggle")
-        toggle_monitoriable()
+        toggle_monitoriable_and_monitoring()
         await get_tree().create_timer(constant_blink_time).timeout    
     
 
@@ -50,6 +37,7 @@ func toggle_active()->bool:
 func change_active(change : bool):
     active = change
     set_deferred("monitorable", change)
+    set_deferred("monitoring", change)
     if active:
         update_constant()
 
@@ -57,15 +45,18 @@ func update_constant():
     if active and constant:
         constant_damage()
 
-func toggle_monitoriable()-> bool:
+
+func toggle_monitoriable_and_monitoring()-> bool:
     set_deferred("monitorable", not monitorable)
+    set_deferred("monitoring", not monitoring)
     if not monitorable:
         already_hit_hitboxes = []
     return monitorable
 
 
-func change_monitorable(change : bool):
+func change_monitorable_and_monitoring(change : bool):
     set_deferred("monitorable", change)
+    set_deferred("monitoring", change)
     if not monitorable:
         already_hit_hitboxes = []
 
@@ -74,10 +65,12 @@ func change_monitorable(change : bool):
 # 	print(collision_layer)
 
 func _on_area_entered(area:Area2D) -> void:
+    print("found hurtbox")
     var hurtbox = area as Hurtbox
     if hurtbox:
         if hurtbox in already_hit_hitboxes:
-            pass
+            print("already have hitbox in list")
         else:
+            print("adding " + hurtbox.name)
             already_hit_hitboxes.append(hurtbox)
-
+            gain_stack.emit()

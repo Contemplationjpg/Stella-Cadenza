@@ -4,12 +4,17 @@ extends Attack
 signal StartPrimaryAttack
 signal StopPrimaryAttack
 
+var player : Player
+
+
 func _ready() -> void:
 	sprite.visible = false
 	can_attack = true
 	# original_velocity = chara.max_velocity
 	SignalBus.EvenBeat.connect(got_even_beat)
 	SignalBus.OddBeat.connect(got_odd_beat)
+	hitbox.gain_stack.connect(increase_stacks)
+	player = chara as Player
 
 func got_odd_beat():
 	if attacks_on_odds:
@@ -22,6 +27,13 @@ func got_even_beat():
 		# print("even")
 		attack()
 		return
+
+func increase_stacks():
+	print("attempting to increase stacks")
+	if player:
+		if player.attack_stacks < player.stacks_needed:
+			player.attack_stacks += 1
+
 
 func attack():
 	if not in_forgiveness_timing:

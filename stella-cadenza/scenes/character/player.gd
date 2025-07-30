@@ -11,9 +11,16 @@ extends Character
 @export var hit_invuln_time : float = 1.0 
 @export var knockback_traction : float = 20
 @export var can_walk_through_door: bool = true
+@export var stacks_needed : int = 3
+
+
+@export var stack_label : Label
 
 var in_hit_invuln : bool = false
 var in_hit_freeze : bool = false
+
+var attack_stacks : int = 0
+var special_meter : int = 0
 
 func _ready():
 	SignalBus.LockPlayerSceneTransition.connect(lock_player_scene_transition)
@@ -29,6 +36,9 @@ func unlock_player_scene_transition():
 	can_move = true
 	can_take_damage = true
 
+func _process(_delta):
+	stack_label.text = str(attack_stacks)
+
 
 func _physics_process(delta: float) -> void:
 	if can_move:
@@ -36,18 +46,20 @@ func _physics_process(delta: float) -> void:
 	else:
 		direction = Vector2.ZERO
 
-	print(direction)
+	# print(direction)
 	update_movement(delta)
 	update_facing_mouse()
 	# prints(velocity)
 	move_and_slide()
 	# print(velocity.x, ", ", velocity.y)
 
+
 func get_input():
 	direction.x = Input.get_axis("left", "right")
 	# prints("x:",direction.x)
 	direction.y = Input.get_axis("up", "down")
 	# prints("y:",direction.y)
+
 
 func update_facing_mouse():
 

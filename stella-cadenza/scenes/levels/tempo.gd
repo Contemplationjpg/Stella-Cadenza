@@ -38,7 +38,7 @@ func _process(_delta: float) -> void:
 			await get_tree().create_timer(beat_duration/2).timeout
 			debug.self_modulate.s = 0
 			flashing = false
-			print(beat_count)
+			# print(beat_count)
 
 func set_bpm(new_bpm : float):
 	bpm = new_bpm
