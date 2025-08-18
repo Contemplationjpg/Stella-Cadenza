@@ -1,35 +1,91 @@
-[gd_scene load_steps=18 format=3 uid="uid://o22uh03fglcx"]
+[gd_scene load_steps=32 format=3 uid="uid://khtb104lv7on"]
 
-[ext_resource type="Script" uid="uid://bkepmimrr3131" path="res://scenes/character/character.gd" id="1_1y732"]
-[ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats.gd" id="2_erpy8"]
-[ext_resource type="SpriteFrames" uid="uid://b4rurh5ddmoua" path="res://scenes/character/character_types/test_enemy.tres" id="3_5o3oy"]
-[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/hurtbox.gd" id="4_5y66v"]
-[ext_resource type="Script" uid="uid://dkqk2kyjp8o7d" path="res://scenes/character/character_types/player/attack.gd" id="5_81lr7"]
-[ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/hitbox.gd" id="5_uicah"]
-[ext_resource type="Texture2D" uid="uid://dxtc0h4ahvxt3" path="res://concept art/swing3.png" id="7_13wve"]
+[ext_resource type="Script" uid="uid://cade5027v4glf" path="res://scenes/character/character_types/player/player.gd" id="1_lm2l4"]
+[ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats/stats.gd" id="2_erpy8"]
+[ext_resource type="SpriteFrames" uid="uid://doj30flsjdecu" path="res://scenes/character/character_types/player/stella.tres" id="3_fk2dx"]
+[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/detection/hurtbox.gd" id="4_5y66v"]
+[ext_resource type="Script" uid="uid://d0q7e506epbwt" path="res://scenes/character/character_types/player/secondary_attack.gd" id="4_qpq3l"]
+[ext_resource type="Script" uid="uid://cki52hn1olttd" path="res://scenes/character/character_types/player/dash_movement.gd" id="5_fk2dx"]
+[ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/detection/hitbox.gd" id="5_uicah"]
+[ext_resource type="Texture2D" uid="uid://c0jlh7b6aglal" path="res://concept art/swing1down.png" id="7_lm2l4"]
+[ext_resource type="Texture2D" uid="uid://bt4gii3msmdl" path="res://concept art/swing2down.png" id="8_fk2dx"]
 [ext_resource type="Texture2D" uid="uid://bc4axks1fux6k" path="res://concept art/swing1.png" id="8_ypuoa"]
+[ext_resource type="Texture2D" uid="uid://dkxtc5mejqhgt" path="res://concept art/swing1left.png" id="9_enjps"]
+[ext_resource type="Texture2D" uid="uid://dxtc0h4ahvxt3" path="res://concept art/swing3.png" id="9_vtgh7"]
 [ext_resource type="Texture2D" uid="uid://bi5oed66xeb7p" path="res://concept art/swing2.png" id="9_w5ocy"]
-[ext_resource type="Script" uid="uid://c4w6tnpbhvqj" path="res://scenes/character/states/state_machine.gd" id="10_ypuoa"]
-[ext_resource type="Script" uid="uid://cp0l5m5ltgbm0" path="res://scenes/character/states/idle.gd" id="11_1rseh"]
-[ext_resource type="Script" uid="uid://dsiln0fq06und" path="res://scenes/character/states/moving.gd" id="12_225s7"]
+[ext_resource type="Script" uid="uid://c4w6tnpbhvqj" path="res://scenes/character/states/state_machine.gd" id="10_225s7"]
+[ext_resource type="Texture2D" uid="uid://cwwgd80y33xe6" path="res://concept art/swing2left.png" id="10_vtgh7"]
+[ext_resource type="Script" uid="uid://cp0l5m5ltgbm0" path="res://scenes/character/states/player/idle.gd" id="11_1rseh"]
+[ext_resource type="Texture2D" uid="uid://cynulc2pqujxk" path="res://concept art/swing1right.png" id="11_bplj6"]
+[ext_resource type="Script" uid="uid://dsiln0fq06und" path="res://scenes/character/states/player/moving.gd" id="12_225s7"]
+[ext_resource type="Texture2D" uid="uid://d2j7vquie05pg" path="res://concept art/swing2right.png" id="12_qpq3l"]
+[ext_resource type="Script" uid="uid://bbwu8fkm62406" path="res://scenes/character/character_types/player/swinging.gd" id="13_225s7"]
+[ext_resource type="Texture2D" uid="uid://clw2ewkbf31vc" path="res://icon.svg" id="15_vtgh7"]
+[ext_resource type="Script" uid="uid://cw7n0pm3i5urf" path="res://scenes/character/character_types/player/primary_attack.gd" id="16_qpq3l"]
+[ext_resource type="Script" uid="uid://53w1t242qqm7" path="res://scenes/character/detection/stacking_hitbox.gd" id="17_rq2u8"]
+[ext_resource type="Script" uid="uid://cdj7ssnclfikb" path="res://scenes/character/character_types/player/shockwave.gd" id="23_rq2u8"]
 
-[sub_resource type="Resource" id="Resource_f8hpl"]
+[sub_resource type="Resource" id="Resource_fk2dx"]
 script = ExtResource("2_erpy8")
 max_health = 100
 metadata/_custom_type_script = "uid://ckcluhos68eje"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mutn8"]
-size = Vector2(360, 360)
+[sub_resource type="SpriteFrames" id="SpriteFrames_8krsp"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"shock right",
+"speed": 15.0
+}]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ex5l"]
-size = Vector2(360, 360)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtgh7"]
+size = Vector2(100, 100)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_81lr7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_13wve")
+"texture": ExtResource("7_lm2l4")
 }, {
+"duration": 1.0,
+"texture": ExtResource("8_fk2dx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vtgh7")
+}],
+"loop": false,
+"name": &"swing down",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_enjps")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vtgh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vtgh7")
+}],
+"loop": false,
+"name": &"swing left",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_bplj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_qpq3l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vtgh7")
+}],
+"loop": false,
+"name": &"swing right",
+"speed": 15.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": ExtResource("8_ypuoa")
 }, {
@@ -37,35 +93,133 @@ animations = [{
 "texture": ExtResource("9_w5ocy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_13wve")
+"texture": ExtResource("9_vtgh7")
 }],
 "loop": false,
-"name": &"swing",
-"speed": 10.0
+"name": &"swing up",
+"speed": 15.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o3oy"]
-size = Vector2(540, 540)
+size = Vector2(64, 64)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("debug")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_vtgh7"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ex5l"]
+size = Vector2(16, 24)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "stack_label", "sprite", "debug")]
 collision_layer = 2
 motion_mode = 1
-script = ExtResource("1_1y732")
-is_player = true
-max_speed = 600.0
-stop_speed = 100.0
-base_stats = SubResource("Resource_f8hpl")
+script = ExtResource("1_lm2l4")
+dash_velocity = 1000.0
+mouse_looker = NodePath("MouseLooker")
+stack_label = NodePath("stacks")
+sprite = NodePath("CharacterAnimatedSprite")
+base_velocity = 2000.0
+stop_velocity = 10.0
+stop_velocity_still = 20.0
+base_stats = SubResource("Resource_fk2dx")
+acceleration = 1000.0
 debug = NodePath("Label")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="ShockwaveAttack" type="Node2D" parent="." node_paths=PackedStringArray("chara", "hitbox", "sprite", "timer")]
+script = ExtResource("4_qpq3l")
+chara = NodePath("..")
+hitbox = NodePath("ShockwaveHitbox")
+sprite = NodePath("ShockwaveSprite")
+timer = NodePath("AttackCooldown")
+active_time = 0.4
+attack_slow = 0.9
+attacks_on_odds = false
+attacks_on_evens = false
+primary_input = false
+secondary_input = true
+forgiveness = 0.4
+
+[node name="ShockwaveSprite" type="AnimatedSprite2D" parent="ShockwaveAttack"]
+scale = Vector2(0.178, 0.178)
+sprite_frames = SubResource("SpriteFrames_8krsp")
+animation = &"shock right"
+
+[node name="Sprite2D" type="Sprite2D" parent="ShockwaveAttack/ShockwaveSprite"]
+scale = Vector2(4.367, 4.367)
+texture = ExtResource("15_vtgh7")
+
+[node name="ShockwaveHitbox" type="Area2D" parent="ShockwaveAttack"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("5_uicah")
+damage = 200
+active = false
+can_hit_enemy = true
+disable_on_hit = true
+constant = false
+
+[node name="Hitbox2D" type="CollisionShape2D" parent="ShockwaveAttack/ShockwaveHitbox"]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_vtgh7")
+debug_color = Color(0.968384, 0, 0.468215, 0.42)
+
+[node name="AttackCooldown" type="Timer" parent="ShockwaveAttack"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
 
 [node name="CharacterAnimatedSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("3_5o3oy")
-animation = &"moving right"
-autoplay = "moving left"
+texture_filter = 1
+sprite_frames = ExtResource("3_fk2dx")
+animation = &"swing down"
+
+[node name="MouseLooker" type="Node2D" parent="."]
+
+[node name="SwingAttack" type="Node2D" parent="MouseLooker" node_paths=PackedStringArray("chara", "hitbox", "sprite", "timer")]
+script = ExtResource("16_qpq3l")
+chara = NodePath("../..")
+hitbox = NodePath("SwingHitbox")
+sprite = NodePath("SwingSprite")
+timer = NodePath("AttackCooldown")
+attack_slow = 0.9
+
+[node name="SwingSprite" type="AnimatedSprite2D" parent="MouseLooker/SwingAttack"]
+position = Vector2(15, 0)
+scale = Vector2(0.178, 0.178)
+sprite_frames = SubResource("SpriteFrames_81lr7")
+animation = &"swing left"
+
+[node name="SwingHitbox" type="Area2D" parent="MouseLooker/SwingAttack"]
+collision_layer = 8
+collision_mask = 4
+monitoring = false
+monitorable = false
+script = ExtResource("17_rq2u8")
+damage = 25
+active = false
+can_hit_enemy = true
+disable_on_hit = true
+
+[node name="Hitbox2D" type="CollisionShape2D" parent="MouseLooker/SwingAttack/SwingHitbox"]
+position = Vector2(15, 0)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_5o3oy")
+debug_color = Color(0.968384, 0, 0.468215, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="MouseLooker/SwingAttack/SwingHitbox"]
+visible = false
+position = Vector2(90, 0)
+rotation = 1.5708
+scale = Vector2(4.21, 4.21)
+texture = ExtResource("15_vtgh7")
+
+[node name="AttackCooldown" type="Timer" parent="MouseLooker/SwingAttack"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
 
 [node name="CharacterCollision" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_mutn8")
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_vtgh7")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
@@ -76,67 +230,73 @@ script = ExtResource("4_5y66v")
 [node name="Hurtbox2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_7ex5l")
 
-[node name="SwingAttack" type="Node2D" parent="." node_paths=PackedStringArray("swing_hitbox", "sprite", "timer")]
-script = ExtResource("5_81lr7")
-swing_hitbox = NodePath("SwingHitbox")
-sprite = NodePath("SwingHitbox/SwingSprite")
-timer = NodePath("AttackCooldown")
+[node name="DashMovement" type="Node" parent="." node_paths=PackedStringArray("player", "dash_timer", "invincibility_timer")]
+script = ExtResource("5_fk2dx")
+player = NodePath("..")
+dash_timer = NodePath("DashTimer")
+invincibility_timer = NodePath("InvincibilityTimer")
 
-[node name="SwingHitbox" type="Area2D" parent="SwingAttack"]
-collision_layer = 24
-collision_mask = 0
-monitoring = false
-script = ExtResource("5_uicah")
-damage = 25
-can_hit_enemy = true
-disable_on_hit = true
+[node name="DashTimer" type="Timer" parent="DashMovement"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
 
-[node name="SwingSprite" type="AnimatedSprite2D" parent="SwingAttack/SwingHitbox"]
-position = Vector2(0, -90)
-scale = Vector2(1.5, 1.5)
-sprite_frames = SubResource("SpriteFrames_81lr7")
-animation = &"swing"
-frame = 3
-frame_progress = 1.0
-
-[node name="Hitbox2D" type="CollisionShape2D" parent="SwingAttack/SwingHitbox"]
-position = Vector2(0, -90)
-shape = SubResource("RectangleShape2D_5o3oy")
-debug_color = Color(0.968384, 0, 0.468215, 0.42)
-
-[node name="AttackCooldown" type="Timer" parent="SwingAttack"]
-wait_time = 0.2
+[node name="InvincibilityTimer" type="Timer" parent="DashMovement"]
 one_shot = true
 
 [node name="Label" type="Label" parent="."]
-offset_top = -83.0
-offset_right = 290.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 30
+offset_top = -5.0
+offset_right = 31.0
+offset_bottom = 26.0
+text = "aaa"
+
+[node name="stacks" type="Label" parent="."]
+offset_left = -31.0
+offset_top = -4.0
+offset_bottom = 27.0
 text = "aaa"
 
 [node name="State" type="Label" parent="."]
-offset_left = -168.0
-offset_top = -164.0
-offset_right = 122.0
-offset_bottom = -58.0
-theme_override_font_sizes/font_size = 30
+offset_left = -27.0
+offset_top = -32.0
+offset_right = 44.0
+offset_bottom = -4.0
 text = "aaa"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state", "chara", "debug")]
-script = ExtResource("10_ypuoa")
-default_state = NodePath("Moving")
+script = ExtResource("10_225s7")
+default_state = NodePath("Idle")
 chara = NodePath("..")
 debug = NodePath("../State")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
 script = ExtResource("11_1rseh")
 chara = NodePath("../..")
+sprite = NodePath("../../CharacterAnimatedSprite")
 
 [node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
 script = ExtResource("12_225s7")
 chara = NodePath("../..")
 sprite = NodePath("../../CharacterAnimatedSprite")
 
+[node name="Swinging" type="Node" parent="StateMachine" node_paths=PackedStringArray("char_sprite", "swing_sprite", "chara", "swing_attack", "swing_hitbox")]
+script = ExtResource("13_225s7")
+char_sprite = NodePath("../../CharacterAnimatedSprite")
+swing_sprite = NodePath("../../MouseLooker/SwingAttack/SwingSprite")
+chara = NodePath("../..")
+swing_attack = NodePath("../../MouseLooker/SwingAttack")
+swing_hitbox = NodePath("../../MouseLooker/SwingAttack/SwingHitbox")
+
+[node name="Secondary" type="Node" parent="StateMachine" node_paths=PackedStringArray("char_sprite", "shock_sprite", "chara", "shock_attack", "shock_hitbox")]
+script = ExtResource("23_rq2u8")
+char_sprite = NodePath("../../CharacterAnimatedSprite")
+shock_sprite = NodePath("../../ShockwaveAttack/ShockwaveSprite")
+chara = NodePath("../..")
+shock_attack = NodePath("../../ShockwaveAttack")
+shock_hitbox = NodePath("../../ShockwaveAttack/ShockwaveHitbox")
+
+[connection signal="timeout" from="ShockwaveAttack/AttackCooldown" to="ShockwaveAttack" method="_on_attack_cooldown_timeout"]
+[connection signal="area_entered" from="MouseLooker/SwingAttack/SwingHitbox" to="MouseLooker/SwingAttack/SwingHitbox" method="_on_area_entered"]
+[connection signal="timeout" from="MouseLooker/SwingAttack/AttackCooldown" to="MouseLooker/SwingAttack" method="_on_attack_cooldown_timeout"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="timeout" from="SwingAttack/AttackCooldown" to="SwingAttack" method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="DashMovement/InvincibilityTimer" to="DashMovement" method="_on_invincibility_timer_timeout"]

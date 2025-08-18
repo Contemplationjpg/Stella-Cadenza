@@ -1,5 +1,5 @@
 extends State
-@export var chara : Enemy
+@export var chara : TestEnemy
 @export var sprite : AnimatedSprite2D
 
 func Enter():

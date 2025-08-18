@@ -1,11 +1,9 @@
 extends State
-@export var chara : Enemy
+@export var chara : TestEnemy
 @export var sprite : AnimatedSprite2D
 
-func _ready():
-	pass
-
 func Enter():
+	# print("I am moving")
 	pass
 
 func Exit():
@@ -16,21 +14,17 @@ func Update(_delta: float):
 	if chara.velocity.y == 0.0 and chara.velocity.x == 0.0:
 		Transitioned.emit(self, "Idle")
 		return
-	if !chara.chasing_player:
-		Transitioned.emit(self, "Moving")
+	if chara.chasing_player:
+		Transitioned.emit(self, "PlayerChase")
 		return
 	if chara.facing == 0:
 		sprite.play("moving up")
-		pass
 	elif chara.facing == 1:
-		sprite.play("moving right")
+			sprite.play("moving right")
 	elif chara.facing == 2:
-		sprite.play("moving down")
-		# pass
+			sprite.play("moving down")
 	elif chara.facing == 3:
-		sprite.play("moving left")
-
-
+			sprite.play("moving left")
 
 func Physics_Update(_delta : float):
 	pass

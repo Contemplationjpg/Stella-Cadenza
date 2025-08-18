@@ -1,19 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://d2dp5dyujcdnb"]
+[gd_scene load_steps=12 format=3 uid="uid://ckgxktaqf5p1t"]
 
-[ext_resource type="Script" uid="uid://cgylp14sbemjl" path="res://scenes/character/enemy.gd" id="1_hofr5"]
-[ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats.gd" id="2_eip23"]
-[ext_resource type="Script" uid="uid://c4w6tnpbhvqj" path="res://scenes/character/states/state_machine.gd" id="3_2p8im"]
-[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/hurtbox.gd" id="4_hofr5"]
-[ext_resource type="Script" uid="uid://w0hgp7qm6m5r" path="res://scenes/character/states/enemy_idle.gd" id="4_lcnxo"]
-[ext_resource type="Script" uid="uid://bliy47gmpbo83" path="res://scenes/character/states/player_chase.gd" id="5_1g1l0"]
-[ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/hitbox.gd" id="5_lcnxo"]
-[ext_resource type="Script" uid="uid://ql3aslw5b501" path="res://scenes/character/states/enemy_moving.gd" id="6_1g1l0"]
-[ext_resource type="SpriteFrames" uid="uid://doj30flsjdecu" path="res://scenes/character/character_types/stella.tres" id="7_lcnxo"]
-
-[sub_resource type="Resource" id="Resource_3nsre"]
-script = ExtResource("2_eip23")
-max_health = 5000
-metadata/_custom_type_script = "uid://ckcluhos68eje"
+[ext_resource type="Script" uid="uid://uhirm5bcsbw7" path="res://scenes/character/character_types/ram_enemy/ram_enemy.gd" id="1_yj2ad"]
+[ext_resource type="Script" uid="uid://c4w6tnpbhvqj" path="res://scenes/character/states/state_machine.gd" id="2_wgv3h"]
+[ext_resource type="Script" uid="uid://w0hgp7qm6m5r" path="res://scenes/character/states/test_enemy/enemy_idle.gd" id="3_3wf1k"]
+[ext_resource type="Script" uid="uid://ql3aslw5b501" path="res://scenes/character/states/test_enemy/enemy_moving.gd" id="5_hin8e"]
+[ext_resource type="SpriteFrames" uid="uid://doj30flsjdecu" path="res://scenes/character/character_types/player/stella.tres" id="6_epqyj"]
+[ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/detection/hitbox.gd" id="7_q4orn"]
+[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/detection/hurtbox.gd" id="8_j2b52"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lcnxo"]
 radius = 16.0
@@ -27,45 +20,33 @@ size = Vector2(32, 32)
 [sub_resource type="CircleShape2D" id="CircleShape2D_2fsoc"]
 radius = 128.0
 
-[node name="TestEnemy" type="CharacterBody2D" node_paths=PackedStringArray("chase_timer", "body_hitbox", "player_looker", "sprite", "debug")]
+[node name="RamEnemy" type="CharacterBody2D" node_paths=PackedStringArray("body_hitbox", "player_looker", "sprite")]
 collision_layer = 4
 motion_mode = 1
-script = ExtResource("1_hofr5")
-chase_timer = NodePath("ChaseTimer")
+script = ExtResource("1_yj2ad")
 body_hitbox = NodePath("Hitbox")
 player_looker = NodePath("PlayerLooker")
 sprite = NodePath("CharacterAnimatedSprite")
-base_velocity = 10.0
-max_velocity = 10.0
-stop_velocity = 10.0
-stop_velocity_still = 20.0
-base_stats = SubResource("Resource_3nsre")
-debug = NodePath("Label")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state", "chara", "debug")]
-script = ExtResource("3_2p8im")
+script = ExtResource("2_wgv3h")
 default_state = NodePath("Idle")
 chara = NodePath("..")
 debug = NodePath("../State")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
-script = ExtResource("4_lcnxo")
-chara = NodePath("../..")
-sprite = NodePath("../../CharacterAnimatedSprite")
-
-[node name="PlayerChase" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
-script = ExtResource("5_1g1l0")
+script = ExtResource("3_3wf1k")
 chara = NodePath("../..")
 sprite = NodePath("../../CharacterAnimatedSprite")
 
 [node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
-script = ExtResource("6_1g1l0")
+script = ExtResource("5_hin8e")
 chara = NodePath("../..")
 sprite = NodePath("../../CharacterAnimatedSprite")
 
 [node name="CharacterAnimatedSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = ExtResource("7_lcnxo")
+sprite_frames = ExtResource("6_epqyj")
 animation = &"moving down"
 autoplay = "idle up"
 
@@ -76,7 +57,7 @@ shape = SubResource("CircleShape2D_lcnxo")
 collision_layer = 24
 collision_mask = 0
 monitoring = false
-script = ExtResource("5_lcnxo")
+script = ExtResource("7_q4orn")
 knockback = 500.0
 can_hit_player = true
 
@@ -87,7 +68,7 @@ debug_color = Color(0.968384, 0, 0.468215, 0.42)
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 8
-script = ExtResource("4_hofr5")
+script = ExtResource("8_j2b52")
 
 [node name="Hurtbox2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_7ex5l")

@@ -18,7 +18,6 @@ func _physics_process(_delta: float) -> void:
 	if player:
 		if player.attack_stacks >= player.stacks_needed and Input.is_action_pressed("secondary"):
 			attack()
-			player.attack_stacks = 0
 
 func got_odd_beat():
 	if attacks_on_odds:
@@ -38,12 +37,15 @@ func attack():
 	# 	wait_for_attack()
 	# if should_be_attacking and in_forgiveness_timing:
 		# in_forgiveness_timing = false
+		player.attack_stacks = 0
 		StartSecondaryAttack.emit()
 		# can_attack = false
 		sprite.visible = true
 		hitbox.change_active(true)
+		print("SECONDARY HITBOX ACTIVE")
 		await get_tree().create_timer(active_time).timeout
 		hitbox.change_active(false)
+		print("SECONDARY HITBOX INACTIVE")
 		sprite.visible = false
 		StopSecondaryAttack.emit()
 

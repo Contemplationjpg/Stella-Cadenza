@@ -194,6 +194,38 @@ animations = [{
 "texture": SubResource("AtlasTexture_mga0o")
 }],
 "loop": true,
+"name": &"shock down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qckro")
+}],
+"loop": true,
+"name": &"shock left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2plp")
+}],
+"loop": true,
+"name": &"shock right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srqm8")
+}],
+"loop": true,
+"name": &"shock up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mga0o")
+}],
+"loop": true,
 "name": &"swing down",
 "speed": 5.0
 }, {

@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=4 uid="uid://cpoibxfklngfj"]
 
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="1_j4fu8"]
-[ext_resource type="PackedScene" uid="uid://d2dp5dyujcdnb" path="res://scenes/character/character_types/test_enemy.tscn" id="3_lutau"]
+[ext_resource type="PackedScene" uid="uid://d2dp5dyujcdnb" path="res://scenes/character/character_types/test_enemy/test_enemy.tscn" id="3_lutau"]
 [ext_resource type="PackedScene" uid="uid://b17ncfi4tcwdk" path="res://assets/tiles/door.tscn" id="5_8yex6"]
-[ext_resource type="PackedScene" uid="uid://c2gtg6r4wlipc" path="res://scenes/main/DialogueInteract.tscn" id="9_x64fy"]
+[ext_resource type="PackedScene" uid="uid://c2gtg6r4wlipc" path="res://scenes/main/dialogue_system/DialogueInteract.tscn" id="9_x64fy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ach1a"]
 resource_name = "obsession_terrain"
@@ -80,7 +80,7 @@ tile_map_data = PackedByteArray("AAAAAP7/AQAEAAAAAAAAAP//AQAEAAEAAAABAP7/AQAFAAA
 tile_set = SubResource("TileSet_lutau")
 
 [node name="TestEnemy" parent="." instance=ExtResource("3_lutau")]
-position = Vector2(33, 51)
+position = Vector2(134, 71)
 base_velocity = 50.0
 max_velocity = 300.0
 
