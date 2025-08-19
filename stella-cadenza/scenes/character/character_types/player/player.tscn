@@ -158,6 +158,7 @@ active = false
 can_hit_enemy = true
 disable_on_hit = true
 constant = false
+is_electric = true
 
 [node name="Hitbox2D" type="CollisionShape2D" parent="ShockwaveAttack/ShockwaveHitbox"]
 rotation = 1.5708
@@ -240,7 +241,7 @@ invincibility_timer = NodePath("InvincibilityTimer")
 
 [node name="DashTimer" type="Timer" parent="DashMovement"]
 process_callback = 0
-wait_time = 2.0
+wait_time = 0.3
 one_shot = true
 
 [node name="InvincibilityTimer" type="Timer" parent="DashMovement"]

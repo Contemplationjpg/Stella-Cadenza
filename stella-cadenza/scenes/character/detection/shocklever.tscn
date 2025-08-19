@@ -1,18 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdiwakvilhty8"]
+[gd_scene load_steps=8 format=3 uid="uid://gg41yxd4bpkq"]
 
-[ext_resource type="Script" uid="uid://bsjxjyacmg2sq" path="res://scenes/character/detection/lever.gd" id="1_f77cq"]
-[ext_resource type="Texture2D" uid="uid://dhgt51gwc7h6v" path="res://assets/tiles/switch_tilesheet.png" id="2_4k67i"]
-[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/detection/hurtbox.gd" id="4_6r2m3"]
+[ext_resource type="Script" uid="uid://bhuy35j440ihw" path="res://scenes/character/detection/shock_lever.gd" id="1_2640o"]
+[ext_resource type="Texture2D" uid="uid://dhgt51gwc7h6v" path="res://assets/tiles/switch_tilesheet.png" id="2_gnh4l"]
+[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/detection/hurtbox.gd" id="4_ei1np"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f77cq"]
-atlas = ExtResource("2_4k67i")
+atlas = ExtResource("2_gnh4l")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q6uwn"]
-atlas = ExtResource("2_4k67i")
+atlas = ExtResource("2_gnh4l")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_jts5f"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_2640o"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -31,25 +31,25 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8vhjg"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4u1d"]
 size = Vector2(32, 32)
 
-[node name="Lever" type="Node2D" node_paths=PackedStringArray("sprite")]
-script = ExtResource("1_f77cq")
+[node name="ShockLever" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_2640o")
 sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_jts5f")
+sprite_frames = SubResource("SpriteFrames_2640o")
 animation = &"on"
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 24
-script = ExtResource("4_6r2m3")
+script = ExtResource("4_ei1np")
 metadata/_custom_type_script = "uid://bnb4sqxbto1ri"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_8vhjg")
+shape = SubResource("RectangleShape2D_p4u1d")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

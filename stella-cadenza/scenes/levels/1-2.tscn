@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://cbreho48w0b4h"]
+[gd_scene load_steps=6 format=4 uid="uid://cbreho48w0b4h"]
 
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="1_bogsv"]
 [ext_resource type="PackedScene" uid="uid://b17ncfi4tcwdk" path="res://assets/tiles/door.tscn" id="2_220im"]
+[ext_resource type="PackedScene" uid="uid://gg41yxd4bpkq" path="res://scenes/character/detection/shocklever.tscn" id="3_kqkvu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ach1a"]
 resource_name = "obsession_terrain"
@@ -79,3 +80,6 @@ position = Vector2(576, -80)
 collision_layer = 0
 collision_mask = 2
 level = "1-1"
+
+[node name="ShockLever" parent="." instance=ExtResource("3_kqkvu")]
+position = Vector2(204, 47)
