@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdiwakvilhty8"]
+
+[ext_resource type="Script" uid="uid://bsjxjyacmg2sq" path="res://scenes/character/detection/lever.gd" id="1_f77cq"]
+[ext_resource type="Texture2D" uid="uid://c71n5kfmdqqex" path="res://concept art/Character360.png" id="1_oxyx6"]
+[ext_resource type="Texture2D" uid="uid://bqbc08ytvqb06" path="res://concept art/RedCharacter360.png" id="3_q6uwn"]
+[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/detection/hurtbox.gd" id="4_6r2m3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jts5f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_oxyx6")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q6uwn")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8vhjg"]
+size = Vector2(180, 180)
+
+[node name="Lever" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_f77cq")
+sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_jts5f")
+animation = &"off"
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 24
+script = ExtResource("4_6r2m3")
+metadata/_custom_type_script = "uid://bnb4sqxbto1ri"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_8vhjg")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

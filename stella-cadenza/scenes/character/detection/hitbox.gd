@@ -11,8 +11,9 @@ extends Area2D
 @export var disable_on_hit : bool = false
 @export var constant : bool = true
 @export var constant_blink_time : float = 0.1
-@export var is_square : bool = true
-@export var is_circle : bool = false
+# @export var is_square : bool = true
+# @export var is_circle : bool = false
+@export var is_electric: bool = false
 
 
 var already_hit_hurtboxes : Array = []
@@ -25,7 +26,9 @@ func constant_damage():
         # print("toggle")
         toggle_monitoriable_and_monitoring()
         await get_tree().create_timer(constant_blink_time).timeout    
-    
+
+func clear_hit_hurtboxes():
+    already_hit_hurtboxes = []
 
 func toggle_player_hit()->bool:
     can_hit_player = not can_hit_player
@@ -53,7 +56,7 @@ func change_active(change : bool):
     change_monitorable_and_monitoring(change)
     if active:
         update_constant()
-    print("SECONDARY ", active)
+    # print("SECONDARY ", active)
 
 func update_constant():
     if active and constant:
@@ -73,13 +76,14 @@ func change_monitorable_and_monitoring(change : bool):
         already_hit_hurtboxes = []
 
 func _on_area_entered(area:Area2D) -> void:
-    print("SECONDARY found hurtbox")
+    # print("SECONDARY found hurtbox")
     var hurtbox = area as Hurtbox
     if hurtbox:
         if hurtbox in already_hit_hurtboxes:
-            print("SECONADRY already have hitbox in list")
+            return
+            # print("SECONADRY already have hitbox in list")
         else:
-            print("SECONDARY adding " + hurtbox.name)
+            # print("SECONDARY adding " + hurtbox.name)
             already_hit_hurtboxes.append(hurtbox)
 
 # func _process(_delta: float) -> void:

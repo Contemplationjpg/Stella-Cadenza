@@ -86,9 +86,9 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if not hitbox:
 		# print ("not hitbox")
 		return
-	else:
-		if hitbox.can_hit_enemy and hitbox.active:
-			print("enemy found hitbox: ", hitbox.name)
+	# else:
+		# if hitbox.can_hit_enemy and hitbox.active:
+			# print("enemy found hitbox: ", hitbox.name)
 		
 	if hitbox.can_hit_enemy:
 		deal_damage(hitbox.damage)

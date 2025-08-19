@@ -150,6 +150,8 @@ texture = ExtResource("15_vtgh7")
 [node name="ShockwaveHitbox" type="Area2D" parent="ShockwaveAttack"]
 collision_layer = 8
 collision_mask = 4
+monitoring = false
+monitorable = false
 script = ExtResource("5_uicah")
 damage = 200
 active = false
@@ -186,7 +188,7 @@ attack_slow = 0.9
 position = Vector2(15, 0)
 scale = Vector2(0.178, 0.178)
 sprite_frames = SubResource("SpriteFrames_81lr7")
-animation = &"swing left"
+animation = &"swing right"
 
 [node name="SwingHitbox" type="Area2D" parent="MouseLooker/SwingAttack"]
 collision_layer = 8

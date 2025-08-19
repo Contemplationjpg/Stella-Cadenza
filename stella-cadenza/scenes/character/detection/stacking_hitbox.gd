@@ -66,12 +66,13 @@ func change_monitorable_and_monitoring(change : bool):
 # 	print(collision_layer)
 
 func _on_area_entered(area:Area2D) -> void:
-    print("found hurtbox")
+    # print("found hurtbox")
     var hurtbox = area as Hurtbox
     if hurtbox:
         if hurtbox in already_hit_hurtboxes:
-            print("already have hitbox in list")
+            # print("already have hitbox in list")
+            return
         else:
-            print("adding " + hurtbox.name)
+            # print("adding " + hurtbox.name)
             already_hit_hurtboxes.append(hurtbox)
             gain_stack.emit()

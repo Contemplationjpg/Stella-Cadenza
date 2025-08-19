@@ -42,10 +42,10 @@ func attack():
 		# can_attack = false
 		sprite.visible = true
 		hitbox.change_active(true)
-		print("SECONDARY HITBOX ACTIVE")
+		# print("SECONDARY HITBOX ACTIVE")
 		await get_tree().create_timer(active_time).timeout
 		hitbox.change_active(false)
-		print("SECONDARY HITBOX INACTIVE")
+		# print("SECONDARY HITBOX INACTIVE")
 		sprite.visible = false
 		StopSecondaryAttack.emit()
 
