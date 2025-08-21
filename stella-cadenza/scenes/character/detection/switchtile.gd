@@ -22,4 +22,5 @@ func update_sprite():
 	pass
 
 func update_hittable(locked: bool):
+	await get_tree().create_timer(0.1).timeout
 	hittable = not locked
