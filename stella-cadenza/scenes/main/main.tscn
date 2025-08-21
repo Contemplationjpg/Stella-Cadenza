@@ -39,7 +39,7 @@ script = ExtResource("9_a8run")
 camera = NodePath("Camera")
 player = NodePath("..")
 min_distance = 0.0
-max_distance = 300.0
+max_distance = 175.0
 camera_speed = 25.0
 
 [node name="Camera" type="Camera2D" parent="Player/Lakitu"]
