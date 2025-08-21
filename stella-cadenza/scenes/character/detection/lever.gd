@@ -1,14 +1,12 @@
-extends Node2D
+class_name Lever
+
+extends SwitchTile
 
 @export var sprite : AnimatedSprite2D
 
-@export var powered : bool
 @export var switch_cooldown : float = 0.5
 
-signal LeverHit(state)
 
-func _ready():
-	update_sprite()
 
 var can_be_hit = true
 
@@ -22,6 +20,9 @@ func update_sprite():
 
 
 func _on_hurtbox_area_entered(area:Area2D) -> void:
+	if not hittable:
+		print("NOT HITTABLE")
+		return
 	var hitbox = area as Hitbox
 	if hitbox:
 		# print("SWITCH DETECTED HITBOX")
@@ -30,6 +31,7 @@ func _on_hurtbox_area_entered(area:Area2D) -> void:
 				can_be_hit = false
 				powered = not powered
 				update_sprite()
+				print("SWITCH", powered)
 				LeverHit.emit(powered)
 				await get_tree().create_timer(switch_cooldown).timeout
 				can_be_hit = true

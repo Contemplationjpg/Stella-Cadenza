@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://cbreho48w0b4h"]
+[gd_scene load_steps=9 format=4 uid="uid://cbreho48w0b4h"]
 
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="1_bogsv"]
 [ext_resource type="PackedScene" uid="uid://b17ncfi4tcwdk" path="res://assets/tiles/door.tscn" id="2_220im"]
 [ext_resource type="PackedScene" uid="uid://gg41yxd4bpkq" path="res://scenes/character/detection/shocklever.tscn" id="3_kqkvu"]
+[ext_resource type="PackedScene" uid="uid://c0k2b24wsb8cx" path="res://assets/tiles/Lock.tscn" id="4_bogsv"]
+[ext_resource type="PackedScene" uid="uid://bdiwakvilhty8" path="res://scenes/character/detection/lever.tscn" id="5_220im"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ach1a"]
 resource_name = "obsession_terrain"
@@ -68,6 +70,9 @@ custom_data_layer_0/name = "collectable"
 custom_data_layer_0/type = 1
 sources/1 = SubResource("TileSetAtlasSource_ach1a")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_220im"]
+size = Vector2(32, 320)
+
 [node name="1-2" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -81,5 +86,28 @@ collision_layer = 0
 collision_mask = 2
 level = "1-1"
 
-[node name="ShockLever" parent="." instance=ExtResource("3_kqkvu")]
-position = Vector2(204, 47)
+[node name="ShockLever" parent="." node_paths=PackedStringArray("lock") instance=ExtResource("3_kqkvu")]
+position = Vector2(204, 36)
+lock = NodePath("../ShockLock")
+
+[node name="Wall" type="Node" parent="."]
+
+[node name="Lock" parent="Wall" node_paths=PackedStringArray("required_switches") instance=ExtResource("4_bogsv")]
+position = Vector2(281, 54)
+required_switches = [NodePath("../../ShockLever"), NodePath("../../Lever2")]
+is_or_gate = true
+
+[node name="CollisionShape2D" parent="Wall/Lock" index="1"]
+shape = SubResource("RectangleShape2D_220im")
+
+[node name="Lever" parent="." instance=ExtResource("5_220im")]
+position = Vector2(120, 38)
+
+[node name="Lever2" parent="." instance=ExtResource("5_220im")]
+position = Vector2(436, 36)
+
+[node name="ShockLock" parent="." node_paths=PackedStringArray("required_switches") instance=ExtResource("4_bogsv")]
+position = Vector2(204, 36)
+required_switches = [NodePath("../Lever")]
+
+[editable path="Wall/Lock"]

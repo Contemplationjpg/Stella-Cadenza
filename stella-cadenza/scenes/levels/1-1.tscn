@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://cpoibxfklngfj"]
+[gd_scene load_steps=10 format=4 uid="uid://cpoibxfklngfj"]
 
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="1_j4fu8"]
 [ext_resource type="PackedScene" uid="uid://d2dp5dyujcdnb" path="res://scenes/character/character_types/test_enemy/test_enemy.tscn" id="3_lutau"]
 [ext_resource type="PackedScene" uid="uid://b17ncfi4tcwdk" path="res://assets/tiles/door.tscn" id="5_8yex6"]
 [ext_resource type="PackedScene" uid="uid://bdiwakvilhty8" path="res://scenes/character/detection/lever.tscn" id="5_by813"]
+[ext_resource type="PackedScene" uid="uid://c0k2b24wsb8cx" path="res://assets/tiles/Lock.tscn" id="6_tsrir"]
 [ext_resource type="PackedScene" uid="uid://c2gtg6r4wlipc" path="res://scenes/main/dialogue_system/DialogueInteract.tscn" id="9_x64fy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ach1a"]
@@ -81,6 +82,7 @@ tile_map_data = PackedByteArray("AAAAAP7/AQAEAAAAAAAAAP//AQAEAAEAAAABAP7/AQAFAAA
 tile_set = SubResource("TileSet_lutau")
 
 [node name="TestEnemy" parent="." instance=ExtResource("3_lutau")]
+z_index = 3
 position = Vector2(134, 71)
 chases_player = false
 base_velocity = 50.0
@@ -103,7 +105,18 @@ collision_mask = 2
 level = "1-2"
 
 [node name="Lever" parent="." instance=ExtResource("5_by813")]
-position = Vector2(266, 39)
-powered = true
+position = Vector2(473, 0)
+
+[node name="Lever2" parent="." node_paths=PackedStringArray("lock") instance=ExtResource("5_by813")]
+position = Vector2(525, 55)
+lock = NodePath("../Lock2")
+
+[node name="Lock" parent="." node_paths=PackedStringArray("required_switches") instance=ExtResource("6_tsrir")]
+position = Vector2(608, -76)
+required_switches = [NodePath("../Lever2")]
+
+[node name="Lock2" parent="." node_paths=PackedStringArray("required_switches") instance=ExtResource("6_tsrir")]
+position = Vector2(525, 55)
+required_switches = [NodePath("../Lever")]
 
 [editable path="DialogueInteract"]

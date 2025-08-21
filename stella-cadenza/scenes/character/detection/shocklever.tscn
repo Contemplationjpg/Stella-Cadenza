@@ -1,22 +1,30 @@
-[gd_scene load_steps=8 format=3 uid="uid://gg41yxd4bpkq"]
+[gd_scene load_steps=10 format=3 uid="uid://gg41yxd4bpkq"]
 
 [ext_resource type="Script" uid="uid://bhuy35j440ihw" path="res://scenes/character/detection/shock_lever.gd" id="1_2640o"]
-[ext_resource type="Texture2D" uid="uid://dhgt51gwc7h6v" path="res://assets/tiles/switch_tilesheet.png" id="2_gnh4l"]
+[ext_resource type="Texture2D" uid="uid://cj7f2fkpg7ddd" path="res://assets/tiles/e_switch_tilesheet.png" id="2_gnh4l"]
 [ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/detection/hurtbox.gd" id="4_ei1np"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f77cq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2640o"]
 atlas = ExtResource("2_gnh4l")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q6uwn"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnh4l"]
 atlas = ExtResource("2_gnh4l")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60cte"]
+atlas = ExtResource("2_gnh4l")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ei1np"]
+atlas = ExtResource("2_gnh4l")
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2640o"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f77cq")
+"texture": SubResource("AtlasTexture_2640o")
 }],
 "loop": true,
 "name": &"off",
@@ -24,11 +32,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_q6uwn")
+"texture": SubResource("AtlasTexture_gnh4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60cte")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei1np")
 }],
 "loop": true,
 "name": &"on",
-"speed": 5.0
+"speed": 1.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4u1d"]

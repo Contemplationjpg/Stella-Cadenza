@@ -1,19 +1,17 @@
-extends Node2D
+class_name Shock_Lever
+
+extends SwitchTile
 
 @export var sprite : AnimatedSprite2D
 
-@export var powered : bool
 @export var hold_power : float = 1
 @export var auto_unpower : float = 3
-
-signal LeverHit(state)
 
 var can_be_hit : bool = true
 var powering_down : bool = true
 var power_time_left : float = 0
 
-func _ready():
-	update_sprite()
+
 
 func _process(delta: float) -> void:
 	# print(power_time_left)
@@ -36,6 +34,9 @@ func update_sprite():
 
 
 func _on_hurtbox_area_entered(area:Area2D) -> void:
+	if not hittable: 
+		print("NOT HITTABLE")
+		return
 	var hitbox = area as Hitbox
 	if hitbox:
 		# print("SWITCH DETECTED HITBOX")
