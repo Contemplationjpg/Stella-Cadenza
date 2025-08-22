@@ -1,14 +1,16 @@
 extends Node2D
 
 @export var player : Player
+@export var first_level_to_load : String = "1-1"
 
 var force_paused : bool = false
+
 
 func _ready():
 	SignalBus.ForcePauseGame.connect(force_pause)
 	SignalBus.ResetPlayerLocation.connect(reset_player_location)
 	await get_tree().create_timer(.1).timeout
-	SignalBus.LoadLevel.emit("1-1")
+	SignalBus.LoadLevel.emit(first_level_to_load)
 
 func force_pause(pause : bool):
 	# print("force pause: ", pause)
