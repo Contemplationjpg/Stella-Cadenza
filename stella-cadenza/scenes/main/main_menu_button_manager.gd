@@ -1,25 +1,29 @@
 extends Control
 @export var main_scene : PackedScene
+@export var quit_message : Control
 
-
-var hovering_play : bool = false
-
-# func _process(delta):
+var showing_overwindow : bool = false
 
 
 func _on_play_button_pressed() -> void:
-	if main_scene and hovering_play:
+	if main_scene:
 		get_tree().change_scene_to_packed(main_scene)
 
 
-func _on_play_button_mouse_exited() -> void:
-	hovering_play = false
-	print(hovering_play)
 
-func _on_play_button_mouse_entered() -> void:
-	hovering_play = true
-	print(hovering_play)
 
+func _on_quit_pressed() -> void:
+	if quit_message and not showing_overwindow:
+		print("quit")
+		quit_message.visible = true
+		showing_overwindow = true
 
 func _on_no_quit_pressed() -> void:
-	print("no quit")
+	if quit_message:	
+		print("no quit")
+		quit_message.visible = false
+		showing_overwindow = false
+
+
+func _on_yes_quit_pressed() -> void:
+	get_tree().quit()

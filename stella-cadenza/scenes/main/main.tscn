@@ -73,11 +73,14 @@ script = ExtResource("8_hxu8e")
 player = NodePath("../Player")
 
 [node name="FadeToBlack" type="CanvasLayer" parent="." node_paths=PackedStringArray("color")]
+layer = 10
 script = ExtResource("9_nvumn")
 color = NodePath("ColorRect")
+block_duration = 0.045
+unblock_duration = 1.065
 
 [node name="ColorRect" type="ColorRect" parent="FadeToBlack"]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(0, 0, 0, 0)
 offset_left = -380.0
 offset_top = -459.0
 offset_right = 1484.0

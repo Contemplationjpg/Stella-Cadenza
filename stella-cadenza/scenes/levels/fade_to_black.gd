@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 @export var color : ColorRect
+@export var block_duration : float = 0.5
+@export var unblock_duration : float = 1.25
 
 var changing : bool = false
 
@@ -9,6 +11,7 @@ func _ready():
 	SignalBus.FadeToBlack.connect(block_screen)
 	SignalBus.FadeFromBlack.connect(unblock_screen)
 	var tween : Tween = create_tween()
+	color.modulate.a = 1
 	tween.tween_property(color, "modulate:a", 0.0, 0).from(1.0)
 	await tween.finished
 	# color.self_modulate.a = 0.0
@@ -26,7 +29,7 @@ func block_screen():
 		print("fading to black")
 		changing = true
 		var tween : Tween = create_tween()
-		tween.tween_property(color, "modulate:a", 1.0, .5).from(0.0)
+		tween.tween_property(color, "modulate:a", 1.0, block_duration).from(0.0)
 		await tween.finished
 		changing = false
 		SignalBus.FadeNotChanging.emit()
@@ -39,7 +42,7 @@ func unblock_screen():
 		print("fading from black")
 		changing = true
 		var tween : Tween = create_tween()
-		tween.tween_property(color, "modulate:a", 0.0, 1.25).from(1.0)
+		tween.tween_property(color, "modulate:a", 0.0, unblock_duration).from(1.0)
 		await tween.finished
 		changing = false
 		SignalBus.FadeNotChanging.emit()
