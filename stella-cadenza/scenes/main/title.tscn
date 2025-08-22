@@ -1,34 +1,58 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdo3cgxyyyw1g"]
+[gd_scene load_steps=7 format=3 uid="uid://cdo3cgxyyyw1g"]
 
 [ext_resource type="Texture2D" uid="uid://chcx7x4slc61y" path="res://assets/ui/title_placeholder.png" id="1_7g7yn"]
 [ext_resource type="Texture2D" uid="uid://cc8gtfywsbyki" path="res://concept art/Placeholder180.png" id="1_hr6b0"]
-[ext_resource type="Script" uid="uid://bl7mnwc01ycla" path="res://scenes/main/buttontest.gd" id="1_s45ev"]
+[ext_resource type="FontFile" uid="uid://glgwequ7h2j" path="res://assets/ui/Montserrat-Medium.ttf" id="2_8xbcf"]
+[ext_resource type="Script" uid="uid://q12cxlhyildw" path="res://scenes/main/main_menu_button_manager.gd" id="2_kjy8w"]
+[ext_resource type="PackedScene" uid="uid://it4xy2k2xdfg" path="res://scenes/main/main.tscn" id="3_8xbcf"]
+[ext_resource type="Texture2D" uid="uid://7mye0luq347p" path="res://concept art/Character.png" id="6_4gkyb"]
 
 [node name="Title" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+[node name="Main Menu" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_kjy8w")
+main_scene = ExtResource("3_8xbcf")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main Menu"]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -343.5
+offset_top = -304.0
 offset_right = 343.5
-offset_bottom = 404.0
+offset_bottom = 100.0
 grow_horizontal = 2
 texture = ExtResource("1_7g7yn")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="PlayButton" type="Button" parent="CanvasLayer"]
-offset_left = 396.0
-offset_top = 324.0
-offset_right = 756.0
-offset_bottom = 404.0
+[node name="PlayButton" type="Button" parent="CanvasLayer/Main Menu"]
+layout_mode = 0
+offset_left = -160.0
+offset_top = 16.0
+offset_right = 200.0
+offset_bottom = 96.0
+theme_override_fonts/font = ExtResource("2_8xbcf")
 text = "PLAY"
-script = ExtResource("1_s45ev")
+script = ExtResource("2_kjy8w")
+main_scene = ExtResource("3_8xbcf")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PlayButton"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main Menu/PlayButton"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 8
@@ -46,4 +70,181 @@ texture = ExtResource("1_hr6b0")
 expand_mode = 1
 stretch_mode = 1
 
-[connection signal="button_down" from="CanvasLayer/PlayButton" to="CanvasLayer/PlayButton" method="_on_button_down"]
+[node name="Settings" type="Button" parent="CanvasLayer/Main Menu"]
+layout_mode = 0
+offset_left = -110.0
+offset_top = 116.0
+offset_right = 150.0
+offset_bottom = 176.0
+theme_override_fonts/font = ExtResource("2_8xbcf")
+text = "SETTINGS
+"
+script = ExtResource("2_kjy8w")
+main_scene = ExtResource("3_8xbcf")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main Menu/Settings"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -60.0
+offset_right = 130.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_hr6b0")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Quit" type="Button" parent="CanvasLayer/Main Menu"]
+layout_mode = 0
+offset_left = -110.0
+offset_top = 196.0
+offset_right = 150.0
+offset_bottom = 256.0
+theme_override_fonts/font = ExtResource("2_8xbcf")
+text = "QUIT
+"
+script = ExtResource("2_kjy8w")
+main_scene = ExtResource("3_8xbcf")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main Menu/Quit"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -60.0
+offset_right = 130.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_hr6b0")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="QuitMessage" type="Control" parent="CanvasLayer/Main Menu"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Main Menu/QuitMessage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -180.0
+offset_right = 340.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_4gkyb")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="YesTexture" type="TextureRect" parent="CanvasLayer/Main Menu/QuitMessage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -330.0
+offset_top = 20.0
+offset_right = -70.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_hr6b0")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="YesQuit" type="Button" parent="CanvasLayer/Main Menu/QuitMessage/YesTexture"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -30.0
+offset_right = 130.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_8xbcf")
+text = "YES
+"
+script = ExtResource("2_kjy8w")
+main_scene = ExtResource("3_8xbcf")
+
+[node name="NoTexture" type="TextureRect" parent="CanvasLayer/Main Menu/QuitMessage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 20.0
+offset_right = 290.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_hr6b0")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="NoQuit" type="Button" parent="CanvasLayer/Main Menu/QuitMessage/NoTexture"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -30.0
+offset_right = 130.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_8xbcf")
+text = "NO"
+script = ExtResource("2_kjy8w")
+main_scene = ExtResource("3_8xbcf")
+
+[node name="QuitToDesktop?" type="RichTextLabel" parent="CanvasLayer/Main Menu/QuitMessage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -80.0
+offset_right = 164.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_8xbcf")
+theme_override_font_sizes/normal_font_size = 32
+text = "Quit to Desktop?"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[connection signal="mouse_entered" from="CanvasLayer/Main Menu/PlayButton" to="CanvasLayer/Main Menu" method="_on_play_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Main Menu/PlayButton" to="CanvasLayer/Main Menu" method="_on_play_button_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Main Menu/PlayButton" to="CanvasLayer/Main Menu" method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main Menu/QuitMessage/NoTexture/NoQuit" to="CanvasLayer/Main Menu" method="_on_no_quit_pressed"]
