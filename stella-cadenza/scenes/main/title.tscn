@@ -11,7 +11,7 @@
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Main Menu" type="Control" parent="CanvasLayer"]
+[node name="Main Menu" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("quit_message")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -26,6 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_kjy8w")
 main_scene = ExtResource("3_8xbcf")
+quit_message = NodePath("QuitMessage")
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main Menu"]
 layout_mode = 1
@@ -129,6 +130,7 @@ expand_mode = 1
 stretch_mode = 1
 
 [node name="QuitMessage" type="Control" parent="CanvasLayer/Main Menu"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -244,7 +246,7 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 
-[connection signal="mouse_entered" from="CanvasLayer/Main Menu/PlayButton" to="CanvasLayer/Main Menu" method="_on_play_button_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/Main Menu/PlayButton" to="CanvasLayer/Main Menu" method="_on_play_button_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Main Menu/PlayButton" to="CanvasLayer/Main Menu" method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main Menu/Quit" to="CanvasLayer/Main Menu" method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main Menu/QuitMessage/YesTexture/YesQuit" to="CanvasLayer/Main Menu" method="_on_yes_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Main Menu/QuitMessage/NoTexture/NoQuit" to="CanvasLayer/Main Menu" method="_on_no_quit_pressed"]
