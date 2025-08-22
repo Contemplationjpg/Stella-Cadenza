@@ -7,8 +7,8 @@ extends State
 @export var shock_hitbox : Hitbox
 
 func _ready() -> void:
-	shock_attack.StartSecondaryAttack.connect(start_shock_attack)
-	shock_attack.StopSecondaryAttack.connect(stop_shock_animation)
+	shock_attack.StartAttack.connect(start_shock_attack)
+	shock_attack.StopAttack.connect(stop_shock_animation)
 
 func Enter():
 	pass

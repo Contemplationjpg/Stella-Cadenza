@@ -1,9 +1,6 @@
 class_name Player_Secondary_Attack
 extends Attack
 
-signal StartSecondaryAttack
-signal StopSecondaryAttack
-
 var player : Player
 
 func _ready() -> void:
@@ -38,7 +35,7 @@ func attack():
 	# if should_be_attacking and in_forgiveness_timing:
 		# in_forgiveness_timing = false
 		player.attack_stacks = 0
-		StartSecondaryAttack.emit()
+		StartAttack.emit()
 		# can_attack = false
 		sprite.visible = true
 		hitbox.change_active(true)
@@ -47,7 +44,7 @@ func attack():
 		hitbox.change_active(false)
 		# print("SECONDARY HITBOX INACTIVE")
 		sprite.visible = false
-		StopSecondaryAttack.emit()
+		StopAttack.emit()
 
 # func wait_for_attack():
 # 	await get_tree().create_timer(forgiveness).timeout

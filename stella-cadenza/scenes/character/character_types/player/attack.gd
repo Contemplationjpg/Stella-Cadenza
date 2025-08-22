@@ -19,8 +19,8 @@ var should_be_attacking : bool = false
 var original_velocity : float 
 var in_forgiveness_timing: bool = false
 
-# signal StartAttack
-# signal StopAttack
+signal StartAttack
+signal StopAttack
 
 func _ready() -> void:
 	sprite.visible = false
