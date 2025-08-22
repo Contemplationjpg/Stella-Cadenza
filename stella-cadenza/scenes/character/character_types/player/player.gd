@@ -13,6 +13,12 @@ extends Character
 @export var can_walk_through_door: bool = true
 @export var stacks_needed : int = 3
 
+@export var primary_attack : Attack
+@export var secondary_attack : Attack
+@export var dash : Dash
+@export var slide_duration : float = 0.3
+@export var slide_max_velo_bonus : float = 500
+@export var slide_acceleration_bonus : float = 500
 
 @export var stack_label : Label
 
@@ -22,22 +28,32 @@ var in_hit_freeze : bool = false
 var attack_stacks : int = 0
 var special_meter : int = 0
 
+var in_dash_slide_window : bool = false
+var in_secondary_slide_window : bool = false
+var is_sliding : bool = false
+
 func _ready():
 	SignalBus.LockPlayerSceneTransition.connect(lock_player_scene_transition)
 	SignalBus.UnlockPlayerSceneTransition.connect(unlock_player_scene_transition)
+	if primary_attack:
+		# print("PLAYER CONNECTING START P")
+		primary_attack.StartAttack.connect(on_primary_attack_start)
+		# print("PLAYER CONNECTING END P")
+		primary_attack.StopAttack.connect(on_primary_attack_end)
+	if secondary_attack:
+		# print("PLAYER CONNECTING START S")
+		secondary_attack.StartAttack.connect(on_secondary_attack_start)
+		# print("PLAYER CONNECTING END S")
+		secondary_attack.StopAttack.connect(on_secondary_attack_end)
+	if dash:
+		dash.StartDash.connect(on_dash_start)
+		dash.EndDash.connect(on_dash_end)
 
-func lock_player_scene_transition():
-	can_walk_through_door = false
-	can_move = false
-	can_take_damage = false
-
-func unlock_player_scene_transition():
-	can_walk_through_door = true
-	can_move = true
-	can_take_damage = true
+	
 
 func _process(_delta):
 	stack_label.text = str(attack_stacks)
+	# print(c_stop_velocity)
 
 
 func _physics_process(delta: float) -> void:
@@ -97,8 +113,6 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		return
 	else:
 		get_hit(hitbox)
-
-
 	
 func get_hit(hitbox : Hitbox):
 	if not can_take_damage or invincible or in_hit_invuln:
@@ -123,13 +137,10 @@ func get_hit(hitbox : Hitbox):
 		if gets_hit_invuln:
 			hit_invul()			
 
-
 func hit_freeze():
 	can_move = false
 	await get_tree().create_timer(hit_freeze_time).timeout
 	can_move = true
-
-
 
 func hit_invul():
 	in_hit_invuln = true
@@ -138,3 +149,66 @@ func hit_invul():
 	sprite.self_modulate.a = 1
 	in_hit_invuln = false
 		
+func lock_player_scene_transition():
+	can_walk_through_door = false
+	can_move = false
+	can_take_damage = false
+
+func unlock_player_scene_transition():
+	can_walk_through_door = true
+	can_move = true
+	can_take_damage = true
+
+
+func on_primary_attack_start():
+	# print("PLAYER START PRIMARY")
+	return
+
+func on_primary_attack_end():
+	# print("PLAYER STOP PRIMARY")
+	return
+
+func on_secondary_attack_start():
+	# print("PLAYER START SECONDARY")
+	# if in_dash_slide_window and not is_sliding:
+	# 	electric_slide()
+	# else:
+		# in_secondary_slide_window = true	
+	
+	in_secondary_slide_window = true	
+	
+	return
+
+func on_secondary_attack_end():
+	in_secondary_slide_window = false
+	# print("PLAYER STOP SECONDARY")
+	return
+
+func on_dash_start():
+	sprite.self_modulate.a = 0.5
+	if in_secondary_slide_window and not is_sliding:
+		electric_slide()
+	# else:
+	# 	in_dash_slide_window = true
+	print("PLAYER IS DASHING")
+	return
+
+func on_dash_end():
+	sprite.self_modulate.a = 1
+	# in_dash_slide_window = false
+	print("PLAYER STOPPED DASHING")
+	return
+
+func electric_slide():
+	is_sliding = true
+	print("SLIDING")
+	c_stop_velocity = 0
+	c_max_velocity = max_velocity + slide_max_velo_bonus
+	c_acceleration = acceleration + slide_acceleration_bonus
+	print("max velo is:", max_velocity)
+	print("c max velo is:", c_max_velocity)
+	await get_tree().create_timer(slide_duration).timeout
+	c_stop_velocity = stop_velocity
+	c_max_velocity = max_velocity
+	c_acceleration = acceleration
+	is_sliding = false

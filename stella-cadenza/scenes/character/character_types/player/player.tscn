@@ -109,12 +109,16 @@ radius = 8.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ex5l"]
 size = Vector2(16, 24)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "stack_label", "sprite", "debug")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "primary_attack", "secondary_attack", "dash", "stack_label", "sprite", "debug")]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_lm2l4")
 dash_velocity = 1000.0
 mouse_looker = NodePath("MouseLooker")
+primary_attack = NodePath("MouseLooker/SwingAttack")
+secondary_attack = NodePath("ShockwaveAttack")
+dash = NodePath("DashMovement")
+slide_max_velo_bonus = 200.0
 stack_label = NodePath("stacks")
 sprite = NodePath("CharacterAnimatedSprite")
 base_velocity = 2000.0
@@ -158,7 +162,6 @@ damage = 200
 active = false
 can_hit_enemy = true
 disable_on_hit = true
-constant = false
 is_electric = true
 
 [node name="Hitbox2D" type="CollisionShape2D" parent="ShockwaveAttack/ShockwaveHitbox"]
