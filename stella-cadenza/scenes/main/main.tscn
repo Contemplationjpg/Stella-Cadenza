@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://c8xog3ynu7v7w" path="res://scenes/main/main_systems/save_manager.tscn" id="2_a8run"]
 [ext_resource type="PackedScene" uid="uid://cqjxgrmv0m16y" path="res://scenes/main/dialogue_system/dialogue.tscn" id="3_ouso4"]
 [ext_resource type="PackedScene" uid="uid://khtb104lv7on" path="res://scenes/character/character_types/player/player.tscn" id="4_blune"]
-[ext_resource type="AudioStream" uid="uid://dljiqvsjsb276" path="res://assets/music/where has my love gone.mp3" id="5_th5th"]
 [ext_resource type="Texture2D" uid="uid://clw2ewkbf31vc" path="res://icon.svg" id="6_7smn1"]
+[ext_resource type="AudioStream" uid="uid://b7s0ylvuxxf3p" path="res://assets/music/Obsession.mp3" id="6_a8run"]
 [ext_resource type="Script" uid="uid://xrlcevvqxybl" path="res://scenes/main/main_systems/tempo.gd" id="7_raeie"]
 [ext_resource type="Script" uid="uid://bucl8loadivgd" path="res://scenes/levels/level_loader.gd" id="8_hxu8e"]
 [ext_resource type="Script" uid="uid://du510gsc08jht" path="res://scenes/main/lakitu.gd" id="9_a8run"]
@@ -52,7 +52,8 @@ process_callback = 0
 position_smoothing_enabled = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player/Lakitu/Camera"]
-stream = ExtResource("5_th5th")
+stream = ExtResource("6_a8run")
+max_distance = 2252.0
 playback_type = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/Lakitu/Camera"]

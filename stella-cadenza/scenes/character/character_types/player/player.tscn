@@ -148,6 +148,7 @@ sprite_frames = SubResource("SpriteFrames_8krsp")
 animation = &"shock right"
 
 [node name="Sprite2D" type="Sprite2D" parent="ShockwaveAttack/ShockwaveSprite"]
+visible = false
 z_index = 1
 scale = Vector2(4.367, 4.367)
 texture = ExtResource("15_vtgh7")
@@ -178,7 +179,7 @@ one_shot = true
 z_index = 3
 texture_filter = 1
 sprite_frames = ExtResource("3_fk2dx")
-animation = &"swing down"
+animation = &"shock down"
 
 [node name="MouseLooker" type="Node2D" parent="."]
 
@@ -295,7 +296,7 @@ chara = NodePath("../..")
 swing_attack = NodePath("../../MouseLooker/SwingAttack")
 swing_hitbox = NodePath("../../MouseLooker/SwingAttack/SwingHitbox")
 
-[node name="Secondary" type="Node" parent="StateMachine" node_paths=PackedStringArray("char_sprite", "shock_sprite", "chara", "shock_attack", "shock_hitbox")]
+[node name="Shockwave" type="Node" parent="StateMachine" node_paths=PackedStringArray("char_sprite", "shock_sprite", "chara", "shock_attack", "shock_hitbox")]
 script = ExtResource("23_rq2u8")
 char_sprite = NodePath("../../CharacterAnimatedSprite")
 shock_sprite = NodePath("../../ShockwaveAttack/ShockwaveSprite")

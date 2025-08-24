@@ -19,7 +19,7 @@ func _physics_process(_delta: float) -> void:
 		if player.can_dash and player.can_move:
 			# print("I can dash")
 			if Input.is_action_just_pressed("dash"):
-				print("dashing")
+				# print("dashing")
 				dash_timer.start()
 				if gets_dash_invinvibility:
 					start_invincibility()

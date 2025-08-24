@@ -1,5 +1,5 @@
 extends State
-@export var chara : Character
+@export var chara : Player
 @export var sprite : AnimatedSprite2D
 
 func Enter():
@@ -11,6 +11,12 @@ func Exit():
 
 func Update(_delta: float):
 	# print("moving at (", chara.velocity.x, ", ", chara.velocity.y, ")")
+	if chara.is_secondary_attacking:
+		Transitioned.emit(self, "Shockwave")
+		return
+	if chara.is_primary_attacking:
+		Transitioned.emit(self, "Swinging")
+		return
 	if chara.velocity.y == 0.0 and chara.velocity.x == 0.0:
 			Transitioned.emit(self, "Idle")
 			return

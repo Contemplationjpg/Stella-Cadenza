@@ -173,8 +173,8 @@ func clean_line_comment(line : String) -> String:
 func clean_line_screen_shake(line : String) -> String:
 	var new_line = line
 	if line.substr(0,2) == "$s":
-		print("FOUND SCREENSHAKE COMMAND")
-		print("number: ", line.substr(2).to_int())
+		# print("FOUND SCREENSHAKE COMMAND")
+		# print("number: ", line.substr(2).to_int())
 		if line.substr(2) == "":
 			sprite_shaking = false
 		else:
@@ -196,7 +196,7 @@ func set_current_line() -> bool:
 		while new_line == "":
 			if current_line < scene_text.size():
 				new_line = clean_line_skip_blanks(scene_text[current_line])
-				print(new_line.substr(0,2))
+				# print(new_line.substr(0,2))
 				while new_line.substr(0,1) == "#":
 					new_line = clean_line_comment(new_line)
 				if new_line.substr(0,1) == "$":

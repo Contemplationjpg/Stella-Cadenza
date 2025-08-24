@@ -32,6 +32,9 @@ var in_dash_slide_window : bool = false
 var in_secondary_slide_window : bool = false
 var is_sliding : bool = false
 
+var is_primary_attacking : bool = false
+var is_secondary_attacking : bool = false
+
 func _ready():
 	SignalBus.LockPlayerSceneTransition.connect(lock_player_scene_transition)
 	SignalBus.UnlockPlayerSceneTransition.connect(unlock_player_scene_transition)
@@ -162,10 +165,12 @@ func unlock_player_scene_transition():
 
 func on_primary_attack_start():
 	# print("PLAYER START PRIMARY")
+	is_primary_attacking = true
 	return
 
 func on_primary_attack_end():
 	# print("PLAYER STOP PRIMARY")
+	is_primary_attacking = false
 	return
 
 func on_secondary_attack_start():
@@ -176,37 +181,39 @@ func on_secondary_attack_start():
 		# in_secondary_slide_window = true	
 	
 	in_secondary_slide_window = true	
-	
+	is_secondary_attacking = true
+
 	return
 
 func on_secondary_attack_end():
 	in_secondary_slide_window = false
+	is_secondary_attacking = false
 	# print("PLAYER STOP SECONDARY")
 	return
 
 func on_dash_start():
-	sprite.self_modulate.a = 0.5
+	# sprite.self_modulate.a = 0.5
 	if in_secondary_slide_window and not is_sliding:
 		electric_slide()
 	# else:
 	# 	in_dash_slide_window = true
-	print("PLAYER IS DASHING")
+	# print("PLAYER IS DASHING")
 	return
 
 func on_dash_end():
-	sprite.self_modulate.a = 1
+	# sprite.self_modulate.a = 1
 	# in_dash_slide_window = false
-	print("PLAYER STOPPED DASHING")
+	# print("PLAYER STOPPED DASHING")
 	return
 
 func electric_slide():
 	is_sliding = true
-	print("SLIDING")
+	# print("SLIDING")
 	c_stop_velocity = 0
 	c_max_velocity = max_velocity + slide_max_velo_bonus
 	c_acceleration = acceleration + slide_acceleration_bonus
-	print("max velo is:", max_velocity)
-	print("c max velo is:", c_max_velocity)
+	# print("max velo is:", max_velocity)
+	# print("c max velo is:", c_max_velocity)
 	await get_tree().create_timer(slide_duration).timeout
 	c_stop_velocity = stop_velocity
 	c_max_velocity = max_velocity

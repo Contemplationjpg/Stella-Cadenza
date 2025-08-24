@@ -10,12 +10,12 @@ signal LockUpdate(state)
 func _ready():
 	if is_or_gate:
 		for i in required_switches:
-			print("LOCK connecting ", i.name)
+			# print("LOCK connecting ", i.name)
 			i.LeverHit.connect(check_requirements_or)
 		check_requirements_or(false)
 	else:
 		for i in required_switches:
-			print("LOCK connecting ", i.name)
+			# print("LOCK connecting ", i.name)
 			i.LeverHit.connect(check_requirements_and)
 		check_requirements_and(false)
 

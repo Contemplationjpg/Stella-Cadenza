@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 func force_change_state(new_state_name : String):
 	var new_state = states.get(new_state_name)
 	if !new_state:
-		print("what da heck")
+		print("fc what da heck")
 		return
 	
 	if current_state:
@@ -54,7 +54,7 @@ func on_child_transition(state, new_state_name : String):
 	# print(states.get(new_state_name))
 	var new_state = states.get(new_state_name)
 	if !new_state:
-		print("what da heck")
+		print("c what da heck ", new_state_name)
 		return
 	
 	if current_state:

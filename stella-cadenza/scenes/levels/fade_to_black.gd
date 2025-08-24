@@ -26,26 +26,26 @@ func flash_fade_to_black():
 
 func block_screen():
 	if not changing:
-		print("fading to black")
+		# print("fading to black")
 		changing = true
 		var tween : Tween = create_tween()
 		tween.tween_property(color, "modulate:a", 1.0, block_duration).from(0.0)
 		await tween.finished
 		changing = false
 		SignalBus.FadeNotChanging.emit()
-	else:
-		print("cannot fade to black")
+	# else:
+		# print("cannot fade to black")
 	
 
 func unblock_screen():
 	if not changing:
-		print("fading from black")
+		# print("fading from black")
 		changing = true
 		var tween : Tween = create_tween()
 		tween.tween_property(color, "modulate:a", 0.0, unblock_duration).from(1.0)
 		await tween.finished
 		changing = false
 		SignalBus.FadeNotChanging.emit()
-	else:
-		print("cannot fade from black")
+	# else:
+	# 	print("cannot fade from black")
 	
