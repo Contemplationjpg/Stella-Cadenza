@@ -1,0 +1,56 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://bgbbtaynv50ry"]
+
+[ext_resource type="Texture2D" uid="uid://dmtgcc3cpeigs" path="res://assets/character_sprites/enemies/archer/archer.png" id="1_w8ge5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b23lb"]
+atlas = ExtResource("1_w8ge5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6w1c"]
+atlas = ExtResource("1_w8ge5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_td8ye"]
+atlas = ExtResource("1_w8ge5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsfpo"]
+atlas = ExtResource("1_w8ge5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r42ed"]
+atlas = ExtResource("1_w8ge5")
+region = Rect2(96, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b23lb")
+}],
+"loop": true,
+"name": &"aiming",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6w1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_td8ye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsfpo")
+}],
+"loop": false,
+"name": &"firing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r42ed")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
