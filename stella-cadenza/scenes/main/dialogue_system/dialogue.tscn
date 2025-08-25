@@ -16,16 +16,19 @@ sprite1 = NodePath("Sprite1")
 sprite2 = NodePath("Sprite2")
 
 [node name="Sprite1" type="TextureRect" parent="."]
-offset_right = 576.0
-offset_bottom = 823.0
+offset_left = 96.0
+offset_top = -4.0
+offset_right = 672.0
+offset_bottom = 819.0
 texture = ExtResource("2_iqmgo")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Sprite2" type="TextureRect" parent="."]
-offset_left = 576.0
-offset_right = 1152.0
-offset_bottom = 823.0
+offset_left = 477.0
+offset_top = -9.0
+offset_right = 1053.0
+offset_bottom = 814.0
 expand_mode = 1
 stretch_mode = 5
 

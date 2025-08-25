@@ -1,9 +1,6 @@
 class_name Player_Primary_Attack
 extends Attack
 
-
-var player : Player
-
 var attack_in_motion : bool = false
 
 
@@ -16,7 +13,6 @@ func _ready() -> void:
 	SignalBus.EvenBeat.connect(got_even_beat)
 	SignalBus.OddBeat.connect(got_odd_beat)
 	hitbox.gain_stack.connect(increase_stacks)
-	player = chara as Player
 
 
 func got_odd_beat():

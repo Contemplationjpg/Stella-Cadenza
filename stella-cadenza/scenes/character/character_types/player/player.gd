@@ -1,6 +1,7 @@
 class_name Player
 extends Character
 
+@export var can_attack : bool = true
 @export var can_dash : bool = true
 @export var dash_velocity : float = 3000
 @export var mouse_looker : Node2D
@@ -85,7 +86,8 @@ func update_facing_mouse():
 	if Main.paused:
 		return
 
-	mouse_looker.look_at(get_global_mouse_position())
+	if not is_primary_attacking:
+		mouse_looker.look_at(get_global_mouse_position())
 
 	var angle = (int)(mouse_looker.rotation_degrees + 180)%360
 	# print(angle)

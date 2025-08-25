@@ -24,17 +24,21 @@ func Update(_delta: float):
 func Physics_Update(_delta : float):
 	pass
 
+func do_shock_effect():
+	shock_sprite.visible = true
+	shock_sprite.play("shock right")
+
 func shock_animation():
 	# print("CHARACTER SHOCKING", chara.facing)
 	char_sprite.play("shock down")
-	if not chara.is_secondary_attacking:	
+	if not chara.is_secondary_attacking:
 		Transitioned.emit(self, "Idle")
 
 
 
 
 func start_shock_attack():
-	shock_sprite.visible = true
+	do_shock_effect()
 
 
 func stop_shock_animation():

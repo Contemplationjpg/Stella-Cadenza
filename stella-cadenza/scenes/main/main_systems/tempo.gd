@@ -16,7 +16,20 @@ func _ready():
 	# wait_time = beat_duration
 	# start()
 	audio_stream.play()
-	
+	SignalBus.PlaySong.connect(play_song)
+
+
+func play_song(song_name : String):
+	var path : String = "res://assets/music/" + song_name + ".mp3"
+	print("trying to play song from ", path)
+	if ResourceLoader.exists(path):
+		audio_stream.stop()
+		audio_stream.stream = load(path)
+		set_bpm(audio_stream.stream.bpm)
+		audio_stream.play()
+	else:
+		print("could not find song")
+
 func _process(_delta: float) -> void:
 	var time : float = audio_stream.get_playback_position() + AudioServer.get_time_since_last_mix()
 	time -= AudioServer.get_output_latency()

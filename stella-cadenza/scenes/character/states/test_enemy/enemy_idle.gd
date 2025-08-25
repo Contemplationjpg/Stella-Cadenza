@@ -1,17 +1,18 @@
 extends State
-@export var chara : TestEnemy
+@export var chara : Character
 @export var sprite : AnimatedSprite2D
 
 func Enter():
 	# print("I, ", get_parent().get_parent().name, ", am idle")
-	if chara.facing == 0:
-		sprite.play("idle up")
-	if chara.facing == 1:
-		sprite.play("idle right")
-	if chara.facing == 2:
-		sprite.play("idle down")
-	if chara.facing == 3:
-		sprite.play("idle left")
+	# if chara.facing == 0:
+	# 	sprite.play("idle up")
+	# if chara.facing == 1:
+	# 	sprite.play("idle right")
+	# if chara.facing == 2:
+	# 	sprite.play("idle down")
+	# if chara.facing == 3:
+	# 	sprite.play("idle left")
+	sprite.play("idle")
 
 func Exit():
 	pass

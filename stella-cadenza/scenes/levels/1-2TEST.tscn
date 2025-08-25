@@ -85,6 +85,8 @@ position = Vector2(576, -80)
 collision_layer = 0
 collision_mask = 2
 level = "1-1"
+specific_exit = true
+exit_coords = Vector2(608, -47)
 
 [node name="ShockLever" parent="." node_paths=PackedStringArray("lock") instance=ExtResource("3_kqkvu")]
 position = Vector2(204, 36)

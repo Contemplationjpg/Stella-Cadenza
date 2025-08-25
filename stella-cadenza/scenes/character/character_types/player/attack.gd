@@ -1,7 +1,7 @@
 class_name Attack
 extends Node2D
 
-@export var chara : Character
+@export var player : Player
 @export var hitbox : Hitbox
 @export var sprite : AnimatedSprite2D
 @export var timer : Timer
@@ -67,7 +67,7 @@ func _process(_delta: float) -> void:
 		return
 	# print(timer.time_left)
 
-	if can_attack: 
+	if can_attack and player.can_attack: 
 		if primary_input and Input.is_action_pressed("attack"):
 			should_be_attacking = true
 			# print("sba is true")

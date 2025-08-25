@@ -1,7 +1,6 @@
 class_name Player_Secondary_Attack
 extends Attack
 
-var player : Player
 
 func _ready() -> void:
 	sprite.visible = false
@@ -9,7 +8,6 @@ func _ready() -> void:
 	# original_velocity = chara.max_velocity
 	SignalBus.EvenBeat.connect(got_even_beat)
 	SignalBus.OddBeat.connect(got_odd_beat)
-	player = chara as Player
 
 func _physics_process(_delta: float) -> void:
 	if player:

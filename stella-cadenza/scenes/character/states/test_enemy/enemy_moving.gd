@@ -1,5 +1,5 @@
 extends State
-@export var chara : TestEnemy
+@export var chara : Character
 @export var sprite : AnimatedSprite2D
 
 func Enter():
@@ -17,14 +17,15 @@ func Update(_delta: float):
 	if chara.chasing_player:
 		Transitioned.emit(self, "PlayerChase")
 		return
-	if chara.facing == 0:
-		sprite.play("moving up")
-	elif chara.facing == 1:
-			sprite.play("moving right")
-	elif chara.facing == 2:
-			sprite.play("moving down")
-	elif chara.facing == 3:
-			sprite.play("moving left")
+	# if chara.facing == 0:
+	# 	sprite.play("moving up")
+	# elif chara.facing == 1:
+	# 		sprite.play("moving right")
+	# elif chara.facing == 2:
+	# 		sprite.play("moving down")
+	# elif chara.facing == 3:
+	# 		sprite.play("moving left")
+	sprite.play("moving")
 
 func Physics_Update(_delta : float):
 	pass
