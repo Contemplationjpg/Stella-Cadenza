@@ -2,6 +2,7 @@ extends Node
 
 
 signal display_dialogue(text_key)
+signal dialogue_stopped
 signal ForcePauseGame(paused : bool)
 signal OddBeat()
 signal EvenBeat()
@@ -14,6 +15,7 @@ signal FlashFadeToBlack
 signal FadeToBlack
 signal FadeFromBlack
 signal FadeNotChanging
+signal JustUnblocked
 signal LockPlayerSceneTransition
 signal UnlockPlayerSceneTransition
 
