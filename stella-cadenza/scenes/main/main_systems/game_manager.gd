@@ -26,6 +26,7 @@ func reset_player_location():
 
 func set_player_location(spawn : Node2D):
 	if player:
+		player.velocity = Vector2.ZERO
 		player.global_position = spawn.global_position
 	SignalBus.ConfirmSetPlayerLocation.emit()
 
