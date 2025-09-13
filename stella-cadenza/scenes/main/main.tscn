@@ -77,8 +77,7 @@ player = NodePath("../Player")
 layer = 10
 script = ExtResource("9_nvumn")
 color = NodePath("ColorRect")
-block_duration = 0.045
-unblock_duration = 1.065
+unblock_duration = 1.0
 
 [node name="ColorRect" type="ColorRect" parent="FadeToBlack"]
 modulate = Color(0, 0, 0, 0)
