@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b17ncfi4tcwdk"]
+[gd_scene load_steps=7 format=3 uid="uid://b17ncfi4tcwdk"]
 
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="1_7gb7p"]
 [ext_resource type="Script" uid="uid://ccrbfllyhry2t" path="res://assets/tiles/door.gd" id="1_pf0ad"]
@@ -21,9 +21,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0c53g"]
 size = Vector2(26, 19)
 
-[node name="Door" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pf0ad"]
+size = Vector2(42, 27)
+
+[node name="Door" type="Area2D" node_paths=PackedStringArray("blocker")]
 monitorable = false
 script = ExtResource("1_pf0ad")
+blocker = NodePath("StaticBody2D/CollisionShape2D")
 
 [node name="DoorSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -32,5 +36,11 @@ sprite_frames = SubResource("SpriteFrames_usxjk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_0c53g")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_pf0ad")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
