@@ -21,7 +21,7 @@ func load_level(level_name : String):
 		SignalBus.FadeToBlack.emit()
 		SignalBus.LockPlayerSceneTransition.emit()
 		await SignalBus.FadeNotChanging
-		await get_tree().create_timer(.01).timeout
+		# await get_tree().create_timer(.01).timeout
 		var scene_instance = level.instantiate()
 		var level_details = scene_instance.get_child(0) as LevelDetails
 		print(level_details.name)
@@ -34,6 +34,7 @@ func load_level(level_name : String):
 				SignalBus.PlaySong.emit(current_song)
 				# SignalBus.SetPlayerLocation.emit(player_spawn)
 			player.can_attack = not level_details.disable_player_attack
+			print("player can attack: ", player.can_attack)
 		else:
 			player.position = Vector2.ZERO
 			# SignalBus.ResetPlayerLocation.emit()
@@ -43,6 +44,7 @@ func load_level(level_name : String):
 			n.queue_free()
 		add_child(scene_instance)
 		SignalBus.UnlockPlayerSceneTransition.emit()
+		await get_tree().create_timer(.25).timeout
 		SignalBus.FadeFromBlack.emit()
 	else:
 		print_debug("Level Loader: cannot find level from path ", path)
