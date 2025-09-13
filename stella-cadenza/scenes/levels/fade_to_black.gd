@@ -46,6 +46,7 @@ func unblock_screen():
 		await tween.finished
 		changing = false
 		SignalBus.FadeNotChanging.emit()
+		SignalBus.JustUnblocked.emit()
 	# else:
 	# 	print("cannot fade from black")
 	
