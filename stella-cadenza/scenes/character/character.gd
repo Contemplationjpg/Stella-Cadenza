@@ -20,6 +20,10 @@ var direction: Vector2
 @onready var c_max_velocity = max_velocity
 @onready var c_acceleration = acceleration
 
+var dead : bool = false
+
+signal JustDied
+
 func _ready() -> void:
 	debug.text = "health: " + str(current_health)
 	# current_velocity = base_velocity
@@ -136,6 +140,8 @@ func change_health(change:int) -> int:
 
 func die():
 	print(name, " dying!")
+	dead = true
+	JustDied.emit()
 	queue_free()
 
 func death_check():
