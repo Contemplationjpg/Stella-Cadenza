@@ -1,0 +1,32 @@
+#this is when stella first appears outside the tower
+
+$1stella_smile
+$n???
+[0]"Stella..."
+
+$nStella
+[1]"..."
+
+$n???
+[0]"Stella... Can you hear me?"
+
+$nStella
+[1]"... Huh...?"
+
+$n???
+[0]"You're awake."
+
+$nStella
+"Where am I?"
+"Who are you?"
+"Did I die...?"
+
+$n???
+"Alright. Allow me to introduce myself."
+
+"I am the one known as Lux"
+$nLux
+"I am the manifestation of the light that shines from the stars."
+
+$nStella
+"So... Am I dead?"
