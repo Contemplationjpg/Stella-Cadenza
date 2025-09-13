@@ -8,6 +8,9 @@ extends CanvasLayer
 @export var sprite2 : TextureRect
 @export var camera : Camera2D 
 
+@export var skip_dia_box : Control
+var skip_box_open : bool = false
+
 var scene_text = []
 var char_name : String = ""
 var current_line = 0
@@ -25,6 +28,7 @@ const SPRITEADDRESS : String = "res://assets/dialogue_sprites/"
 const SCENEADDRESS : String = "res://assets/dialogue/"
 
 func _ready():
+	skip_dia_box.visible = false
 	sprite1_origin = sprite1.position
 	sprite2_origin = sprite2.position
 	SignalBus.display_dialogue.connect(start_scene)
@@ -188,7 +192,7 @@ func set_current_line() -> bool:
 	# print("trying to set current line to ", current_line)
 	if scene_text == []:
 		return false
-	if current_line < scene_text.size():
+	if current_line > -1 and current_line < scene_text.size():
 
 		# print("current line ", current_line, " is in scene_text size")
 		var new_line : String = ""
@@ -232,7 +236,25 @@ func sprite_shake(): #screen shake doesnt work because objects on canvas layer's
 		# sprite2.global_position = sprite2_origin
 		camera.offset = Vector2.ZERO
 
+func close_skip_box():
+	skip_dia_box.visible = false
+	skip_box_open = false
 
+func open_skip_box():
+	skip_dia_box.visible = true
+	skip_box_open = true
+
+func skip_dialogue():
+	current_line = -1
+	dialogue_text.visible_characters = 0 
+	in_progress = false
+	yapping = false
+	set_current_line()
+	Main.doing_dialogue = false
+	SignalBus.ForcePauseGame.emit(false)
+	sprite_shaking = false
+	visible = false
+	SignalBus.dialogue_stopped.emit()
 
 func _process(_delta):
 	if in_progress:
@@ -250,6 +272,17 @@ func _process(_delta):
 		
 func _physics_process(_delta: float) -> void:
 	if in_progress:
+		if skip_box_open:
+			if Input.is_action_just_pressed("yes"):
+				close_skip_box()
+			elif Input.is_action_just_pressed("skip"):
+				skip_dialogue()
+			return
+		
+		if Input.is_action_just_pressed("skip"):
+			open_skip_box()
+			return
+
 		if Input.is_action_just_pressed("yes"):
 			if yapping:
 				dialogue_text.visible_characters = scene_text[current_line].length()
@@ -270,3 +303,12 @@ func _physics_process(_delta: float) -> void:
 					SignalBus.ForcePauseGame.emit(false)
 					sprite_shaking = false
 					visible = false
+					SignalBus.dialogue_stopped.emit()
+
+
+
+func _on_no_skip_pressed() -> void:
+	close_skip_box()
+
+func _on_yes_skip_pressed() -> void:
+	skip_dialogue()

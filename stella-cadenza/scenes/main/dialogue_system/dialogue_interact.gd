@@ -1,3 +1,4 @@
+class_name Dialogue_Interact
 extends Area2D
 
 @export var scene_name : String
@@ -10,6 +11,8 @@ var player_in_area : bool = false
 var interacted_with : bool = false
 var limit_mark : bool = false
 
+signal DialogueOver
+
 func _ready():
 	set_active(active)
 
@@ -20,21 +23,29 @@ func _process(_delta):
 				SignalBus.display_dialogue.emit(scene_name)
 				interacted_with = true
 				limit_mark = true
+				await SignalBus.dialogue_stopped
+				DialogueOver.emit()
 			elif not limited:
 				SignalBus.display_dialogue.emit(scene_name)
 				interacted_with = true
 				limit_mark = true
+				await SignalBus.dialogue_stopped
+				DialogueOver.emit()
 		elif player_in_area and not interacted_with and not Main.doing_dialogue:
 			if limited and not limit_mark:
 				if Input.is_action_just_pressed("yes"):
 					SignalBus.display_dialogue.emit(scene_name)
 					interacted_with = true
 					limit_mark = true
+					await SignalBus.dialogue_stopped
+					DialogueOver.emit()
 			elif not limited:
 				if Input.is_action_just_pressed("yes"):
 					SignalBus.display_dialogue.emit(scene_name)
 					interacted_with = true
 					limit_mark = true
+					await SignalBus.dialogue_stopped
+					DialogueOver.emit()
 
 func set_active(new_active : bool):
 	active = new_active

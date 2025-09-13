@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqjxgrmv0m16y"]
+[gd_scene load_steps=6 format=3 uid="uid://cqjxgrmv0m16y"]
 
 [ext_resource type="Script" uid="uid://bfcg5i5fo2hxp" path="res://scenes/main/dialogue_system/dialogue.gd" id="1_7jywo"]
 [ext_resource type="Texture2D" uid="uid://cc8gtfywsbyki" path="res://concept art/Placeholder180.png" id="1_a3m0d"]
 [ext_resource type="Texture2D" uid="uid://cailfgo8oic62" path="res://assets/dialogue_sprites/stella_smile.png" id="2_iqmgo"]
+[ext_resource type="Texture2D" uid="uid://7mye0luq347p" path="res://concept art/Character.png" id="4_w8a34"]
+[ext_resource type="FontFile" uid="uid://glgwequ7h2j" path="res://assets/ui/Montserrat-Medium.ttf" id="5_pxh1j"]
 
-[node name="Dialogue" type="CanvasLayer" node_paths=PackedStringArray("name_text", "dialogue_text", "bg", "sprite1", "sprite2")]
+[node name="Dialogue" type="CanvasLayer" node_paths=PackedStringArray("name_text", "dialogue_text", "bg", "sprite1", "sprite2", "skip_dia_box")]
 process_mode = 3
 script = ExtResource("1_7jywo")
 name_text = NodePath("NameText")
@@ -14,6 +16,7 @@ text_speed = 20.0
 scene_text_file = "res://scenes/dialogue/test.json"
 sprite1 = NodePath("Sprite1")
 sprite2 = NodePath("Sprite2")
+skip_dia_box = NodePath("SkipMessage")
 
 [node name="Sprite1" type="TextureRect" parent="."]
 offset_left = 96.0
@@ -58,3 +61,126 @@ theme_override_font_sizes/normal_font_size = 35
 text = "Lorem ipsum dolor sit amet"
 fit_content = true
 visible_characters_behavior = 1
+
+[node name="SkipMessage" type="Control" parent="."]
+process_mode = 3
+z_index = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect2" type="TextureRect" parent="SkipMessage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -180.0
+offset_right = 340.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_w8a34")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="YesTexture" type="TextureRect" parent="SkipMessage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -330.0
+offset_top = 20.0
+offset_right = -70.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_a3m0d")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="YesSkip" type="Button" parent="SkipMessage/YesTexture"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -30.0
+offset_right = 130.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_pxh1j")
+text = "YES (ENTER)
+"
+
+[node name="NoTexture" type="TextureRect" parent="SkipMessage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 20.0
+offset_right = 290.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_a3m0d")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="NoSkip" type="Button" parent="SkipMessage/NoTexture"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -30.0
+offset_right = 130.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_pxh1j")
+text = "NO (F)"
+
+[node name="Skip Text" type="RichTextLabel" parent="SkipMessage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -80.0
+offset_right = 164.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("5_pxh1j")
+theme_override_font_sizes/normal_font_size = 32
+text = "Skip Dialogue?"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[connection signal="pressed" from="SkipMessage/YesTexture/YesSkip" to="." method="_on_yes_skip_pressed"]
+[connection signal="pressed" from="SkipMessage/NoTexture/NoSkip" to="." method="_on_no_skip_pressed"]
