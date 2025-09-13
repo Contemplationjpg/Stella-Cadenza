@@ -1,14 +1,13 @@
-[gd_scene load_steps=9 format=4 uid="uid://cpoibxfklngfj"]
+[gd_scene load_steps=7 format=4 uid="uid://iw2bfyo7gihc"]
 
-[ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="1_j4fu8"]
-[ext_resource type="PackedScene" uid="uid://cb1mpb33hmhd0" path="res://scenes/character/character_types/gemini_enemy/gemini_enemy.tscn" id="3_by813"]
-[ext_resource type="PackedScene" uid="uid://b17ncfi4tcwdk" path="res://assets/tiles/door.tscn" id="5_8yex6"]
-[ext_resource type="Script" path="res://scenes/levels/leveldetails.gd" id="7_bpjrk"]
-[ext_resource type="PackedScene" uid="uid://c2gtg6r4wlipc" path="res://scenes/main/dialogue_system/DialogueInteract.tscn" id="9_x64fy"]
+[ext_resource type="Script" path="res://scenes/levels/leveldetails.gd" id="1_7ksyt"]
+[ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="2_n7f4t"]
+[ext_resource type="PackedScene" uid="uid://b17ncfi4tcwdk" path="res://assets/tiles/door.tscn" id="3_hoeaj"]
+[ext_resource type="PackedScene" uid="uid://cb1mpb33hmhd0" path="res://scenes/character/character_types/gemini_enemy/gemini_enemy.tscn" id="4_dllh3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ach1a"]
 resource_name = "obsession_terrain"
-texture = ExtResource("1_j4fu8")
+texture = ExtResource("2_n7f4t")
 0:0/0 = 0
 1:0/0 = 0
 1:0/0/terrain_set = 0
@@ -73,14 +72,11 @@ custom_data_layer_0/name = "collectable"
 custom_data_layer_0/type = 1
 sources/1 = SubResource("TileSetAtlasSource_ach1a")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_irp0s"]
-size = Vector2(117, 72)
-
 [node name="1-1" type="Node2D"]
 
 [node name="LevelDetails" type="Node2D" parent="."]
-position = Vector2(252, 556)
-script = ExtResource("7_bpjrk")
+position = Vector2(255, 479)
+script = ExtResource("1_7ksyt")
 song_name = "Lux's Request"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -93,28 +89,15 @@ texture_filter = 1
 tile_map_data = PackedByteArray("AAADABwAAQAHAAAAAAADAB0AAQAHAAAAAAADAB4AAQAHAAAAAAADAB8AAQAHAAAAAAADACAAAQAHAAAAAAADACEAAQAHAAAAAAADACIAAQAHAAAAAAADACMAAQAHAAAAAAADACQAAQAHAAAAAAADACUAAQAHAAAAAAADACYAAQAHAAAAAAADACcAAQAHAAAAAAADACgAAQAHAAAAAAADACkAAQAHAAAAAAADACoAAQAHAAAAAAADACsAAQAHAAAAAAADACwAAQAHAAAAAAADAC0AAQAHAAAAAAADAC4AAQAHAAAAAAAEAC4AAQAHAAAAAAAFAC4AAQAHAAAAAAAGAC4AAQAHAAAAAAAHAC4AAQAHAAAAAAAIAC4AAQAHAAAAAAAJAC4AAQAHAAAAAAAKAC4AAQAHAAAAAAALAC4AAQAHAAAAAAAMAC4AAQAHAAAAAAANAC4AAQAHAAAAAAAOAC4AAQAHAAAAAAAPAC4AAQAHAAAAAAAQAC4AAQAHAAAAAAARAC4AAQAHAAAAAAASAC4AAQAHAAAAAAATAC4AAQAHAAAAAAAUAC4AAQAHAAAAAAAVAC4AAQAHAAAAAAAWAC4AAQAHAAAAAAAXAC4AAQAHAAAAAAAYAC4AAQAHAAAAAAAZAC4AAQAHAAAAAAAaAC4AAQAHAAAAAAAbAC4AAQAHAAAAAAAbAC0AAQAHAAAAAAAbACwAAQAHAAAAAAAbACsAAQAHAAAAAAAbACoAAQAHAAAAAAAbACkAAQAHAAAAAAAbACgAAQAHAAAAAAAbACcAAQAHAAAAAAAbACYAAQAHAAAAAAAbACUAAQAHAAAAAAAbACQAAQAHAAAAAAAbACMAAQAHAAAAAAAbACIAAQAHAAAAAAAbACEAAQAHAAAAAAAbACAAAQAHAAAAAAAbAB8AAQAHAAAAAAAbAB4AAQAHAAAAAAAbAB0AAQAHAAAAAAAbABwAAQAHAAAAAAAbABsAAQAHAAAAAAAbABoAAQAHAAAAAAD//xoAAQAGAAAAAAAAABoAAQAHAAAAAAABABoAAQAHAAAAAAACABoAAQAHAAAAAAADABoAAQAHAAAAAAAEABoAAQAHAAAAAAAFABoAAQAHAAAAAAAGABoAAQAHAAAAAAAHABoAAQAHAAAAAAAIABoAAQAHAAAAAAAJABoAAQAHAAAAAAAKABoAAQAHAAAAAAALABoAAQAHAAAAAAAMABoAAQAHAAAAAAANABoAAQAHAAAAAAAOABoAAQAHAAAAAAAPABoAAQAHAAAAAAAQABoAAQAHAAAAAAARABoAAQAHAAAAAAASABoAAQAHAAAAAAATABoAAQAHAAAAAAAUABoAAQAHAAAAAAAVABoAAQAHAAAAAAAWABoAAQAHAAAAAAAXABoAAQAHAAAAAAAYABoAAQAHAAAAAAAZABoAAQAHAAAAAAAaABoAAQAHAAAAAAAcABoAAQAHAAAAAAAdABoAAQAHAAAAAAAeABoAAQAHAAAAAAAfABoAAQAHAAAAAAAgABoAAQAHAAAAAAAhABoAAQAHAAAAAAAiABoAAQAHAAAAAAAjABoAAQAHAAAAAAA=")
 tile_set = SubResource("TileSet_lutau")
 
-[node name="Door" parent="." node_paths=PackedStringArray("dialogue") instance=ExtResource("5_8yex6")]
+[node name="Door" parent="." instance=ExtResource("3_hoeaj")]
 position = Vector2(256, 432)
 collision_mask = 2
 level = "1-2"
-wait_for_specific_dialogue = true
-dialogue = NodePath("../FirstDialogue")
 
-[node name="GeminiEnemy" parent="." instance=ExtResource("3_by813")]
+[node name="GeminiEnemy" parent="." instance=ExtResource("4_dllh3")]
 visible = false
 position = Vector2(284, 233)
 chases_player = false
 base_velocity = 100.0
 
-[node name="FirstDialogue" parent="." instance=ExtResource("9_x64fy")]
-position = Vector2(274, 495)
-scene_name = "first_contact"
-limited = true
-force_interact = true
-
-[node name="DetectionRange" parent="FirstDialogue" index="0"]
-position = Vector2(-22, 63)
-shape = SubResource("RectangleShape2D_irp0s")
-
 [editable path="GeminiEnemy"]
-[editable path="FirstDialogue"]

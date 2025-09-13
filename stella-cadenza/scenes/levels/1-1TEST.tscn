@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://cpoibxfklngfj"]
+[gd_scene load_steps=11 format=4 uid="uid://cumqx707fov7c"]
 
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="1_j4fu8"]
 [ext_resource type="PackedScene" uid="uid://d2dp5dyujcdnb" path="res://scenes/character/character_types/test_enemy/test_enemy.tscn" id="3_lutau"]
