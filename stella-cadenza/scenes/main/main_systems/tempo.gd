@@ -31,6 +31,7 @@ func play_song(song_name : String):
 		print("could not find song")
 
 func _process(_delta: float) -> void:
+	# print("flashing: ", flashing)
 	var time : float = audio_stream.get_playback_position() + AudioServer.get_time_since_last_mix()
 	time -= AudioServer.get_output_latency()
 	# print("Time is: ", time)
@@ -45,13 +46,14 @@ func _process(_delta: float) -> void:
 			flashing = true 
 			if beat_count%2 == 0:
 				debug.self_modulate.s = 1
+				# print("even beat emitting")
 				SignalBus.EvenBeat.emit()
 			else:
+				# print("odd beat emitting")
 				SignalBus.OddBeat.emit()
 			await get_tree().create_timer(beat_duration/2).timeout
 			debug.self_modulate.s = 0
-			flashing = false
-			# print(beat_count)
+		flashing = false
 
 func set_bpm(new_bpm : float):
 	bpm = new_bpm
