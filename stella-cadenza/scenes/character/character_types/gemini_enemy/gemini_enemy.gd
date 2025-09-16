@@ -66,7 +66,7 @@ func _physics_process(delta: float) -> void:
 
 				else:
 					direction = Vector2.ZERO
-					print("cannot find player")
+					# print("cannot find player")
 			else:
 				direction = Vector2.ZERO
 

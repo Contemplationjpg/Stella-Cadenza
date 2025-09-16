@@ -28,7 +28,7 @@ func got_even_beat():
 		return
 
 func increase_stacks():
-	# print("attempting to increase stacks")
+	print("attempting to increase stacks")
 	if player:
 		if player.attack_stacks < player.stacks_needed:
 			player.attack_stacks += 1

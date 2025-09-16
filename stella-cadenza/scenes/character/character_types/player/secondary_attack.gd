@@ -8,6 +8,7 @@ func _ready() -> void:
 	# original_velocity = chara.max_velocity
 	SignalBus.EvenBeat.connect(got_even_beat)
 	SignalBus.OddBeat.connect(got_odd_beat)
+	hitbox.JustHit.connect(on_hitbox_hit_detected)
 
 func _physics_process(_delta: float) -> void:
 	if player:
@@ -17,13 +18,13 @@ func _physics_process(_delta: float) -> void:
 func got_odd_beat():
 	if attacks_on_odds:
 		# print("odd")
-		attack()
+		# attack()
 		return
 
 func got_even_beat():
 	if attacks_on_evens:
 		# print("even")
-		attack()
+		# attack()
 		return
 
 func attack():
@@ -43,6 +44,13 @@ func attack():
 		# print("SECONDARY HITBOX INACTIVE")
 		sprite.visible = false
 		StopAttack.emit()
+
+func on_hitbox_hit_detected():
+	# print("HIT DETECTED")
+	# if player.is_sliding:
+	# 	print("ADDING 1 TO SLIDE")
+	# 	player.slide_stacks += 1
+	return
 
 # func wait_for_attack():
 # 	await get_tree().create_timer(forgiveness).timeout

@@ -23,7 +23,7 @@ func just_interacted_with_dialogue():
 	dialogue_interacted_with = true
 
 func on_unblock():
-	print("just unblocked")
+	# print("just unblocked")
 	blocker.set_deferred("disabled", true)
 
 
@@ -33,18 +33,18 @@ func on_unblock():
 func _on_body_entered(body:Node2D) -> void:
 	if active:
 		if wait_for_specific_dialogue and not dialogue_interacted_with:
-			print("dia not finished")
+			# print("dia not finished")
 			return
 		var player : Player = body as Player
-		print("something at door")
+		# print("something at door")
 		if player:
 			active = false
-			print("DOOR FOUND PLAYER")
+			# print("DOOR FOUND PLAYER")
 			if not player.can_walk_through_door:
-				print("PLAYER CANNOT WALK THROUGH DOOR")
+				# print("PLAYER CANNOT WALK THROUGH DOOR")
 				active = true
 				return
-			print("player going through!")
+			# print("player going through!")
 			if level != "none":
 				if specific_exit:
 					SignalBus.LoadLevelAtLocation.emit(level, exit_coords)
