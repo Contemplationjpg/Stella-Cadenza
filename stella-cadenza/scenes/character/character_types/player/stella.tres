@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=45 format=3 uid="uid://doj30flsjdecu"]
+[gd_resource type="SpriteFrames" load_steps=48 format=3 uid="uid://doj30flsjdecu"]
 
 [ext_resource type="Texture2D" uid="uid://bv5f7vh1uj2l6" path="res://assets/character_sprites/stella/stella_idle_f.png" id="1_07bqu"]
 [ext_resource type="Texture2D" uid="uid://cymax44rnqy84" path="res://assets/character_sprites/stella/stella_idle_l.png" id="2_5kbt3"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://mloeswkdig3" path="res://assets/character_sprites/stella/stella_shock_f.png" id="8_0jbsi"]
 [ext_resource type="Texture2D" uid="uid://twf0odvm4x6t" path="res://assets/character_sprites/stella/stella_swing_f.png" id="8_l2570"]
 [ext_resource type="Texture2D" uid="uid://bx6fg5ojtn2xm" path="res://assets/character_sprites/stella/stella_swing_r.png" id="9_pynsl"]
+[ext_resource type="Texture2D" uid="uid://dcuoi10nx6imt" path="res://assets/character_sprites/stella/stella_spin_f.png" id="9_t7npg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghljw"]
 atlas = ExtResource("1_07bqu")
@@ -114,6 +115,14 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_t2plp"]
 atlas = ExtResource("3_8y7j1")
 region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udd1d"]
+atlas = ExtResource("9_t7npg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0ymf"]
+atlas = ExtResource("9_t7npg")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8cc1"]
 atlas = ExtResource("8_l2570")
@@ -306,6 +315,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"shock up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udd1d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0ymf")
+}],
+"loop": true,
+"name": &"spin down",
 "speed": 5.0
 }, {
 "frames": [{
