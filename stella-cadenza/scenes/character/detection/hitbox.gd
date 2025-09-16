@@ -15,6 +15,7 @@ extends Area2D
 # @export var is_circle : bool = false
 @export var is_electric: bool = false
 
+signal JustHit
 
 var already_hit_hurtboxes : Array = []
 
@@ -73,18 +74,21 @@ func change_monitorable_and_monitoring(change : bool):
     set_deferred("monitorable", change)
     set_deferred("monitoring", change)
     if not monitorable:
+        # print("resetting hit list")
         already_hit_hurtboxes = []
 
 func _on_area_entered(area:Area2D) -> void:
-    # print("SECONDARY found hurtbox")
     var hurtbox = area as Hurtbox
     if hurtbox:
+        print("SECONDARY found hurtbox: ", hurtbox.name)
         if hurtbox in already_hit_hurtboxes:
             return
             # print("SECONADRY already have hitbox in list")
         else:
             # print("SECONDARY adding " + hurtbox.name)
             already_hit_hurtboxes.append(hurtbox)
+            # print(already_hit_hurtboxes)
+            JustHit.emit()
 
 # func _process(_delta: float) -> void:
 # 	print(collision_layer)
