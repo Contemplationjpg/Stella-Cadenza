@@ -1,6 +1,9 @@
 class_name StackingHitbox
 extends Hitbox
 
+@export var only_one_stack_per_hit : bool = false
+var gained_stack_this_hit : bool = false
+
 signal gain_stack
 
 
@@ -52,6 +55,7 @@ func toggle_monitoriable_and_monitoring()-> bool:
     set_deferred("monitoring", not monitoring)
     if not monitorable:
         already_hit_hurtboxes = []
+        gained_stack_this_hit = false
     return monitorable
 
 
@@ -60,6 +64,7 @@ func change_monitorable_and_monitoring(change : bool):
     set_deferred("monitoring", change)
     if not monitorable:
         already_hit_hurtboxes = []
+        gained_stack_this_hit = false
 
 
 # func _process(_delta: float) -> void:
@@ -75,4 +80,9 @@ func _on_area_entered(area:Area2D) -> void:
         else:
             # print("adding " + hurtbox.name)
             already_hit_hurtboxes.append(hurtbox)
-            gain_stack.emit()
+            if only_one_stack_per_hit:
+                if not gained_stack_this_hit:
+                    gain_stack.emit()
+                    gained_stack_this_hit = true
+            else:
+                gain_stack.emit()
