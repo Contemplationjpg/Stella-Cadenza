@@ -3,7 +3,7 @@ extends Timer
 
 var bpm : float = 100
 @export var debug : TextureRect
-@export var audio_stream : AudioStreamPlayer2D
+@export var audio_stream : AudioStreamPlayer
 var beat_duration : float
 var beat_count : int = 0 #this is set up assuming all songs will be 4/4
 var time_begin : float
