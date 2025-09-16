@@ -30,10 +30,7 @@ func do_shock_effect():
 
 func shock_animation():
 	# print("CHARACTER SHOCKING", chara.facing)
-	if chara.is_sliding:
-		char_sprite.play("spin down")
-	else:
-		char_sprite.play("shock down")
+	char_sprite.play("shock down")
 	if not chara.is_secondary_attacking:
 		Transitioned.emit(self, "Idle")
 

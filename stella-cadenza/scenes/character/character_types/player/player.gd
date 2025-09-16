@@ -13,6 +13,7 @@ extends Character
 @export var knockback_traction : float = 20
 @export var can_walk_through_door: bool = true
 @export var stacks_needed : int = 3
+@export var slide_stacks_needed : int = 2
 
 @export var primary_attack : Attack
 @export var secondary_attack : Attack
@@ -29,9 +30,12 @@ var in_hit_freeze : bool = false
 var attack_stacks : int = 0
 var special_meter : int = 0
 
+var slide_stacks : int = 0
+
 var in_dash_slide_window : bool = false
 var in_secondary_slide_window : bool = false
 var is_sliding : bool = false
+var is_resliding : bool = false
 
 var is_primary_attacking : bool = false
 var is_secondary_attacking : bool = false
@@ -72,7 +76,9 @@ func _physics_process(delta: float) -> void:
 	# prints(velocity)
 	move_and_slide()
 	# print(velocity.x, ", ", velocity.y)
-
+	if is_sliding:
+		if slide_stacks < secondary_attack.hitbox.already_hit_hurtboxes.size():
+			slide_stacks = secondary_attack.hitbox.already_hit_hurtboxes.size()
 
 func get_input():
 	direction.x = Input.get_axis("left", "right")
@@ -182,7 +188,7 @@ func on_secondary_attack_start():
 	# else:
 		# in_secondary_slide_window = true	
 	
-	in_secondary_slide_window = true	
+	in_secondary_slide_window = true
 	is_secondary_attacking = true
 
 	return
@@ -191,6 +197,7 @@ func on_secondary_attack_end():
 	in_secondary_slide_window = false
 	is_secondary_attacking = false
 	# print("PLAYER STOP SECONDARY")
+	
 	return
 
 func on_dash_start():
@@ -206,10 +213,12 @@ func on_dash_end():
 	# sprite.self_modulate.a = 1
 	# in_dash_slide_window = false
 	# print("PLAYER STOPPED DASHING")
+	
 	return
 
 func electric_slide():
 	is_sliding = true
+	slide_stacks = 0
 	# print("SLIDING")
 	c_stop_velocity = 0
 	c_max_velocity = max_velocity + slide_max_velo_bonus
@@ -220,4 +229,7 @@ func electric_slide():
 	c_stop_velocity = stop_velocity
 	c_max_velocity = max_velocity
 	c_acceleration = acceleration
+	print("slide stacks: ", slide_stacks)
+	if slide_stacks >= slide_stacks_needed:
+		attack_stacks = stacks_needed
 	is_sliding = false
