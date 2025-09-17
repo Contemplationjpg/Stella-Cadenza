@@ -31,7 +31,6 @@ radius = 128.0
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_hofr5")
-chases_player = null
 chase_timer = NodePath("ChaseTimer")
 body_hitbox = NodePath("Hitbox")
 player_looker = NodePath("PlayerLooker")
@@ -41,11 +40,7 @@ max_velocity = 10.0
 stop_velocity = 10.0
 stop_velocity_still = 20.0
 base_stats = SubResource("Resource_3nsre")
-acceleration = null
 debug = NodePath("Label")
-can_move = null
-can_take_damage = null
-invincible = null
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state", "chara", "debug")]
 script = ExtResource("3_2p8im")

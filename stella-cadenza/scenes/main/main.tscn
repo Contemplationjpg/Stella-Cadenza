@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://it4xy2k2xdfg"]
+[gd_scene load_steps=14 format=3 uid="uid://it4xy2k2xdfg"]
 
 [ext_resource type="Script" uid="uid://daaf1d1r8whdb" path="res://scenes/main/main_systems/game_manager.gd" id="1_b1x3f"]
 [ext_resource type="PackedScene" uid="uid://c8xog3ynu7v7w" path="res://scenes/main/main_systems/save_manager.tscn" id="2_a8run"]
@@ -8,7 +8,11 @@
 [ext_resource type="AudioStream" uid="uid://dnq4ee74n633g" path="res://assets/music/PLACEHOLDER.mp3" id="6_a8run"]
 [ext_resource type="Script" uid="uid://xrlcevvqxybl" path="res://scenes/main/main_systems/tempo.gd" id="7_raeie"]
 [ext_resource type="Script" uid="uid://bucl8loadivgd" path="res://scenes/levels/level_loader.gd" id="8_hxu8e"]
+[ext_resource type="Texture2D" uid="uid://di1ooyj86wmes" path="res://assets/ui/HUD/big_circle.png" id="9_blune"]
 [ext_resource type="Script" uid="uid://bdr2vb8swi2ww" path="res://scenes/levels/fade_to_black.gd" id="9_nvumn"]
+[ext_resource type="Texture2D" uid="uid://cpv37waiov783" path="res://assets/ui/HUD/circle.png" id="10_th5th"]
+[ext_resource type="Texture2D" uid="uid://b48otmb17brb6" path="res://assets/ui/HUD/gray_note.png" id="11_7smn1"]
+[ext_resource type="Texture2D" uid="uid://dhk8bdlwe25vg" path="res://assets/ui/HUD/white_note.png" id="12_th5th"]
 
 [node name="main" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_b1x3f")
@@ -17,12 +21,14 @@ player = NodePath("Player")
 [node name="SaveManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_a8run")]
 player = NodePath("../Player")
 
-[node name="Player" parent="." instance=ExtResource("4_blune")]
+[node name="Player" parent="." node_paths=PackedStringArray("health_bar", "white_notes") instance=ExtResource("4_blune")]
 z_index = 1
 dash_velocity = 500.0
+health_bar = NodePath("../UIElements/HealthBar")
 gets_hit_frozen = true
 hit_freeze_time = 0.5
 slide_max_velo_bonus = 100.0
+white_notes = [NodePath("../UIElements/WhiteNotes/TextureRect"), NodePath("../UIElements/WhiteNotes/TextureRect2"), NodePath("../UIElements/WhiteNotes/TextureRect3")]
 base_velocity = 100.0
 max_velocity = 200.0
 stop_velocity = 50.0
@@ -37,6 +43,7 @@ process_callback = 0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player/Camera"]
 stream = ExtResource("6_a8run")
+volume_db = -10.0
 playback_type = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/Camera"]
@@ -46,16 +53,9 @@ texture = ExtResource("6_7smn1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TempoDebug" type="TextureRect" parent="CanvasLayer"]
-offset_left = 6.10352e-05
-offset_right = 606.0
-offset_bottom = 606.0
-scale = Vector2(0.33, 0.33)
-texture = ExtResource("6_7smn1")
-
 [node name="Tempo" type="Timer" parent="." node_paths=PackedStringArray("debug", "audio_stream")]
 script = ExtResource("7_raeie")
-debug = NodePath("../CanvasLayer/TempoDebug")
+debug = NodePath("../UIElements/TempoDebug")
 audio_stream = NodePath("../Player/Camera/AudioStreamPlayer")
 
 [node name="LevelLoader" type="Node" parent="." node_paths=PackedStringArray("player")]
@@ -78,13 +78,86 @@ color = Color(0, 0, 0, 1)
 
 [node name="UIElements" type="CanvasLayer" parent="."]
 
-[node name="ProgressBar" type="ProgressBar" parent="UIElements"]
+[node name="HealthBar" type="ProgressBar" parent="UIElements"]
 offset_left = 200.0
-offset_top = 26.0
-offset_right = 968.0
-offset_bottom = 96.0
-value = 41.43
+offset_top = 48.0
+offset_right = 672.0
+offset_bottom = 118.0
+value = 10.3
 show_percentage = false
+
+[node name="TempoDebug" type="TextureRect" parent="UIElements"]
+self_modulate = Color(0.219608, 1, 1, 1)
+offset_right = 594.0
+offset_bottom = 600.0
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("9_blune")
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="UIElements/TempoDebug"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -233.5
+offset_top = -232.0
+offset_right = 233.5
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_th5th")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="GrayNotes" type="HBoxContainer" parent="UIElements"]
+offset_left = 200.0
+offset_top = 118.0
+offset_right = 240.0
+offset_bottom = 158.0
+
+[node name="TextureRect" type="TextureRect" parent="UIElements/GrayNotes"]
+layout_mode = 2
+texture = ExtResource("11_7smn1")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="UIElements/GrayNotes"]
+layout_mode = 2
+texture = ExtResource("11_7smn1")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="UIElements/GrayNotes"]
+layout_mode = 2
+texture = ExtResource("11_7smn1")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="WhiteNotes" type="HBoxContainer" parent="UIElements"]
+offset_left = 200.0
+offset_top = 118.0
+offset_right = 240.0
+offset_bottom = 158.0
+
+[node name="TextureRect" type="TextureRect" parent="UIElements/WhiteNotes"]
+layout_mode = 2
+texture = ExtResource("12_th5th")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="UIElements/WhiteNotes"]
+layout_mode = 2
+texture = ExtResource("12_th5th")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="UIElements/WhiteNotes"]
+layout_mode = 2
+texture = ExtResource("12_th5th")
+expand_mode = 2
+stretch_mode = 4
 
 [node name="Dialogue" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_ouso4")]
 camera = NodePath("../Player/Camera")

@@ -64,6 +64,7 @@ visible_characters_behavior = 1
 
 [node name="SkipMessage" type="Control" parent="."]
 process_mode = 3
+visible = false
 z_index = 3
 layout_mode = 3
 anchors_preset = 8
