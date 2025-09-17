@@ -2,16 +2,26 @@ class_name ArcherEnemy
 extends Character
 
 var player_chara : Player
+@export var projectile : ArcherProjectile
 @export var chases_player : bool = true
+@export var aims_at_player : bool = true
+@export var aim_time_before_shooting : float = 2.0
+@export var time_before_refiring : float = 5.0
 @export var body_hitbox : Hitbox
 @export var player_looker : Node2D
 var chasing_player = false
+var aiming = false
+var shooting = false
 
+var time_aiming : float = 0.0
 
 signal PlayerDetected
 signal PlayerUndetected
 
+signal JustShooting
+
 func _process(_delta: float) -> void:
+	# print(time_aiming)
 	# if chasing_player:
 		# print("I MUST CHASE")
 		# print(direction)
@@ -36,9 +46,20 @@ func update_facing():
 
 func _physics_process(delta: float) -> void:
 	if player_chara:
-		player_looker.look_at(player_chara.global_position)
-	
+		player_looker.look_at(player_chara.global_position)	
+
 	body_hitbox.knockback_dir = direction
+
+	if aiming and not shooting:
+		time_aiming += delta
+		if time_aiming > aim_time_before_shooting and not projectile.flying:
+			JustShooting.emit()
+			shooting = true
+			await get_tree().create_timer(time_before_refiring).timeout
+			shooting = false
+	else:
+		time_aiming = 0
+
 
 	update_facing()
 	update_movement(delta)
@@ -47,7 +68,7 @@ func _physics_process(delta: float) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	# print("area ", area.get_parent().name, "'s ", area.name ," entered")
 	var hitbox = area as Hitbox
-	if not hitbox:
+	if not hitbox or invincible:
 		# print ("not hitbox")
 		return
 		
@@ -68,7 +89,10 @@ func _on_player_detection_range_body_exited(body:Node2D) -> void:
 		PlayerUndetected.emit()
 		if chases_player:
 			chasing_player = false
-		# print("player exited!")
+		if aims_at_player:
+			aiming = false
+		print("player exited!")
+		print("aiming: ", aiming)
 
 func _on_player_detection_range_body_entered(body:Node2D) -> void:
 	var player = body as Player
@@ -77,4 +101,7 @@ func _on_player_detection_range_body_entered(body:Node2D) -> void:
 		PlayerDetected.emit()
 		if chases_player:
 			chasing_player = true
-		# print("player entered!")
+		if aims_at_player:
+			aiming = true
+		print("player entered!")
+		print("aiming: ", aiming)
