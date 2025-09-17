@@ -2,6 +2,7 @@ extends Node2D
 
 @export var player : Player
 @export var first_level_to_load : String = "1-1"
+@export var pause_menu : Node
 
 var force_paused : bool = false
 
@@ -35,6 +36,8 @@ func toggle_pause():
 	if not Main.paused:
 		# print("paused")
 		Main.paused = true
+		if pause_menu:
+			pause_menu.visible = true
 		# OnPause.emit()
 		# Engine.time_scale = 0
 		# print(Engine.physics_ticks_per_second)

@@ -242,6 +242,7 @@ func on_secondary_attack_end():
 func on_dash_start():
 	# sprite.self_modulate.a = 0.5
 	if in_secondary_slide_window and not is_sliding:
+		dash.start_invincibility()
 		electric_slide()
 	# else:
 	# 	in_dash_slide_window = true
@@ -251,8 +252,7 @@ func on_dash_start():
 func on_dash_end():
 	# sprite.self_modulate.a = 1
 	# in_dash_slide_window = false
-	# print("PLAYER STOPPED DASHING")
-	
+	# print("PLAYER STOPPED DASHING")	
 	return
 
 func electric_slide():
@@ -271,5 +271,7 @@ func electric_slide():
 	print("slide stacks: ", slide_stacks)
 	if slide_stacks >= slide_stacks_needed:
 		attack_stacks = stacks_needed
+		change_health(10)
+		dash.manual_dash_timer = dash.manual_dash_cooldown+1
 	update_note_stacks()
 	is_sliding = false

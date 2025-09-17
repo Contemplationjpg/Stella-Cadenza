@@ -107,6 +107,7 @@ script = ExtResource("7_783bl")
 shape = SubResource("RectangleShape2D_7ex5l")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = 6.0
 offset_top = 4.0
 offset_right = 45.0
@@ -114,6 +115,7 @@ offset_bottom = 27.0
 text = "aaa"
 
 [node name="State" type="Label" parent="."]
+visible = false
 offset_left = -31.0
 offset_top = -32.0
 offset_right = 2.0
@@ -137,7 +139,7 @@ autostart = true
 
 [node name="Projectile" type="Area2D" parent="." node_paths=PackedStringArray("archer", "player_looker")]
 collision_layer = 16
-collision_mask = 3
+collision_mask = 11
 script = ExtResource("11_4ggn8")
 archer = NodePath("..")
 player_looker = NodePath("../PlayerLooker")
@@ -157,6 +159,7 @@ collision_mask = 3
 monitoring = false
 script = ExtResource("6_d5ygo")
 knockback = 500.0
+does_knockback = false
 can_hit_player = true
 constant = false
 
@@ -167,5 +170,5 @@ debug_color = Color(0.968384, 0, 0.468215, 0.42)
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="PlayerDetectionRange" to="." method="_on_player_detection_range_body_entered"]
 [connection signal="body_exited" from="PlayerDetectionRange" to="." method="_on_player_detection_range_body_exited"]
-[connection signal="area_entered" from="Projectile/Hitbox" to="Projectile" method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Projectile" to="Projectile" method="_on_body_entered"]
 [connection signal="body_entered" from="Projectile/Hitbox" to="Projectile" method="_on_hitbox_body_entered"]

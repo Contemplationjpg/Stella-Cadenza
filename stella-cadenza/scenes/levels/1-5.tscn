@@ -173,7 +173,6 @@ position = Vector2(658, 1244)
 rotation = -1.5708
 collision_mask = 2
 level = "1-4"
-specific_exit = true
 exit_coords = Vector2(2656, -500)
 
 [node name="ArcherEnemy" parent="." instance=ExtResource("4_fbprc")]
@@ -184,17 +183,14 @@ invincible = true
 shape = SubResource("CircleShape2D_2tl0s")
 
 [node name="Lever" parent="." instance=ExtResource("5_ama7k")]
-position = Vector2(1300, 1164)
+position = Vector2(1300, 1189)
 
 [node name="Lever2" parent="." instance=ExtResource("5_ama7k")]
-position = Vector2(1298, 1338)
-
-[node name="Lever3" parent="." instance=ExtResource("5_ama7k")]
-position = Vector2(1300, 1249)
+position = Vector2(1298, 1286)
 
 [node name="Lock" parent="." node_paths=PackedStringArray("required_switches") instance=ExtResource("5_c0vjq")]
 position = Vector2(770, 1109)
-required_switches = [NodePath("../Lever"), NodePath("../Lever2"), NodePath("../Lever3")]
+required_switches = [NodePath("../Lever"), NodePath("../Lever2")]
 
 [node name="Lock2" parent="." instance=ExtResource("5_c0vjq")]
 position = Vector2(665, 1245)

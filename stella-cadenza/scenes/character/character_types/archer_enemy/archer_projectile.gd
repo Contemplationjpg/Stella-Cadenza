@@ -28,7 +28,7 @@ func shoot():
 		print("shooting projectile")
 		visible = true
 		if archer.player_chara:
-			target = archer.player_chara.global_position - Vector2(0,-10)
+			target = archer.player_chara.global_position #- Vector2(0,-10)
 			direction = (target-global_position).normalized()
 			elapsed_time = 0
 			flying = true
@@ -41,6 +41,21 @@ func reset_projectile():
 	elapsed_time = projectile_duration+1
 
 
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	print("Projectile Hit Something!")
+# func _on_hitbox_body_entered(body: Node2D) -> void:
 	# reset_projectile()
+	# var hitbox = body as Hitbox
+	# if hitbox:
+		# direction = hitbox.knockback_dir
+
+
+func _on_body_entered(body:Node2D) -> void:
+	print("Projectile Hit Something!")
+	if body.name == "SwingHitbox":
+		print("SWING!!!")
+		print("old dir: ", direction)
+		direction = (body as Hitbox).knockback_dir
+		print("new dir: ", direction)
+	elif body.name == "InvisTiles":
+		return
+	else:
+		reset_projectile()

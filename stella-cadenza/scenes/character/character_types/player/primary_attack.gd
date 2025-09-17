@@ -15,6 +15,8 @@ func _ready() -> void:
 	SignalBus.OddBeat.connect(got_odd_beat)
 	hitbox.gain_stack.connect(increase_stacks)
 
+func _physics_process(delta):
+	hitbox.knockback_dir = Vector2.RIGHT.rotated(player.mouse_looker.rotation).normalized()
 
 func got_odd_beat():
 	if attacks_on_odds:

@@ -8,6 +8,7 @@
 
 [node name="Dialogue" type="CanvasLayer" node_paths=PackedStringArray("name_text", "dialogue_text", "bg", "sprite1", "sprite2", "skip_dia_box")]
 process_mode = 3
+layer = 103
 script = ExtResource("1_7jywo")
 name_text = NodePath("NameText")
 dialogue_text = NodePath("DialogueText")
@@ -59,6 +60,17 @@ offset_right = 740.0
 offset_bottom = 485.0
 theme_override_font_sizes/normal_font_size = 35
 text = "Lorem ipsum dolor sit amet"
+fit_content = true
+visible_characters_behavior = 1
+
+[node name="Help Text" type="RichTextLabel" parent="."]
+offset_left = 921.0
+offset_top = 548.0
+offset_right = 1443.0
+offset_bottom = 646.0
+theme_override_font_sizes/normal_font_size = 25
+text = "[F]/[MB2]: Advance
+[Enter] : Skip"
 fit_content = true
 visible_characters_behavior = 1
 

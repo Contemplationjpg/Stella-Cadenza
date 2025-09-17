@@ -178,7 +178,7 @@ collision_mask = 4
 monitoring = false
 monitorable = false
 script = ExtResource("5_uicah")
-damage = 15
+damage = 50
 active = false
 can_hit_enemy = true
 disable_on_hit = true
@@ -259,10 +259,9 @@ script = ExtResource("4_5y66v")
 [node name="Hurtbox2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_7ex5l")
 
-[node name="DashMovement" type="Node" parent="." node_paths=PackedStringArray("player", "dash_timer", "invincibility_timer")]
+[node name="DashMovement" type="Node" parent="." node_paths=PackedStringArray("player", "invincibility_timer")]
 script = ExtResource("5_fk2dx")
 player = NodePath("..")
-dash_timer = NodePath("DashTimer")
 invincibility_timer = NodePath("InvincibilityTimer")
 
 [node name="DashTimer" type="Timer" parent="DashMovement"]

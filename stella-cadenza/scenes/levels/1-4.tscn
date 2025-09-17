@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://chxmrf4fydwxu"]
+[gd_scene load_steps=11 format=4 uid="uid://chxmrf4fydwxu"]
 
 [ext_resource type="Script" uid="uid://mrnnbviw577x" path="res://scenes/levels/leveldetails.gd" id="1_x71o1"]
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="2_1lqog"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bdiwakvilhty8" path="res://scenes/character/detection/lever.tscn" id="5_1lqog"]
 [ext_resource type="PackedScene" uid="uid://c0k2b24wsb8cx" path="res://assets/tiles/Lock.tscn" id="5_ujc8h"]
 [ext_resource type="PackedScene" uid="uid://cb1mpb33hmhd0" path="res://scenes/character/character_types/gemini_enemy/gemini_enemy.tscn" id="6_55kra"]
+[ext_resource type="FontFile" uid="uid://glgwequ7h2j" path="res://assets/ui/Montserrat-Medium.ttf" id="8_wbdsd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ach1a"]
 resource_name = "obsession_terrain"
@@ -99,7 +100,6 @@ position = Vector2(-944, 842)
 rotation = 3.14159
 collision_mask = 2
 level = "1-2"
-specific_exit = true
 exit_coords = Vector2(2656, -500)
 
 [node name="Lock" parent="." node_paths=PackedStringArray("required_switches") instance=ExtResource("5_ujc8h")]
@@ -125,6 +125,14 @@ position = Vector2(222, 601)
 
 [node name="GeminiEnemy2" parent="EnemyReq" instance=ExtResource("6_55kra")]
 position = Vector2(276, 601)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -871.0
+offset_top = 466.0
+offset_right = -705.0
+offset_bottom = 622.0
+theme_override_fonts/normal_font = ExtResource("8_wbdsd")
+text = "After Hitting Enemies 3 Times, Press Space Bar to Shockwave"
 
 [editable path="EnemyReq/GeminiEnemy"]
 [editable path="EnemyReq/GeminiEnemy2"]

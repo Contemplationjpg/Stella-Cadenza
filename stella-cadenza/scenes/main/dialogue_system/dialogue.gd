@@ -276,6 +276,7 @@ func _physics_process(_delta: float) -> void:
 			if Input.is_action_just_pressed("yes"):
 				close_skip_box()
 			elif Input.is_action_just_pressed("skip"):
+				close_skip_box()
 				skip_dialogue()
 			return
 		
@@ -311,4 +312,5 @@ func _on_no_skip_pressed() -> void:
 	close_skip_box()
 
 func _on_yes_skip_pressed() -> void:
+	close_skip_box()
 	skip_dialogue()

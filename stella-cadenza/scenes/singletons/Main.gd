@@ -8,6 +8,8 @@ var save_data
 var paused : bool = false
 var doing_dialogue : bool = false
 
+var volume : float = -10
+
 func get_version():
 	return VERSION_NUMBER
 
