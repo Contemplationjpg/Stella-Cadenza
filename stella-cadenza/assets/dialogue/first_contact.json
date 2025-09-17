@@ -1,0 +1,78 @@
+#this is when stella first appears outside the tower
+
+$1stella_smile
+$n???
+[0]"Stella..."
+
+$nStella
+[1]"..."
+
+$n???
+[0]"Stella... Can you hear me?"
+
+$nStella
+[1]"... Huh...?"
+
+$n???
+[0]"Stella."
+
+$nStella
+[1]"Where am I?"
+"Who are you?"
+"Am I dead...?"
+
+$n???
+[0]"Allow me to introduce myself."
+
+"I am the one known as Lux"
+$nLux
+[0]"I am a manifestation of the light that shines from the stars."
+
+$nStella
+[1]"The light?"
+"I really am dead..."
+
+$nLux
+[0]"You need not worry, child."
+"You were chosen today because us gods need your help."
+"After millenia of constant battle, the realm within the stars has been overtaken by the Agents of Discord."
+"You, Stella, are the one of the only few capable of defeating the Agents and saving Earth as we know it!"
+
+$nStella
+[1]"Ok hold on. Why do you need my help? I'm barely capable of saving my own life, let alone the planet."
+"And aren't you supposed to be some almighty god? If you're not able to do it, I definitely can't."
+
+$nLux
+[0]"After many of us were imprisoned or forced to flee the stars, we grew weak."
+"It pains me to say this, but we cannot do this alone." 
+"Trust me. You are one of the only beings on Earth qualified for this task."
+
+$nStella
+[1]"And if I don't comply?"
+
+$nLux
+[0]"Then Earth as we know it will be no more."
+"We are unsure how long we have until the Agents are able to fully harness the power of the stars."
+
+$nStella
+[1]"I guess there's no getting out of this one then."
+"What do I need to do."
+
+$nLux
+[0]"This tower before you is the entrance to the stars."
+"Normally, everything regarding this realm is invisible to humans. The tower and gods like myself, for example."
+"However I have granted you the ability to see these things to aid you in your mission."
+"Firstly, you must summon your weapon."
+"Hold out your hand and think of something dear to you."
+
+$nStella
+[1]"Like this?"
+[0]Suddenly a beam of purple light forms between Stella's palm, forming into a purple star shaped guitar.
+[1]"Woah... Sick..."
+
+$nLux
+[0]"Now that you know how to summon your weapon, I feel that the rest will come naturally to you."
+"However, do not fear. I will pop in every now and again to aid you on your quest."
+
+$nStella
+[1]"Welp. I guess it's time to enter this emposing tower with ominous, swirling, evil clouds coming out the top."

@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdiwakvilhty8"]
+
+[ext_resource type="Script" uid="uid://bsjxjyacmg2sq" path="res://scenes/character/detection/lever.gd" id="1_f77cq"]
+[ext_resource type="Texture2D" uid="uid://dhgt51gwc7h6v" path="res://assets/tiles/switch_tilesheet.png" id="2_4k67i"]
+[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/detection/hurtbox.gd" id="4_6r2m3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f77cq"]
+atlas = ExtResource("2_4k67i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6uwn"]
+atlas = ExtResource("2_4k67i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jts5f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f77cq")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6uwn")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8vhjg"]
+size = Vector2(32, 32)
+
+[node name="Lever" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_f77cq")
+sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_jts5f")
+animation = &"on"
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 24
+script = ExtResource("4_6r2m3")
+metadata/_custom_type_script = "uid://bnb4sqxbto1ri"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_8vhjg")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

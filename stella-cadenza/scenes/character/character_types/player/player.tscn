@@ -1,0 +1,348 @@
+[gd_scene load_steps=38 format=3 uid="uid://khtb104lv7on"]
+
+[ext_resource type="Script" uid="uid://cade5027v4glf" path="res://scenes/character/character_types/player/player.gd" id="1_lm2l4"]
+[ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats/stats.gd" id="2_erpy8"]
+[ext_resource type="SpriteFrames" uid="uid://doj30flsjdecu" path="res://scenes/character/character_types/player/stella.tres" id="3_fk2dx"]
+[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/detection/hurtbox.gd" id="4_5y66v"]
+[ext_resource type="Script" uid="uid://d0q7e506epbwt" path="res://scenes/character/character_types/player/secondary_attack.gd" id="4_qpq3l"]
+[ext_resource type="Texture2D" uid="uid://cgk1wckagapok" path="res://assets/character_sprites/attack_fx/shockwave.png" id="4_up62c"]
+[ext_resource type="Script" uid="uid://cki52hn1olttd" path="res://scenes/character/character_types/player/dash_movement.gd" id="5_fk2dx"]
+[ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/detection/hitbox.gd" id="5_uicah"]
+[ext_resource type="Texture2D" uid="uid://cp18a6n30chfr" path="res://assets/character_sprites/attack_fx/swing.png" id="8_nwi3o"]
+[ext_resource type="Texture2D" uid="uid://dxtc0h4ahvxt3" path="res://concept art/swing3.png" id="9_vtgh7"]
+[ext_resource type="Script" uid="uid://c4w6tnpbhvqj" path="res://scenes/character/states/state_machine.gd" id="10_225s7"]
+[ext_resource type="Script" uid="uid://cp0l5m5ltgbm0" path="res://scenes/character/states/player/idle.gd" id="11_1rseh"]
+[ext_resource type="Script" uid="uid://dsiln0fq06und" path="res://scenes/character/states/player/moving.gd" id="12_225s7"]
+[ext_resource type="Script" uid="uid://bbwu8fkm62406" path="res://scenes/character/character_types/player/swinging.gd" id="13_225s7"]
+[ext_resource type="Texture2D" uid="uid://clw2ewkbf31vc" path="res://icon.svg" id="15_vtgh7"]
+[ext_resource type="Script" uid="uid://cw7n0pm3i5urf" path="res://scenes/character/character_types/player/primary_attack.gd" id="16_qpq3l"]
+[ext_resource type="Script" uid="uid://53w1t242qqm7" path="res://scenes/character/detection/stacking_hitbox.gd" id="17_rq2u8"]
+[ext_resource type="Texture2D" uid="uid://dhk8bdlwe25vg" path="res://assets/ui/HUD/white_note.png" id="19_jm6wm"]
+[ext_resource type="Script" uid="uid://cdj7ssnclfikb" path="res://scenes/character/character_types/player/shockwave.gd" id="23_rq2u8"]
+
+[sub_resource type="Resource" id="Resource_fk2dx"]
+script = ExtResource("2_erpy8")
+max_health = 100
+metadata/_custom_type_script = "uid://ckcluhos68eje"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6h1j"]
+atlas = ExtResource("4_up62c")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mask"]
+atlas = ExtResource("4_up62c")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1lrlu"]
+atlas = ExtResource("4_up62c")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4m5uc"]
+atlas = ExtResource("4_up62c")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8atfw"]
+atlas = ExtResource("4_up62c")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3qp0"]
+atlas = ExtResource("4_up62c")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8krsp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6h1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mask")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1lrlu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4m5uc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8atfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3qp0")
+}],
+"loop": false,
+"name": &"shock right",
+"speed": 7.5
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtgh7"]
+size = Vector2(120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm6wm"]
+atlas = ExtResource("8_nwi3o")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u31po"]
+atlas = ExtResource("8_nwi3o")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7xnh"]
+atlas = ExtResource("8_nwi3o")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obrgc"]
+atlas = ExtResource("8_nwi3o")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxj7p"]
+atlas = ExtResource("8_nwi3o")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_81lr7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm6wm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u31po")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7xnh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obrgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxj7p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vtgh7")
+}],
+"loop": false,
+"name": &"swing right",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5o3oy"]
+size = Vector2(64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vtgh7"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ex5l"]
+size = Vector2(16, 24)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "primary_attack", "secondary_attack", "dash", "stack_label", "full_charge_sign", "sprite", "debug")]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_lm2l4")
+dash_velocity = 1000.0
+mouse_looker = NodePath("MouseLooker")
+primary_attack = NodePath("MouseLooker/SwingAttack")
+secondary_attack = NodePath("ShockwaveAttack")
+dash = NodePath("DashMovement")
+slide_max_velo_bonus = 200.0
+stack_label = NodePath("stacks")
+full_charge_sign = NodePath("WhiteNote")
+sprite = NodePath("CharacterAnimatedSprite")
+base_velocity = 2000.0
+stop_velocity = 10.0
+stop_velocity_still = 20.0
+base_stats = SubResource("Resource_fk2dx")
+acceleration = 1000.0
+debug = NodePath("Label")
+
+[node name="ShockwaveAttack" type="Node2D" parent="." node_paths=PackedStringArray("player", "hitbox", "sprite", "timer")]
+script = ExtResource("4_qpq3l")
+player = NodePath("..")
+hitbox = NodePath("ShockwaveHitbox")
+sprite = NodePath("ShockwaveSprite")
+timer = NodePath("AttackCooldown")
+active_time = 0.8
+attack_slow = 0.9
+attacks_on_odds = false
+attacks_on_evens = false
+primary_input = false
+secondary_input = true
+forgiveness = 0.4
+
+[node name="ShockwaveSprite" type="AnimatedSprite2D" parent="ShockwaveAttack"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_8krsp")
+animation = &"shock right"
+
+[node name="ShockwaveHitbox" type="Area2D" parent="ShockwaveAttack"]
+collision_layer = 8
+collision_mask = 4
+monitoring = false
+monitorable = false
+script = ExtResource("5_uicah")
+damage = 50
+active = false
+can_hit_enemy = true
+disable_on_hit = true
+is_electric = true
+
+[node name="Hitbox2D" type="CollisionShape2D" parent="ShockwaveAttack/ShockwaveHitbox"]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_vtgh7")
+debug_color = Color(0.968384, 0, 0.468215, 0.42)
+
+[node name="AttackCooldown" type="Timer" parent="ShockwaveAttack"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="CharacterAnimatedSprite" type="AnimatedSprite2D" parent="."]
+z_index = 3
+texture_filter = 1
+sprite_frames = ExtResource("3_fk2dx")
+animation = &"swing up"
+
+[node name="MouseLooker" type="Node2D" parent="."]
+
+[node name="SwingAttack" type="Node2D" parent="MouseLooker" node_paths=PackedStringArray("player", "hitbox", "sprite", "timer")]
+script = ExtResource("16_qpq3l")
+player = NodePath("../..")
+hitbox = NodePath("SwingHitbox")
+sprite = NodePath("SwingSprite")
+timer = NodePath("AttackCooldown")
+attack_slow = 0.9
+
+[node name="SwingSprite" type="AnimatedSprite2D" parent="MouseLooker/SwingAttack"]
+texture_filter = 1
+position = Vector2(9, 0)
+sprite_frames = SubResource("SpriteFrames_81lr7")
+animation = &"swing right"
+
+[node name="SwingHitbox" type="Area2D" parent="MouseLooker/SwingAttack"]
+collision_layer = 8
+collision_mask = 4
+monitoring = false
+monitorable = false
+script = ExtResource("17_rq2u8")
+only_one_stack_per_hit = true
+damage = 25
+active = false
+can_hit_enemy = true
+disable_on_hit = true
+
+[node name="Hitbox2D" type="CollisionShape2D" parent="MouseLooker/SwingAttack/SwingHitbox"]
+position = Vector2(15, 0)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_5o3oy")
+debug_color = Color(0.968384, 0, 0.468215, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="MouseLooker/SwingAttack/SwingHitbox"]
+visible = false
+position = Vector2(90, 0)
+rotation = 1.5708
+scale = Vector2(4.21, 4.21)
+texture = ExtResource("15_vtgh7")
+
+[node name="AttackCooldown" type="Timer" parent="MouseLooker/SwingAttack"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="CharacterCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_vtgh7")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 24
+monitorable = false
+script = ExtResource("4_5y66v")
+
+[node name="Hurtbox2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_7ex5l")
+
+[node name="DashMovement" type="Node" parent="." node_paths=PackedStringArray("player", "invincibility_timer")]
+script = ExtResource("5_fk2dx")
+player = NodePath("..")
+invincibility_timer = NodePath("InvincibilityTimer")
+
+[node name="DashTimer" type="Timer" parent="DashMovement"]
+process_callback = 0
+wait_time = 0.3
+one_shot = true
+
+[node name="InvincibilityTimer" type="Timer" parent="DashMovement"]
+one_shot = true
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_top = -5.0
+offset_right = 31.0
+offset_bottom = 26.0
+text = "aaa"
+
+[node name="stacks" type="Label" parent="."]
+visible = false
+offset_left = -31.0
+offset_top = -4.0
+offset_bottom = 27.0
+text = "aaa"
+
+[node name="State" type="Label" parent="."]
+visible = false
+offset_left = -27.0
+offset_top = -32.0
+offset_right = 44.0
+offset_bottom = -4.0
+text = "aaa"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state", "chara", "debug")]
+script = ExtResource("10_225s7")
+default_state = NodePath("Idle")
+chara = NodePath("..")
+debug = NodePath("../State")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
+script = ExtResource("11_1rseh")
+chara = NodePath("../..")
+sprite = NodePath("../../CharacterAnimatedSprite")
+
+[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
+script = ExtResource("12_225s7")
+chara = NodePath("../..")
+sprite = NodePath("../../CharacterAnimatedSprite")
+
+[node name="Swinging" type="Node" parent="StateMachine" node_paths=PackedStringArray("char_sprite", "swing_sprite", "chara", "swing_attack", "swing_hitbox")]
+script = ExtResource("13_225s7")
+char_sprite = NodePath("../../CharacterAnimatedSprite")
+swing_sprite = NodePath("../../MouseLooker/SwingAttack/SwingSprite")
+chara = NodePath("../..")
+swing_attack = NodePath("../../MouseLooker/SwingAttack")
+swing_hitbox = NodePath("../../MouseLooker/SwingAttack/SwingHitbox")
+
+[node name="Shockwave" type="Node" parent="StateMachine" node_paths=PackedStringArray("char_sprite", "shock_sprite", "chara", "shock_attack", "shock_hitbox")]
+script = ExtResource("23_rq2u8")
+char_sprite = NodePath("../../CharacterAnimatedSprite")
+shock_sprite = NodePath("../../ShockwaveAttack/ShockwaveSprite")
+chara = NodePath("../..")
+shock_attack = NodePath("../../ShockwaveAttack")
+shock_hitbox = NodePath("../../ShockwaveAttack/ShockwaveHitbox")
+
+[node name="Shockwave2" type="Node" parent="StateMachine" node_paths=PackedStringArray("char_sprite", "shock_sprite", "chara", "shock_attack", "shock_hitbox")]
+script = ExtResource("23_rq2u8")
+char_sprite = NodePath("../../CharacterAnimatedSprite")
+shock_sprite = NodePath("../../ShockwaveAttack/ShockwaveSprite")
+chara = NodePath("../..")
+shock_attack = NodePath("../../ShockwaveAttack")
+shock_hitbox = NodePath("../../ShockwaveAttack/ShockwaveHitbox")
+
+[node name="WhiteNote" type="Sprite2D" parent="."]
+z_index = 15
+position = Vector2(-14, 16)
+scale = Vector2(0.166667, 0.166667)
+texture = ExtResource("19_jm6wm")
+
+[connection signal="area_entered" from="ShockwaveAttack/ShockwaveHitbox" to="ShockwaveAttack/ShockwaveHitbox" method="_on_area_entered"]
+[connection signal="timeout" from="ShockwaveAttack/AttackCooldown" to="ShockwaveAttack" method="_on_attack_cooldown_timeout"]
+[connection signal="area_entered" from="MouseLooker/SwingAttack/SwingHitbox" to="MouseLooker/SwingAttack/SwingHitbox" method="_on_area_entered"]
+[connection signal="timeout" from="MouseLooker/SwingAttack/AttackCooldown" to="MouseLooker/SwingAttack" method="_on_attack_cooldown_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="timeout" from="DashMovement/InvincibilityTimer" to="DashMovement" method="_on_invincibility_timer_timeout"]

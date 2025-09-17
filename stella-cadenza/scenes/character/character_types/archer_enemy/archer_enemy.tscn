@@ -1,0 +1,174 @@
+[gd_scene load_steps=20 format=3 uid="uid://dex1l6krybr1u"]
+
+[ext_resource type="Script" uid="uid://ce5a7dex13og2" path="res://scenes/character/character_types/archer_enemy/archer_enemy.gd" id="1_nxdqc"]
+[ext_resource type="Script" uid="uid://c4w6tnpbhvqj" path="res://scenes/character/states/state_machine.gd" id="2_326lt"]
+[ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats/stats.gd" id="2_xgfpn"]
+[ext_resource type="Script" uid="uid://ql3aslw5b501" path="res://scenes/character/states/test_enemy/enemy_moving.gd" id="4_a8gm7"]
+[ext_resource type="Script" uid="uid://bnckh0yqgl58j" path="res://scenes/character/states/archer/archer_idle.gd" id="4_rsqt3"]
+[ext_resource type="SpriteFrames" uid="uid://bgbbtaynv50ry" path="res://assets/character_sprites/enemies/archer/archer.tres" id="5_nxdqc"]
+[ext_resource type="Script" uid="uid://dckyckrxwcbpb" path="res://scenes/character/detection/hitbox.gd" id="6_d5ygo"]
+[ext_resource type="Script" uid="uid://bxmb613ctsdcf" path="res://scenes/character/states/archer/archer_shooting.gd" id="6_rsqt3"]
+[ext_resource type="Script" uid="uid://cqyjs2r1aep8g" path="res://scenes/character/states/archer/archer_aiming.gd" id="7_0fi48"]
+[ext_resource type="Script" uid="uid://bnb4sqxbto1ri" path="res://scenes/character/detection/hurtbox.gd" id="7_783bl"]
+[ext_resource type="Script" uid="uid://8iygc7cmcw73" path="res://scenes/character/character_types/archer_enemy/archer_projectile.gd" id="11_4ggn8"]
+[ext_resource type="Texture2D" uid="uid://b86a6fr30afnj" path="res://assets/character_sprites/attack_fx/small_projectile.png" id="12_sbrxg"]
+
+[sub_resource type="Resource" id="Resource_0fi48"]
+script = ExtResource("2_xgfpn")
+max_health = 400
+metadata/_custom_type_script = "uid://ckcluhos68eje"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lcnxo"]
+radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spa54"]
+size = Vector2(20, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ex5l"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ggn8"]
+radius = 200.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4n2f"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_602bf"]
+size = Vector2(5, 5)
+
+[node name="ArcherEnemy" type="CharacterBody2D" node_paths=PackedStringArray("projectile", "body_hitbox", "player_looker", "sprite", "debug")]
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("1_nxdqc")
+projectile = NodePath("Projectile")
+chases_player = false
+aim_time_before_shooting = 3.0
+time_before_refiring = 2.0
+body_hitbox = NodePath("Hitbox")
+player_looker = NodePath("PlayerLooker")
+sprite = NodePath("CharacterAnimatedSprite")
+base_stats = SubResource("Resource_0fi48")
+debug = NodePath("Label")
+can_move = false
+can_take_damage = false
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state", "chara", "debug")]
+script = ExtResource("2_326lt")
+default_state = NodePath("Idle")
+chara = NodePath("..")
+debug = NodePath("../State")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
+script = ExtResource("4_rsqt3")
+chara = NodePath("../..")
+sprite = NodePath("../../CharacterAnimatedSprite")
+
+[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
+script = ExtResource("4_a8gm7")
+chara = NodePath("../..")
+sprite = NodePath("../../CharacterAnimatedSprite")
+
+[node name="Shooting" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
+script = ExtResource("6_rsqt3")
+chara = NodePath("../..")
+sprite = NodePath("../../CharacterAnimatedSprite")
+
+[node name="Aiming" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara", "sprite")]
+script = ExtResource("7_0fi48")
+chara = NodePath("../..")
+sprite = NodePath("../../CharacterAnimatedSprite")
+
+[node name="CharacterAnimatedSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = ExtResource("5_nxdqc")
+animation = &"shooting"
+
+[node name="CharacterCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lcnxo")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 24
+collision_mask = 0
+monitoring = false
+script = ExtResource("6_d5ygo")
+knockback = 500.0
+can_hit_player = true
+
+[node name="Hitbox2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_spa54")
+debug_color = Color(0.968384, 0, 0.468215, 0.42)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("7_783bl")
+
+[node name="Hurtbox2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_7ex5l")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 45.0
+offset_bottom = 27.0
+text = "aaa"
+
+[node name="State" type="Label" parent="."]
+visible = false
+offset_left = -31.0
+offset_top = -32.0
+offset_right = 2.0
+offset_bottom = -9.0
+text = "aaa"
+
+[node name="PlayerDetectionRange" type="Area2D" parent="."]
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionRange"]
+shape = SubResource("CircleShape2D_4ggn8")
+
+[node name="ChaseTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.6
+one_shot = true
+autostart = true
+
+[node name="PlayerLooker" type="Node2D" parent="."]
+
+[node name="Projectile" type="Area2D" parent="." node_paths=PackedStringArray("archer", "player_looker")]
+collision_layer = 16
+collision_mask = 11
+script = ExtResource("11_4ggn8")
+archer = NodePath("..")
+player_looker = NodePath("../PlayerLooker")
+projectile_speed = 200.0
+projectile_duration = 4.0
+
+[node name="ProjectileCollision" type="CollisionShape2D" parent="Projectile"]
+shape = SubResource("RectangleShape2D_f4n2f")
+
+[node name="ProjectileSprite" type="Sprite2D" parent="Projectile"]
+texture_filter = 1
+texture = ExtResource("12_sbrxg")
+
+[node name="Hitbox" type="Area2D" parent="Projectile"]
+collision_layer = 16
+collision_mask = 3
+monitoring = false
+script = ExtResource("6_d5ygo")
+knockback = 500.0
+does_knockback = false
+can_hit_player = true
+constant = false
+
+[node name="Hitbox2D" type="CollisionShape2D" parent="Projectile/Hitbox"]
+shape = SubResource("RectangleShape2D_602bf")
+debug_color = Color(0.968384, 0, 0.468215, 0.42)
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="PlayerDetectionRange" to="." method="_on_player_detection_range_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionRange" to="." method="_on_player_detection_range_body_exited"]
+[connection signal="body_entered" from="Projectile" to="Projectile" method="_on_body_entered"]
+[connection signal="body_entered" from="Projectile/Hitbox" to="Projectile" method="_on_hitbox_body_entered"]
