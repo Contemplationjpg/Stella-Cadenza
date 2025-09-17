@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="1_j4fu8"]
 [ext_resource type="PackedScene" uid="uid://cb1mpb33hmhd0" path="res://scenes/character/character_types/gemini_enemy/gemini_enemy.tscn" id="3_by813"]
 [ext_resource type="PackedScene" uid="uid://b17ncfi4tcwdk" path="res://assets/tiles/door.tscn" id="5_8yex6"]
-[ext_resource type="Script" uid="uid://mrnnbviw577x" path="res://scenes/levels/leveldetails.gd" id="7_bpjrk"]
+[ext_resource type="Script" path="res://scenes/levels/leveldetails.gd" id="7_bpjrk"]
 [ext_resource type="PackedScene" uid="uid://c2gtg6r4wlipc" path="res://scenes/main/dialogue_system/DialogueInteract.tscn" id="9_x64fy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by813"]

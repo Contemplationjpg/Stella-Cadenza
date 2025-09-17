@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://kp41vgpe41mb"]
 
-[ext_resource type="Script" uid="uid://mrnnbviw577x" path="res://scenes/levels/leveldetails.gd" id="1_220im"]
+[ext_resource type="Script" path="res://scenes/levels/leveldetails.gd" id="1_220im"]
 [ext_resource type="Texture2D" uid="uid://cafg6jhbul5wt" path="res://assets/tiles/obsession_tilesheet.png" id="2_xl2p1"]
 [ext_resource type="PackedScene" uid="uid://b17ncfi4tcwdk" path="res://assets/tiles/door.tscn" id="3_td00t"]
 [ext_resource type="FontFile" uid="uid://glgwequ7h2j" path="res://assets/ui/Montserrat-Medium.ttf" id="4_bogsv"]
@@ -106,4 +106,4 @@ theme_override_fonts/normal_font = ExtResource("4_bogsv")
 text = "Hold Left Click to Primary Attack to the beat!
 Aim using your Mouse
 
-Tap Right Click To Dash"
+Press Right Click or Left Shift to Dash"

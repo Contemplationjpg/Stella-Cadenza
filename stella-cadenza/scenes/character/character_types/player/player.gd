@@ -65,6 +65,7 @@ func _ready():
 	if white_notes.size() > 0:
 		primary_attack.ChangeStacks.connect(update_note_stacks)
 		update_note_stacks()
+	SignalBus.PlayerDied.connect(reset_player)
 
 	
 func _process(_delta):
@@ -185,7 +186,15 @@ func get_hit(hitbox : Hitbox):
 		if gets_hit_frozen:
 			hit_freeze()
 		if gets_hit_invuln:
-			hit_invul()			
+			hit_invul()	
+	death_check()		
+
+func die():
+	SignalBus.PlayerDied.emit()
+
+func reset_player():
+	change_health(base_stats.max_health)
+	attack_stacks = 0
 
 func hit_freeze():
 	can_move = false

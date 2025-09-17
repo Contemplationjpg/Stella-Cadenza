@@ -20,3 +20,4 @@ signal LockPlayerSceneTransition
 signal UnlockPlayerSceneTransition
 
 signal PlaySong(song_name : String)
+signal PlayerDied

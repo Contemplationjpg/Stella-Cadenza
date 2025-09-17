@@ -4,11 +4,16 @@ extends Node
 @export var player : Player
 
 var current_song : String = "none"
+var last_loaded_level : String = ""
 
 func _ready():
 	SignalBus.LoadLevel.connect(load_level)
 	SignalBus.LoadLevelAtLocation.connect(load_level_at_location)
 	SignalBus.ConfirmSetPlayerLocation.connect(test)
+	SignalBus.PlayerDied.connect(reset_map)
+
+func reset_map():
+	SignalBus.LoadLevel.emit(last_loaded_level)
 
 func test():
 	print("confirmed reset player location")
@@ -17,6 +22,7 @@ func load_level(level_name : String):
 	var path : String = "res://scenes/levels/" + level_name + ".tscn"
 	if ResourceLoader.exists(path):
 		print("found level ", level_name)
+		last_loaded_level = level_name
 		var level = ResourceLoader.load(path)
 		SignalBus.FadeToBlack.emit()
 		SignalBus.LockPlayerSceneTransition.emit()
