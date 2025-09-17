@@ -18,6 +18,11 @@ func _ready():
 	if wait_for_specific_dialogue and dialogue:
 		dialogue.DialogueOver.connect(just_interacted_with_dialogue)
 
+func _process(_delta):
+	if wait_for_specific_dialogue and not dialogue_interacted_with:
+		on_block()
+	else:
+		on_unblock()		
 
 func just_interacted_with_dialogue():
 	dialogue_interacted_with = true
@@ -26,6 +31,9 @@ func on_unblock():
 	# print("just unblocked")
 	blocker.set_deferred("disabled", true)
 
+func on_block():
+	# print("just unblocked")
+	blocker.set_deferred("disabled", false)
 
 
 
