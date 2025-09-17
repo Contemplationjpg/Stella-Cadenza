@@ -5,6 +5,7 @@ var attack_in_motion : bool = false
 
 
 signal FullStopAttack
+signal ChangeStacks
 
 func _ready() -> void:
 	sprite.visible = false
@@ -32,6 +33,7 @@ func increase_stacks():
 	if player:
 		if player.attack_stacks < player.stacks_needed:
 			player.attack_stacks += 1
+			ChangeStacks.emit()
 
 
 func attack():

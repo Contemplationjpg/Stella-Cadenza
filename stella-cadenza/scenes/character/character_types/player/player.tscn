@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://khtb104lv7on"]
+[gd_scene load_steps=38 format=3 uid="uid://khtb104lv7on"]
 
 [ext_resource type="Script" uid="uid://cade5027v4glf" path="res://scenes/character/character_types/player/player.gd" id="1_lm2l4"]
 [ext_resource type="Script" uid="uid://ckcluhos68eje" path="res://scenes/character/stats/stats.gd" id="2_erpy8"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://clw2ewkbf31vc" path="res://icon.svg" id="15_vtgh7"]
 [ext_resource type="Script" uid="uid://cw7n0pm3i5urf" path="res://scenes/character/character_types/player/primary_attack.gd" id="16_qpq3l"]
 [ext_resource type="Script" uid="uid://53w1t242qqm7" path="res://scenes/character/detection/stacking_hitbox.gd" id="17_rq2u8"]
+[ext_resource type="Texture2D" uid="uid://dhk8bdlwe25vg" path="res://assets/ui/HUD/white_note.png" id="19_jm6wm"]
 [ext_resource type="Script" uid="uid://cdj7ssnclfikb" path="res://scenes/character/character_types/player/shockwave.gd" id="23_rq2u8"]
 
 [sub_resource type="Resource" id="Resource_fk2dx"]
@@ -75,7 +76,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vtgh7"]
-size = Vector2(100, 100)
+size = Vector2(120, 120)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jm6wm"]
 atlas = ExtResource("8_nwi3o")
@@ -132,7 +133,7 @@ radius = 8.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ex5l"]
 size = Vector2(16, 24)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "primary_attack", "secondary_attack", "dash", "stack_label", "sprite", "debug")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mouse_looker", "primary_attack", "secondary_attack", "dash", "stack_label", "full_charge_sign", "sprite", "debug")]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_lm2l4")
@@ -143,6 +144,7 @@ secondary_attack = NodePath("ShockwaveAttack")
 dash = NodePath("DashMovement")
 slide_max_velo_bonus = 200.0
 stack_label = NodePath("stacks")
+full_charge_sign = NodePath("WhiteNote")
 sprite = NodePath("CharacterAnimatedSprite")
 base_velocity = 2000.0
 stop_velocity = 10.0
@@ -197,7 +199,6 @@ z_index = 3
 texture_filter = 1
 sprite_frames = ExtResource("3_fk2dx")
 animation = &"spin down"
-frame = 1
 
 [node name="MouseLooker" type="Node2D" parent="."]
 
@@ -211,7 +212,7 @@ attack_slow = 0.9
 
 [node name="SwingSprite" type="AnimatedSprite2D" parent="MouseLooker/SwingAttack"]
 texture_filter = 1
-position = Vector2(15, 0)
+position = Vector2(9, 0)
 sprite_frames = SubResource("SpriteFrames_81lr7")
 animation = &"swing right"
 
@@ -250,7 +251,7 @@ position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_vtgh7")
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 24
 monitorable = false
 script = ExtResource("4_5y66v")
@@ -273,18 +274,21 @@ one_shot = true
 one_shot = true
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_top = -5.0
 offset_right = 31.0
 offset_bottom = 26.0
 text = "aaa"
 
 [node name="stacks" type="Label" parent="."]
+visible = false
 offset_left = -31.0
 offset_top = -4.0
 offset_bottom = 27.0
 text = "aaa"
 
 [node name="State" type="Label" parent="."]
+visible = false
 offset_left = -27.0
 offset_top = -32.0
 offset_right = 44.0
@@ -330,6 +334,12 @@ shock_sprite = NodePath("../../ShockwaveAttack/ShockwaveSprite")
 chara = NodePath("../..")
 shock_attack = NodePath("../../ShockwaveAttack")
 shock_hitbox = NodePath("../../ShockwaveAttack/ShockwaveHitbox")
+
+[node name="WhiteNote" type="Sprite2D" parent="."]
+z_index = 15
+position = Vector2(-14, 16)
+scale = Vector2(0.166667, 0.166667)
+texture = ExtResource("19_jm6wm")
 
 [connection signal="area_entered" from="ShockwaveAttack/ShockwaveHitbox" to="ShockwaveAttack/ShockwaveHitbox" method="_on_area_entered"]
 [connection signal="timeout" from="ShockwaveAttack/AttackCooldown" to="ShockwaveAttack" method="_on_attack_cooldown_timeout"]

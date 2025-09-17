@@ -45,14 +45,14 @@ func _process(_delta: float) -> void:
 			# print("gaming ", time, " ", beat_count)
 			flashing = true 
 			if beat_count%2 == 0:
-				debug.self_modulate.s = 1
+				debug.self_modulate.b = 1
 				# print("even beat emitting")
 				SignalBus.EvenBeat.emit()
 			else:
 				# print("odd beat emitting")
 				SignalBus.OddBeat.emit()
 			await get_tree().create_timer(beat_duration/2).timeout
-			debug.self_modulate.s = 0
+			debug.self_modulate.b = 0
 		flashing = false
 
 func set_bpm(new_bpm : float):

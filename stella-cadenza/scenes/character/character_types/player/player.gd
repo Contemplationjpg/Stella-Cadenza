@@ -5,6 +5,7 @@ extends Character
 @export var can_dash : bool = true
 @export var dash_velocity : float = 3000
 @export var mouse_looker : Node2D
+@export var health_bar : ProgressBar
 
 @export var gets_hit_frozen : bool
 @export var hit_freeze_time : float = 0.1
@@ -23,6 +24,8 @@ extends Character
 @export var slide_acceleration_bonus : float = 500
 
 @export var stack_label : Label
+@export var full_charge_sign : Sprite2D
+@export var white_notes : Array[TextureRect]
 
 var in_hit_invuln : bool = false
 var in_hit_freeze : bool = false
@@ -56,11 +59,18 @@ func _ready():
 	if dash:
 		dash.StartDash.connect(on_dash_start)
 		dash.EndDash.connect(on_dash_end)
+	if health_bar:
+		HealthChanged.connect(update_health_bar)
+		update_health_bar()
+	if white_notes.size() > 0:
+		primary_attack.ChangeStacks.connect(update_note_stacks)
+		update_note_stacks()
 
 	
-
 func _process(_delta):
-	stack_label.text = str(attack_stacks)
+	if stack_label:
+		stack_label.text = str(attack_stacks)
+	
 	# print(c_stop_velocity)
 
 
@@ -86,6 +96,35 @@ func get_input():
 	direction.y = Input.get_axis("up", "down")
 	# prints("y:",direction.y)
 
+func update_health_bar():
+	if health_bar:
+		health_bar.min_value = 0
+		health_bar.max_value = base_stats.max_health
+		health_bar.value = current_health
+
+func update_note_stacks():
+	# print("updating note stacks")
+	if white_notes.size() > 0 and white_notes.size() == stacks_needed:
+		# print(attack_stacks)
+		if attack_stacks == 0:
+			for i in white_notes:
+				i.visible = false
+		else:
+			for i in white_notes.size():
+				# print("doing ", i)
+				if i <= attack_stacks-1:
+					# print("vis")
+					white_notes[i].visible = true
+				else:
+					# print("invis")
+					white_notes[i].visible = false
+	# else:
+		# print("erm I can't update note stacks")
+	if full_charge_sign:
+		if attack_stacks >= stacks_needed:
+			full_charge_sign.visible = true
+		else:
+			full_charge_sign.visible = false
 
 func update_facing_mouse():
 
@@ -190,7 +229,7 @@ func on_secondary_attack_start():
 	
 	in_secondary_slide_window = true
 	is_secondary_attacking = true
-
+	update_note_stacks()
 	return
 
 func on_secondary_attack_end():
@@ -232,4 +271,5 @@ func electric_slide():
 	print("slide stacks: ", slide_stacks)
 	if slide_stacks >= slide_stacks_needed:
 		attack_stacks = stacks_needed
+	update_note_stacks()
 	is_sliding = false

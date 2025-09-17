@@ -23,9 +23,11 @@ var direction: Vector2
 var dead : bool = false
 
 signal JustDied
+signal HealthChanged
 
 func _ready() -> void:
-	debug.text = "health: " + str(current_health)
+	if debug:
+		debug.text = "health: " + str(current_health)
 	# current_velocity = base_velocity
 
 
@@ -135,7 +137,9 @@ func change_health(change:int) -> int:
 		current_health = 0
 	else:
 		current_health += change
-	debug.text = "health: " + str(current_health)
+	if debug:
+		debug.text = "health: " + str(current_health)
+	HealthChanged.emit()
 	return out
 
 func die():
