@@ -1,6 +1,8 @@
 class_name Player
 extends Character
 
+#silly comment in test2!!
+
 @export var can_attack : bool = true
 @export var can_dash : bool = true
 @export var dash_velocity : float = 3000
