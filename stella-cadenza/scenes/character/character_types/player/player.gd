@@ -1,7 +1,13 @@
 class_name Player
 extends Character
 
+
+
 #comment in test1
+
+#silly comment in test2!!
+
+
 
 @export var can_attack : bool = true
 @export var can_dash : bool = true
